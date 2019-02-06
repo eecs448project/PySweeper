@@ -11,8 +11,8 @@
 
 ### TODO:
 
-- [ ] Create group repo and add members.
-- [ ] Create and commit skeleton project.
+- [x] Create group repo and add members.
+- [x] Create and commit skeleton project.
 - [ ] Update README.md
 - [ ] Assign jobs for team members.
 - [ ] Start documentation.
