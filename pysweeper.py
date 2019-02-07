@@ -35,6 +35,7 @@ while not done:
     pass
     # Redraw entire window each frame. Good enough for Minesweeper.
     pg.display.flip()
+    clock.tick(20)
 
 # Cleanup
 pg.quit()
