@@ -1,4 +1,7 @@
 # Sourced from https://github.com/github/gitignore/blob/master/Python.gitignore
+
+*test*
+*.vscode
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
