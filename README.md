@@ -4,7 +4,7 @@
 
 ## Team members:
 
-1. Jeff Kissik
+1. Jeff Kissick
 2. Thomas Smith
 3. Benjamin Wys
 4. Jon Volden
