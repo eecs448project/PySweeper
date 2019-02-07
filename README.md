@@ -6,7 +6,7 @@
 
 1. Jeff Kissik
 2. Thomas Smith
-3. Benjamin Wys
+3. Benjamin Wyss
 4. Jon Volden
 
 ### TODO:
