@@ -6,9 +6,8 @@ from board import Board
 from cell import Cell
 from gui import GUI
 
-# Globals: Colors, starting window attributes
-WHITE = 255, 255, 255
-pass
+from constants import (ROWS, COLS, CELLWIDTH, CELLHEIGHT,
+                      MARGIN, BORDER, COLOR)
 
 # PyGame Initializing
 pg.init()
@@ -16,7 +15,7 @@ clock = pg.time.Clock()
 
 # Initialize screen/windows
 #@todo: Start the GUI here
-screen = pg.display.set_mode((200, 200))
+screen = GUI(ROWS, COLS, CELLWIDTH, CELLHEIGHT, MARGIN, BORDER)
 
 # Main game loop
 done = False
@@ -31,7 +30,7 @@ while not done:
     
     # Fill window and redraw toolbar and board.
     #@todo:
-    screen.fill(WHITE)
+    screen.window.fill(COLOR['WHITE'])
     pass
     # Redraw entire window each frame. Good enough for Minesweeper.
     pg.display.flip()
