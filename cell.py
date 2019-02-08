@@ -3,6 +3,6 @@ class Cell():
         """ Constructor for Cell class
         """
         self.mine = False
-        self.revealed = True
+        self.revealed = False
         self.flagged = False
         pass
