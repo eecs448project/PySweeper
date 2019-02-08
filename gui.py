@@ -1,11 +1,11 @@
 import pygame as pg
-from constants import (ROWS, COLS, CELLWIDTH, CELLHEIGHT,
+from constants import (CELLWIDTH, CELLHEIGHT,
                       MARGIN, BORDER, COLOR)
 class GUI():
     """ GUI Class:
         Handles all window elements.
     """
-    def __init__(self, ROWS, COLS, CELLWIDTH, CELLHEIGHT, MARGIN, BORDER):
+    def __init__(self, board):
         """ Constructor
             Calculate the game window based on board size.
             Defaults: ROWS=10, COLS=10
@@ -13,20 +13,30 @@ class GUI():
             will have all the sizes we need.
         """
         #@todo: Generate dynamically based on uiElements
+        self.board = board
         self.toolbarOffset = 50
-        self.width = ((CELLWIDTH + MARGIN) * ROWS) + BORDER
-        self.height = ((CELLHEIGHT + MARGIN) * COLS) + BORDER + self.toolbarOffset
-        self.size = self.width, self.height
+        self.width = ((CELLWIDTH + MARGIN) * board.columns) + (BORDER * 2)
+        self.height = ((CELLHEIGHT + MARGIN) * board.rows) + BORDER + self.toolbarOffset
+        #@todo: Set min/max values based on user input
+        if True:
+            self.size = self.width, self.height
+        elif False:
+            pass
         print("Width: ", self.width, "Height: ", self.height)
         self.window = pg.display.set_mode(self.size)
-    
-    def update(self, screen, cell):
-        """ Updates the window. Called every frame.
-            screen = screen to update
-            cell = info about cell sizes
-        """
-        pass
-    
+
+    def drawBoard(self, board):
+        for row in range(board.rows):
+            for col in range(board.columns):
+                cellColor = COLOR['WHITE']
+                if board.grid[row][col].mine == True:
+                    cellColor = COLOR['RED']
+                cellX = ((MARGIN + CELLWIDTH) * col + MARGIN) + BORDER
+                cellY = ((MARGIN + CELLHEIGHT) * row + MARGIN) + self.toolbarOffset
+                cell = pg.Rect([cellX, cellY, CELLWIDTH, CELLHEIGHT])
+
+                pg.draw.rect(self.window, cellColor, cell)
+
     def uiElement(self, x, y, w, h, type='None', label='None'):
         """ Handles creation of all UI elements except board.
         """
