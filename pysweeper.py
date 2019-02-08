@@ -15,6 +15,7 @@ clock = pg.time.Clock()
 
 # Initialize screen/windows
 #@todo: Start the GUI here
+gameBoard = Board()
 screen = GUI(ROWS, COLS, CELLWIDTH, CELLHEIGHT, MARGIN, BORDER)
 
 # Main game loop
@@ -27,7 +28,7 @@ while not done:
         #@todo: Add event handler here
         elif event.type == pg.MOUSEBUTTONDOWN:
             pass
-    
+
     # Fill window and redraw toolbar and board.
     #@todo:
     screen.window.fill(COLOR['WHITE'])
