@@ -14,9 +14,9 @@ class Board():
 
     def generateGrid(self):
         """ Generate grid
-            Should we call this in __init__?
+            Gets called by __init__
         """
-        #Generate a grid of row x columns cells.
+        #Generate a grid of rows by columns cells.
         self.grid = []
         for row in range(self.rows):
             self.grid.append([])
@@ -32,6 +32,7 @@ class Board():
             #test print
             print("Mine added: ", row, col)
         pass
+
     def revealCell(self, row, col):
         """Reveals the seleted cell and recursively reaveals nearby cells if no mines are nearby the selected cell
         """
