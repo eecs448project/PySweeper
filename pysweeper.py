@@ -35,7 +35,7 @@ while not done:
     #@todo:
     screen.window.fill(COLOR['BLACK'])
 
-    screen.drawBoard(gameBoard)
+    screen.drawBoard()
 
     # Redraw entire window each frame. Good enough for Minesweeper.
     pg.display.flip()

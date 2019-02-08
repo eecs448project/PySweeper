@@ -25,11 +25,11 @@ class GUI():
         print("Width: ", self.width, "Height: ", self.height)
         self.window = pg.display.set_mode(self.size)
 
-    def drawBoard(self, board):
-        for row in range(board.rows):
-            for col in range(board.columns):
+    def drawBoard(self):
+        for row in range(self.board.rows):
+            for col in range(self.board.columns):
                 cellColor = COLOR['WHITE']
-                if board.grid[row][col].mine == True:
+                if self.board.grid[row][col].mine == True:
                     cellColor = COLOR['RED']
                 cellX = ((MARGIN + CELLWIDTH) * col + MARGIN) + BORDER
                 cellY = ((MARGIN + CELLHEIGHT) * row + MARGIN) + self.toolbarOffset
