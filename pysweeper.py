@@ -32,7 +32,8 @@ while not done:
     # Fill window and redraw toolbar and board.
     #@todo:
     screen.window.fill(COLOR['BLACK'])
-
+    # UI elements here
+    screen.uiElement(BORDER, BORDER, screen.width - (BORDER * 2), TOOLBARHEIGHT, 1)
     screen.drawBoard()
 
     # Redraw entire window each frame. Good enough for Minesweeper.

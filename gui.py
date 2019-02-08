@@ -16,7 +16,7 @@ class GUI():
         self.board = board
         self.toolbarOffset = 50
         self.width = ((CELLWIDTH + MARGIN) * board.columns) + (BORDER * 2)
-        self.height = ((CELLHEIGHT + MARGIN) * board.rows) + (BORDER * 2) + TOOLBARHEIGHT
+        self.height = ((CELLHEIGHT + MARGIN) * board.rows) + (BORDER * 3) + TOOLBARHEIGHT
         #@todo: Set min/max values based on user input
         if True:
             self.size = self.width, self.height
@@ -32,15 +32,16 @@ class GUI():
                 if self.board.grid[row][col].mine == True:
                     cellColor = COLOR['RED']
                 cellX = ((MARGIN + CELLWIDTH) * col + MARGIN) + BORDER
-                cellY = ((MARGIN + CELLHEIGHT) * row + MARGIN) + BORDER + self.toolbarOffset
+                cellY = ((MARGIN + CELLHEIGHT) * row + MARGIN) + (BORDER * 2) + self.toolbarOffset
                 cell = pg.Rect([cellX, cellY, CELLWIDTH, CELLHEIGHT])
 
                 pg.draw.rect(self.window, cellColor, cell)
 
-    def uiElement(self, x, y, w, h, type='None', label='None'):
+    def uiElement(self, rectX, rectY, rectW, rectH, borderWidth, type='None', label='None'):
         """ Handles creation of all UI elements except board.
         """
-        pass
+        uiElement = pg.Rect([rectX, rectY, rectW, rectH])
+        pg.draw.rect(self.window, COLOR['WHITE'], uiElement, borderWidth)
 
     def mouseClick(self, event):
         """ Handles any mouse event inside the window.
@@ -48,7 +49,7 @@ class GUI():
         if True:
             mousePosition = pg.mouse.get_pos()
             column = (mousePosition[0] - BORDER) // (CELLWIDTH + MARGIN)
-            row = (mousePosition[1] - BORDER - TOOLBARHEIGHT) // (CELLHEIGHT + MARGIN)
+            row = (mousePosition[1] - (BORDER * 2) - TOOLBARHEIGHT) // (CELLHEIGHT + MARGIN)
             if event.button == 1:
                 print("You pressed the left mouse button at:", mousePosition, ":", column, row, self.board.grid[row][column].mine)
             elif event.button == 3:
