@@ -43,16 +43,12 @@ class GUI():
     def uiElement(self, rectX, rectY, rectW, rectH, borderWidth, type="None", label="None"):
         """ Handles creation of all UI elements except board.
         """
-        if type == "None":
+        if type == "None" or type == "input":
             uiElement = pg.Rect([rectX, rectY, rectW, rectH])
             pg.draw.rect(self.window, COLOR['WHITE'], uiElement, borderWidth)
         elif type == "text" or type == "input":
             text = self.font.render(label, True, COLOR['WHITE'])
             self.window.blit(text, (rectX, rectY))
-
-
-
-
 
     def mouseClick(self, event):
         """ Handles any mouse event inside the window.
