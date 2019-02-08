@@ -67,6 +67,8 @@ class GUI():
             column = (mousePosition[0] - BORDER) // (CELLWIDTH + MARGIN)
             row = (mousePosition[1] - (BORDER * 2) - TOOLBARHEIGHT) // (CELLHEIGHT + MARGIN)
             if event.button == 1:
-                self.board.revealCell(row, column)
+                #this happens if a mine is revealed
+                if self.board.revealCell(row, column) == -1:
+                    self.board.gameOverLoss()
             elif event.button == 3:
                 self.board.flagCell(row, column)

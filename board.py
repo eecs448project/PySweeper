@@ -47,7 +47,7 @@ class Board():
 
                 if(self.grid[row][col].mine):
                     #end game here
-                    pass
+                    return -1
                 elif(self.countNearbyMines(row, col) > 0):
                     #Cell is already revealed, recursion terminates here
                     pass
@@ -82,3 +82,15 @@ class Board():
                     self.flagsPlaced += 1
                     #check if all mines are flagged, win game
         pass
+
+        def gameOverLoss(self):
+            """Reveals all mines and displays a game over message
+            """
+
+            pass
+
+        def gameOverWin(self):
+            """Reveals all nonmine cells and displays a win message
+            """
+
+            pass
