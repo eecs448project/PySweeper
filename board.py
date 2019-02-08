@@ -8,6 +8,7 @@ class Board():
         self.rows = rows
         self.columns = columns
         self.mines = mines
+        self.flagsPlaced = 0
         self.generateGrid()
         pass
 
@@ -37,7 +38,13 @@ class Board():
         """
         if(row >= 0 and row < self.rows and col >= 0 and col < self.columns):
             if(not self.grid[row][col].revealed):
+
                 self.grid[row][col].revealed = True
+
+                if (self.grid[row][col].flagged):
+                    self.grid[row][col].flagged = False
+                    self.flagsPlaced -= 1
+
                 if(self.grid[row][col].mine):
                     #end game here
                     pass
@@ -65,4 +72,13 @@ class Board():
     def flagCell(self, row, col):
         """Flags the selected Cell as a potential mines
         """
+        if(row >= 0 and row < self.rows and col >= 0 and col < self.columns):
+            if(not self.grid[row][col].revealed):
+                if (self.grid[row][col].flagged):
+                    self.grid[row][col].flagged = False
+                    self.flagsPlaced -= 1
+                elif (not self.grid[row][col].flagged and self.flagsPlaced < self.mines):
+                    self.grid[row][col].flagged = True
+                    self.flagsPlaced += 1
+                    #check if all mines are flagged, win game
         pass
