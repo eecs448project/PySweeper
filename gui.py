@@ -31,7 +31,7 @@ class GUI():
             for col in range(self.board.columns):
                 cellColor = COLOR['WHITE']
                 if self.board.grid[row][col].revealed:
-                    cellColor = COLOR['BLUE']
+                    cellColor = COLOR['GRAY']
                     if self.board.grid[row][col].mine:
                         cellColor = COLOR['RED']
                 elif self.board.grid[row][col].flagged:
@@ -41,6 +41,13 @@ class GUI():
                 cell = pg.Rect([cellX, cellY, CELLWIDTH, CELLHEIGHT])
 
                 pg.draw.rect(self.window, cellColor, cell)
+
+                #display nearby mines if the cell is revealed and not a mine
+                if cellColor == COLOR['GRAY']:
+                    nearbyMines = self.board.countNearbyMines(row, col)
+                    if (nearbyMines > 0):
+                        text = self.font.render(str(nearbyMines), True, COLOR['BLACK'])
+                        self.window.blit(text, (cellX + CELLWIDTH // 3, cellY + CELLHEIGHT // 4))
 
     def uiElement(self, rectX, rectY, rectW, rectH, borderWidth, type="None", label="None"):
         """ Handles creation of all UI elements except board.
