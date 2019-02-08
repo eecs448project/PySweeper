@@ -13,6 +13,7 @@ class GUI():
             will have all the sizes we need.
         """
         #@todo: Generate dynamically based on uiElements
+        self.font = pg.font.SysFont(None, 18)
         self.board = board
         self.toolbarOffset = 50
         self.width = ((CELLWIDTH + MARGIN) * board.columns) + (BORDER * 2)
@@ -37,11 +38,19 @@ class GUI():
 
                 pg.draw.rect(self.window, cellColor, cell)
 
-    def uiElement(self, rectX, rectY, rectW, rectH, borderWidth, type='None', label='None'):
+    def uiElement(self, rectX, rectY, rectW, rectH, borderWidth, type="None", label="None"):
         """ Handles creation of all UI elements except board.
         """
-        uiElement = pg.Rect([rectX, rectY, rectW, rectH])
-        pg.draw.rect(self.window, COLOR['WHITE'], uiElement, borderWidth)
+        if type == "None":
+            uiElement = pg.Rect([rectX, rectY, rectW, rectH])
+            pg.draw.rect(self.window, COLOR['WHITE'], uiElement, borderWidth)
+        elif type == "text" or type == "input":
+            text = self.font.render(label, True, COLOR['WHITE'])
+            self.window.blit(text, (rectX, rectY))
+
+
+
+
 
     def mouseClick(self, event):
         """ Handles any mouse event inside the window.

@@ -11,6 +11,7 @@ from constants import (CELLWIDTH, CELLHEIGHT,
 
 # PyGame Initializing
 pg.init()
+pg.font.init()
 clock = pg.time.Clock()
 
 # Initialize screen/windows
@@ -34,6 +35,8 @@ while not done:
     screen.window.fill(COLOR['BLACK'])
     # UI elements here
     screen.uiElement(BORDER, BORDER, screen.width - (BORDER * 2), TOOLBARHEIGHT, 1)
+    screen.uiElement(BORDER + 1, BORDER + 1, 15, 5, 0, "text", "Columns:")
+    screen.uiElement(BORDER + 1, BORDER + 21, 30, 20, 0, "text", "Rows:")
     screen.drawBoard()
 
     # Redraw entire window each frame. Good enough for Minesweeper.
