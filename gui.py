@@ -33,6 +33,8 @@ class GUI():
                     cellColor = COLOR['BLUE']
                     if self.board.grid[row][col].mine:
                         cellColor = COLOR['RED']
+                elif self.board.grid[row][col].flagged:
+                    cellColor = COLOR['GREEN']
                 cellX = ((MARGIN + CELLWIDTH) * col + MARGIN) + BORDER
                 cellY = ((MARGIN + CELLHEIGHT) * row + MARGIN) + (BORDER * 2) + self.toolbarOffset
                 cell = pg.Rect([cellX, cellY, CELLWIDTH, CELLHEIGHT])
@@ -55,4 +57,4 @@ class GUI():
             if event.button == 1:
                 self.board.revealCell(row, column)
             elif event.button == 3:
-                print("You pressed the right mouse button at:", mousePosition, ":", column, row, self.board.grid[row][column].mine)
+                self.board.flagCell(row, column)
