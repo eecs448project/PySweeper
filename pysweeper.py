@@ -7,7 +7,7 @@ from cell import Cell
 from gui import GUI
 
 from constants import (CELLWIDTH, CELLHEIGHT,
-                      MARGIN, BORDER, COLOR)
+                      MARGIN, BORDER, COLOR, TOOLBARHEIGHT)
 
 # PyGame Initializing
 pg.init()
@@ -27,9 +27,7 @@ while not done:
             done = True
         #@todo: Add event handler here
         elif event.type == pg.MOUSEBUTTONDOWN:
-            gameBoard = Board(20, 20, 100)
-            screen = GUI(gameBoard)
-            pass
+            screen.mouseClick(event)
 
     # Fill window and redraw toolbar and board.
     #@todo:
