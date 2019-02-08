@@ -13,8 +13,6 @@ COLOR = dict(
 #@todo: Decide if these should be initialized in a Cell()
 #+prior to generating GUI window. These are needed for GUI
 #+constructor.
-COLS = 10
-ROWS = 10
 CELLWIDTH = 20
 CELLHEIGHT = 20
 MARGIN = 2
