@@ -31,6 +31,8 @@ class Board():
             self.grid[row][col].mine = True
             #test print
             print("Mine added: ", row, col)
+
+        self.flagsPlaced = 0
         pass
 
     def revealCell(self, row, col):

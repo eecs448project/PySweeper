@@ -19,12 +19,10 @@ class GUI():
         self.width = ((CELLWIDTH + MARGIN) * board.columns) + (BORDER * 2)
         self.height = ((CELLHEIGHT + MARGIN) * board.rows) + (BORDER * 3) + TOOLBARHEIGHT
         #@todo: Set min/max values based on user input
-        if True:
-            self.size = self.width, self.height
-        elif False:
-            pass
+        if self.width < 240:
+            self.width = 240
         print("Width: ", self.width, "Height: ", self.height)
-        self.window = pg.display.set_mode(self.size)
+        self.window = pg.display.set_mode((self.width, self.height))
 
     def drawBoard(self):
         for row in range(self.board.rows):
