@@ -29,8 +29,10 @@ class GUI():
         for row in range(self.board.rows):
             for col in range(self.board.columns):
                 cellColor = COLOR['WHITE']
-                if self.board.grid[row][col].mine == True:
-                    cellColor = COLOR['RED']
+                if self.board.grid[row][col].revealed:
+                    cellColor = COLOR['BLUE']
+                    if self.board.grid[row][col].mine:
+                        cellColor = COLOR['RED']
                 cellX = ((MARGIN + CELLWIDTH) * col + MARGIN) + BORDER
                 cellY = ((MARGIN + CELLHEIGHT) * row + MARGIN) + (BORDER * 2) + self.toolbarOffset
                 cell = pg.Rect([cellX, cellY, CELLWIDTH, CELLHEIGHT])
@@ -51,6 +53,6 @@ class GUI():
             column = (mousePosition[0] - BORDER) // (CELLWIDTH + MARGIN)
             row = (mousePosition[1] - (BORDER * 2) - TOOLBARHEIGHT) // (CELLHEIGHT + MARGIN)
             if event.button == 1:
-                print("You pressed the left mouse button at:", mousePosition, ":", column, row, self.board.grid[row][column].mine)
+                self.board.revealCell(row, column)
             elif event.button == 3:
                 print("You pressed the right mouse button at:", mousePosition, ":", column, row, self.board.grid[row][column].mine)
