@@ -32,7 +32,19 @@ class Board():
             print("Mine added: ", row, col)
         pass
 
-    def draw(self):
-        """ Draw the grid on the surface.
+    def revealCell(self, row, col):
+        """Reveals the seleted cell and recursively reaveals nearby cells if no mines are nearby the selected cell
+        """
+        pass
+
+    def countNearbyMines(self, row, col):
+        """Counts how many mines are adjacent to the specified cell
+        """
+        nearbyMines = 0
+
+        return nearbyMines
+
+    def flagCell(self, row, col):
+        """Flags the selected Cell as a potential mines
         """
         pass
