@@ -41,7 +41,11 @@ class Board():
         """Counts how many mines are adjacent to the specified cell
         """
         nearbyMines = 0
-
+        for x in range(-1, 2):
+            for y in range(-1, 2):
+                if (row + x >= 0 and row + x < self.rows and col + y >= 0 and col + y < self.columns):
+                    if (self.grid[row + x][col + y].mine):
+                        nearbyMines += 1
         return nearbyMines
 
     def flagCell(self, row, col):
