@@ -15,29 +15,33 @@ class GUI():
         #@todo: Generate dynamically based on uiElements
         self.font = pg.font.SysFont(None, 18)
         self.board = board
-        self.toolbarOffset = 50
+        # Shouldn't Need toolbarOffset since we made a constant TOOLBARHEIGHT
+        #self.toolbarOffset = 50
         self.width = ((CELLWIDTH + MARGIN) * board.columns) + (BORDER * 2)
         self.height = ((CELLHEIGHT + MARGIN) * board.rows) + (BORDER * 3) + TOOLBARHEIGHT
         #@todo: Set min/max values based on user input
         if self.width < 240:
             self.width = 240
-        print("Width: ", self.width, "Height: ", self.height)
+        #print("Width: ", self.width, "Height: ", self.height)
         self.window = pg.display.set_mode((self.width, self.height))
 
     def drawBoard(self):
         for row in range(self.board.rows):
             for col in range(self.board.columns):
+                cellX = ((MARGIN + CELLWIDTH) * col + MARGIN) + BORDER
+                cellY = ((MARGIN + CELLHEIGHT) * row + MARGIN) + (BORDER * 2) + TOOLBARHEIGHT
                 cellColor = COLOR['WHITE']
                 if self.board.grid[row][col].revealed:
                     cellColor = COLOR['GRAY']
                     if self.board.grid[row][col].mine:
                         cellColor = COLOR['RED']
+                        #mineImage = pg.image.load("mine.png")
+                        #self.window.blit(mineImage,(((MARGIN + CELLWIDTH) * col + MARGIN) + BORDER, ((MARGIN + CELLHEIGHT) * row + MARGIN) + (BORDER * 2) + TOOLBARHEIGHT))
                 elif self.board.grid[row][col].flagged:
                     cellColor = COLOR['GREEN']
-                cellX = ((MARGIN + CELLWIDTH) * col + MARGIN) + BORDER
-                cellY = ((MARGIN + CELLHEIGHT) * row + MARGIN) + (BORDER * 2) + self.toolbarOffset
+                #cellX = ((MARGIN + CELLWIDTH) * col + MARGIN) + BORDER
+                #cellY = ((MARGIN + CELLHEIGHT) * row + MARGIN) + (BORDER * 2) + TOOLBARHEIGHT
                 cell = pg.Rect([cellX, cellY, CELLWIDTH, CELLHEIGHT])
-
                 pg.draw.rect(self.window, cellColor, cell)
 
                 #display nearby mines if the cell is revealed and not a mine
@@ -46,6 +50,10 @@ class GUI():
                     if (nearbyMines > 0):
                         text = self.font.render(str(nearbyMines), True, COLOR['BLACK'])
                         self.window.blit(text, (cellX + CELLWIDTH // 3, cellY + CELLHEIGHT // 4))
+                
+                if cellColor == COLOR['RED']:
+                        mineImage = pg.image.load("mine.png")
+                        self.window.blit(mineImage,(cellX,cellY))
 
     def uiElement(self, rectX, rectY, rectW, rectH, borderWidth, type="None", label="None"):
         """ Handles creation of all UI elements except board.
