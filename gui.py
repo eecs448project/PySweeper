@@ -52,8 +52,13 @@ class GUI():
                         self.window.blit(text, (cellX + CELLWIDTH // 3, cellY + CELLHEIGHT // 4))
                 
                 if cellColor == COLOR['RED']:
-                        mineImage = pg.image.load("mine.png")
-                        self.window.blit(mineImage,(cellX,cellY))
+                    trumpImg = pg.image.load("trump.png")
+                    self.window.blit(trumpImg,(cellX,cellY))
+                    #mineImage = pg.image.load("mine.png")
+                    #self.window.blit(mineImage,(cellX,cellY))
+                if cellColor == COLOR['GREEN']:
+                    flagImg = pg.image.load("flag.png")
+                    self.window.blit(flagImg,(cellX,cellY))
 
     def uiElement(self, rectX, rectY, rectW, rectH, borderWidth, type="None", label="None"):
         """ Handles creation of all UI elements except board.
