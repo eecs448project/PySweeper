@@ -19,3 +19,4 @@
 - [ ] Add more TODOs.
 
 - [ ] Need to add minimum bounds checking to rows and columns input
+- [ ] Flags disappear when revealing spaces if the flag is not a mine, need to make the flags static             regardless of position on the board when revealing spaces
