@@ -79,7 +79,7 @@ class GUI():
                 self.board.flagCell(row, column)
 
 class InputBox():
-    def __init__(self, x, y, w, h, screen, text=''):
+    def __init__(self, x, y, w, h, screen, maxValue=0, text=''):
         self.rect = pg.Rect(x, y, w, h)
         self.screen = screen
         self.color = COLOR['WHITE']
@@ -87,6 +87,7 @@ class InputBox():
         self.font = pg.font.SysFont(None, 18)
         self.txt_surface = self.font.render(text, True, self.color)
         self.active = False
+        self.maxValue = maxValue
 
     def handle_event(self, event):
         if event.type == pg.MOUSEBUTTONDOWN:
@@ -112,12 +113,11 @@ class InputBox():
     def update(self, gui, board, field, value=0):
         """ This updates the input fields and any game attribute associated
             with that field.
-
         """
         if (value != None):
             if (value.isnumeric()):
-                if (int(value) > 32):
-                    field = 32
+                if (int(value) > self.maxValue):
+                    value = self.maxValue
                 setattr(board, field, int(value))
                 board.generateGrid()
                 gui = GUI(board)

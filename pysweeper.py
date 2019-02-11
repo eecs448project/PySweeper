@@ -36,9 +36,9 @@ screen = GUI(gameBoard)
 # Defines inputBoxes that display on the screen, one each for row, column, and mines.
 # InputBox takes parameters as such InputBox(x position, y position, length of box, width of box,
 #  surface to display onto, text to take from user input converted to a string from an int)
-inputRowBox = InputBox(BORDER + 66, BORDER + 3, 40, 20, screen.window, str(gameBoard.rows))
-inputColumnBox = InputBox(BORDER + 66, BORDER + 27, 40, 20, screen.window, str(gameBoard.columns))
-inputMineBox = InputBox(BORDER + 163, BORDER + 3, 40, 20, screen.window, str(gameBoard.mines))
+inputRowBox = InputBox(BORDER + 66, BORDER + 3, 40, 20, screen.window, 32, str(gameBoard.rows))
+inputColumnBox = InputBox(BORDER + 66, BORDER + 27, 40, 20, screen.window, 32, str(gameBoard.columns))
+inputMineBox = InputBox(BORDER + 163, BORDER + 3, 40, 20, screen.window, 10, str(gameBoard.mines))
 
 # Places the inputRowBox, inputColumnBox, and inputMineBox into an array called input_boxes.
 input_boxes = [inputRowBox, inputColumnBox, inputMineBox]
@@ -65,6 +65,7 @@ while not done:
         inputRowBox.update(screen, gameBoard, "rows", inputRows)
         inputCols = inputColumnBox.handle_event(event)
         inputColumnBox.update(screen, gameBoard, "columns", inputCols)
+        inputMineBox.maxValue = screen.board.rows * screen.board.columns - 1
         inputMines = inputMineBox.handle_event(event)
         inputMineBox.update(screen, gameBoard, "mines", inputMines)
 
