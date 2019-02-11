@@ -79,14 +79,15 @@ while not done:
                         # Calling all 3 works for the time being.
                         inputRowBox.update(screen, gameBoard, "rows", inputRowBox.text)
                         inputColumnBox.update(screen, gameBoard, "columns", inputColumnBox.text)
+                        # Check maxValue before calling box.update() on mines.
+                        inputMineBox.maxValue = (screen.board.rows * screen.board.columns) - 1
                         inputMineBox.update(screen, gameBoard, "mines", inputMineBox.text)
-                        # Always update mines. This number changes regardless of box they edit.
-                        inputMineBox.maxValue = screen.board.rows * screen.board.columns - 1
                     elif event.key == pg.K_BACKSPACE:
                         box.text = box.text[:-1]
                     else:
                         box.text += event.unicode
                     box.txt_surface = box.font.render(box.text, True, COLOR['WHITE'])
+
 
     # Fills the screen with a single color, we chose black, every other element will be drawn ontop of this.
     screen.window.fill(COLOR['BLACK'])
