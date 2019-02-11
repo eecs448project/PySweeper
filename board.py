@@ -34,6 +34,7 @@ class Board():
             print("Mine added: ", row, col)
 
         self.flagsPlaced = 0
+        self.gameOver = False
 
     def revealCell(self, row, col):
         """Reveals the seleted cell and recursively reaveals nearby cells if no mines are nearby the selected cell
