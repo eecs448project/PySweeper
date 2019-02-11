@@ -36,9 +36,9 @@ screen = GUI(gameBoard)
 # Defines inputBoxes that display on the screen, one each for row, column, and mines.
 # InputBox takes parameters as such InputBox(x position, y position, length of box, width of box,
 #  surface to display onto, text to take from user input converted to a string from an int)
-inputRowBox = InputBox(BORDER + 66, BORDER + 3, 40, 20, screen.window, str(gameBoard.rows))
-inputColumnBox = InputBox(BORDER + 66, BORDER + 27, 40, 20, screen.window, str(gameBoard.columns))
-inputMineBox = InputBox(BORDER + 163, BORDER + 3, 40, 20, screen.window, str(gameBoard.mines))
+inputRowBox = InputBox(BORDER + 66, BORDER + 3, 40, 20, screen.window, 32, str(gameBoard.rows))
+inputColumnBox = InputBox(BORDER + 66, BORDER + 27, 40, 20, screen.window, 32, str(gameBoard.columns))
+inputMineBox = InputBox(BORDER + 163, BORDER + 3, 40, 20, screen.window, 10, str(gameBoard.mines))
 
 # Places the inputRowBox, inputColumnBox, and inputMineBox into an array called input_boxes.
 input_boxes = [inputRowBox, inputColumnBox, inputMineBox]
@@ -55,108 +55,38 @@ while not done:
             done = True
         # An event handler for when the user presses a mouse button.
         elif event.type == pg.MOUSEBUTTONDOWN:
-            # If the user clicks the mouse on the screen, pass the event into mouseClick (in the gui.py)
+            # GUI.mouseClick() handles clicking anywhere on the board.
             screen.mouseClick(event)
-
-        # Sets input(Rows, Cols, or Mines) equal to input(Rows, Cols, or Mines)Box.handle_event with
-        # rows passed in as a parameter.  handle_event is a definition within the Inputbox class (inputbox.py) 
-        inputRows = inputRowBox.handle_event(event)
-        inputCols = inputColumnBox.handle_event(event)
-        inputMines = inputMineBox.handle_event(event)
-
-        # Executes if the user puts input into the inputbox for Rows, inputRowBox.
-        if (inputRows != None):
-            # If the input the user puts into the inputRowBox, check if its a number. 
-            # If its not a number, nothing executes.
-            if (inputRows.isnumeric()):
-                # If the input is a number, convert it to an integer as its currently read in as as string.
-                # If the int is over 32, then change it to 32. This limits the size of the board to, 
-                # hopefully, fit on a normal 17 inch monitor.
-                if (int(inputRows) > 32):
-                    inputRows = 32
-                # Minimum bounds checking for rows
-                if (int(inputRows) < 2):
-                    inputRows = 2
-                # If the input is under 32 and above 2, this portion will execute without changing the rows.
-                # Set the gameBoard variable rows, within the Board class, to the user input, inputRows. 
-                # The inputRows must be converted to an int from a string so the Board class can use it.
-                gameBoard.rows = int(inputRows)
-
-                # If shrinking the board causes more mines to exist than is allowed, reduce number of mines to the number of cells - 1
-                if (gameBoard.mines >= gameBoard.rows * gameBoard.columns):
-                    gameBoard.mines = gameBoard.rows * gameBoard.columns - 1
-                    inputMineBox.forceSetText(str(gameBoard.mines))
-
-                # Calls the generateGrid definition on the gameBoard, within Board class.
-                gameBoard.generateGrid()
-                # Creates a GUI object by passing in gameBoard, names the object screen.
-                screen = GUI(gameBoard)
-                # Sets the inputBox text to the new value in case it was changed by bounds checking
-                inputRowBox.forceSetText(str(gameBoard.rows))
-
-        # Most of the code is the same as the above block for inputRowBox.
-        # Executes if the user puts input into the inputbox for cols, inputColumnBox.
-        if (inputCols != None):
-            # If the input the user puts into the inputColBox, check if its a number. 
-            # If its not a number, nothing executes.
-            if (inputCols.isnumeric()):
-                # If the input is a number, convert it to an integer as its currently read in as as string.
-                # If the int is over 32, then change it to 32. This limits the size of the board to, 
-                # hopefully, fit on a normal 17 inch monitor.
-                if (int(inputCols) > 32):
-                    inputCols = 32
-                # Minimum bounds checking for columns
-                if (int(inputCols) < 2):
-                    inputCols = 2
-                # If the input is under 32 and above 2, this portion will execute without changing the cols.
-                # Set the gameBoard variable cols, within the Board class, to the user input, inputCols. 
-                # The inputCols must be converted to an int from a string so the Board class can use it.
-                gameBoard.columns = int(inputCols)
-                # Calls the generateGrid definition on the gameBoard, within Board class.
-
-                # If shrinking the board causes more mines to exist than is allowed, reduce number of mines to the number of cells - 1
-                if (gameBoard.mines >= gameBoard.rows * gameBoard.columns):
-                    gameBoard.mines = gameBoard.rows * gameBoard.columns - 1
-                    inputMineBox.forceSetText(str(gameBoard.mines))
-
-                gameBoard.generateGrid()
-                # recreates a GUI object by passing in gameBoard, names the object screen.
-                screen = GUI(gameBoard)
-                # Sets the inputBox text to the new value in case it was changed by bounds checking
-                inputColumnBox.forceSetText(str(gameBoard.columns))
-
-
-        # Again, most of the code is the same as the above blocks for inputRowBox and inputColumnBox.
-        # Executes if the user puts input into the inputbox for mines, inputMineBox.
-        if (inputMines != None):
-            # If the input the user puts into the inputMineBox, check if its a number. 
-            # If its not a number, nothing executes.
-            if (inputMines.isnumeric()):
-                # If the input is a number, convert it to an integer as its currently read in as as string.
-                # If the int is over or ewual to rows*cols on the gameBaord, then change it to 
-                # rows*cols-1. This limits the mines on the board so the user won't automatically lose.
-                if (int(inputMines) >= gameBoard.rows * gameBoard.columns):
-                    inputMines = gameBoard.rows * gameBoard.columns - 1
-                # Minimum bounds checking for mines
-                if (int(inputMines) < 1):
-                    inputMines = 1
-                # If the input is under rows*cols for the defined gameBoard size and above 1,
-                # this portion will execute without changing the mines.
-                # Set the gameBoard variable mines, within the Board class, to the user input, inputMines. 
-                # The inputMines must be converted to an int from a string so the Board class can use it.
-                gameBoard.mines = int(inputMines)
-                # Calls the generateGrid definition on the gameBoard, within Board class.
-                gameBoard.generateGrid()
-                # Creates a GUI object by passing in gameBoard, names the object screen.
-                screen = GUI(gameBoard)
-                # Sets the inputBox text to the new value in case it was changed by bounds checking
-                inputMineBox.forceSetText(str(gameBoard.mines))
-
-    # Using box, from the InputBox class, call the update definition on each element in the input_boxes array.
-    # This will change the width if the user inputs something that doesn't fit in the box but,
-    # as you may have noticed from the above boxes, a value too large will not be kept.
-    # for box in input_boxes:
-    #     box.update()
+            # Handle input boxes here.
+            # Users can only left click input boxes. Restricting to button 1.
+            if event.button == 1:
+                for box in input_boxes:
+                    # If the user clicked on the input box, toggle state.
+                    if box.rect.collidepoint(event.pos):
+                        box.active = not box.active
+                    else:
+                        box.active = False
+                    # Feedback color for active input box.
+                    box.color = COLOR['RED'] if box.active else COLOR['WHITE']
+        # Listen for key presses. Input boxes that are active take all inputs.
+        elif event.type == pg.KEYDOWN:
+            for box in input_boxes:
+                if box.active:
+                    if event.key == pg.K_RETURN:
+                        box.active = not box.active
+                        box.color = COLOR['WHITE']
+                        # Only call update one per user hitting enter.
+                        # Calling all 3 works for the time being.
+                        inputRowBox.update(screen, gameBoard, "rows", inputRowBox.text)
+                        inputColumnBox.update(screen, gameBoard, "columns", inputColumnBox.text)
+                        inputMineBox.update(screen, gameBoard, "mines", inputMineBox.text)
+                        # Always update mines. This number changes regardless of box they edit.
+                        inputMineBox.maxValue = screen.board.rows * screen.board.columns - 1
+                    elif event.key == pg.K_BACKSPACE:
+                        box.text = box.text[:-1]
+                    else:
+                        box.text += event.unicode
+                    box.txt_surface = box.font.render(box.text, True, COLOR['WHITE'])
 
     # Fills the screen with a single color, we chose black, every other element will be drawn ontop of this.
     screen.window.fill(COLOR['BLACK'])

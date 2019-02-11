@@ -12,14 +12,10 @@ class GUI():
             PARAMS need to be changed to (self, board). Board object
             will have all the sizes we need.
         """
-        #@todo: Generate dynamically based on uiElements
         self.font = pg.font.SysFont(None, 18)
         self.board = board
-        # Shouldn't Need toolbarOffset since we made a constant TOOLBARHEIGHT
-        #self.toolbarOffset = 50
         self.width = ((CELLWIDTH + MARGIN) * board.columns) + (BORDER * 2)
         self.height = ((CELLHEIGHT + MARGIN) * board.rows) + (BORDER * 3) + TOOLBARHEIGHT
-        #@todo: Set min/max values based on user input
         if self.width < 240:
             self.width = 240
         #print("Width: ", self.width, "Height: ", self.height)
@@ -84,7 +80,7 @@ class GUI():
 
 #Code Based on https://stackoverflow.com/questions/46390231/how-to-create-a-text-input-box-with-pygame/46390412
 class InputBox():
-    def __init__(self, x, y, w, h, screen, text=''):
+    def __init__(self, x, y, w, h, screen, maxValue=0, text=''):
         self.rect = pg.Rect(x, y, w, h)
         self.screen = screen
         self.color = COLOR['WHITE']
@@ -92,43 +88,20 @@ class InputBox():
         self.font = pg.font.SysFont(None, 18)
         self.txt_surface = self.font.render(text, True, self.color)
         self.active = False
+        self.maxValue = maxValue
 
-    def handle_event(self, event):
-        if event.type == pg.MOUSEBUTTONDOWN:
-            # If the user clicked on the input_box rect.
-            if self.rect.collidepoint(event.pos):
-                # Toggle the active variable.
-                self.active = not self.active
-            else:
-                self.active = False
-            # Change the current color of the input box.
-            self.color = COLOR['RED'] if self.active else COLOR['WHITE']
-        if event.type == pg.KEYDOWN:
-            if self.active:
-                if event.key == pg.K_RETURN:
-                    self.active = not self.active
-                    self.color = COLOR['WHITE']
-                    return self.text
-                elif event.key == pg.K_BACKSPACE:
-                    self.text = self.text[:-1]
-                else:
-                    self.text += event.unicode
-                # Re-render the text.
-                self.txt_surface = self.font.render(self.text, True, COLOR['WHITE'])
-
-    def forceSetText(self, text):
-        """Forces the input box text to be set to the parameter text and then rerenders the InputBox
+    def update(self, gui, board, field, value=0):
+        """ This updates the input fields and any game attribute associated
+            with that field.
         """
-        self.text = text
+        if (int(value) > self.maxValue):
+            value = self.maxValue
+        setattr(board, field, int(value))
+        board.generateGrid()
+        gui = GUI(board)
+        self.text = str(getattr(board, field))
         self.txt_surface = self.font.render(self.text, True, COLOR['WHITE'])
 
-    # def update(self):
-    #     # Resize the box if the text is too long.
-    #     width = max(40, self.txt_surface.get_width()+10)
-    #     self.rect.w = width
-
     def draw(self):
-        # Blit the text.
         self.screen.blit(self.txt_surface, (self.rect.x+5, self.rect.y+5))
-        # Blit the rect.
         pg.draw.rect(self.screen, self.color, self.rect, 1)
