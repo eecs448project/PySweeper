@@ -89,40 +89,17 @@ class InputBox():
         self.active = False
         self.maxValue = maxValue
 
-    def handle_event(self, event):
-        if event.type == pg.MOUSEBUTTONDOWN:
-            # If the user clicked on the input_box rect.
-            if self.rect.collidepoint(event.pos):
-                self.active = not self.active
-            else:
-                self.active = False
-            # Change the current color of the input box.
-            self.color = COLOR['RED'] if self.active else COLOR['WHITE']
-        if event.type == pg.KEYDOWN:
-            if self.active:
-                if event.key == pg.K_RETURN:
-                    self.active = not self.active
-                    self.color = COLOR['WHITE']
-                    return self.text
-                elif event.key == pg.K_BACKSPACE:
-                    self.text = self.text[:-1]
-                else:
-                    self.text += event.unicode
-                self.txt_surface = self.font.render(self.text, True, COLOR['WHITE'])
-
     def update(self, gui, board, field, value=0):
         """ This updates the input fields and any game attribute associated
             with that field.
         """
-        if (value != None):
-            if (value.isnumeric()):
-                if (int(value) > self.maxValue):
-                    value = self.maxValue
-                setattr(board, field, int(value))
-                board.generateGrid()
-                gui = GUI(board)
-                self.text = str(getattr(board, field))
-                self.txt_surface = self.font.render(self.text, True, COLOR['WHITE'])
+        if (int(value) > self.maxValue):
+            value = self.maxValue
+        setattr(board, field, int(value))
+        board.generateGrid()
+        gui = GUI(board)
+        self.text = str(getattr(board, field))
+        self.txt_surface = self.font.render(self.text, True, COLOR['WHITE'])
 
     def draw(self):
         self.screen.blit(self.txt_surface, (self.rect.x+5, self.rect.y+5))

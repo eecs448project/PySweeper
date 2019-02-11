@@ -55,19 +55,38 @@ while not done:
             done = True
         # An event handler for when the user presses a mouse button.
         elif event.type == pg.MOUSEBUTTONDOWN:
-            # If the user clicks the mouse on the screen, pass the event into mouseClick (in the gui.py)
+            # GUI.mouseClick() handles clicking anywhere on the board.
             screen.mouseClick(event)
-
-        # Sets input(Rows, Cols, or Mines) equal to input(Rows, Cols, or Mines)Box.handle_event with
-        # rows passed in as a parameter.  handle_event is a definition within the Inputbox class (inputbox.py) 
-        #@todo:Jon This is 6 lines of code that should be 1 for loop. Refactor this laster.
-        inputRows = inputRowBox.handle_event(event)
-        inputRowBox.update(screen, gameBoard, "rows", inputRows)
-        inputCols = inputColumnBox.handle_event(event)
-        inputColumnBox.update(screen, gameBoard, "columns", inputCols)
-        inputMineBox.maxValue = screen.board.rows * screen.board.columns - 1
-        inputMines = inputMineBox.handle_event(event)
-        inputMineBox.update(screen, gameBoard, "mines", inputMines)
+            # Handle input boxes here.
+            # Users can only left click input boxes. Restricting to button 1.
+            if event.button == 1:
+                for box in input_boxes:
+                    # If the user clicked on the input box, toggle state.
+                    if box.rect.collidepoint(event.pos):
+                        box.active = not box.active
+                    else:
+                        box.active = False
+                    # Feedback color for active input box.
+                    box.color = COLOR['RED'] if box.active else COLOR['WHITE']
+        # Listen for key presses. Input boxes that are active take all inputs.
+        elif event.type == pg.KEYDOWN:
+            for box in input_boxes:
+                if box.active:
+                    if event.key == pg.K_RETURN:
+                        box.active = not box.active
+                        box.color = COLOR['WHITE']
+                        # Only call update one per user hitting enter.
+                        # Calling all 3 works for the time being.
+                        inputRowBox.update(screen, gameBoard, "rows", inputRowBox.text)
+                        inputColumnBox.update(screen, gameBoard, "columns", inputColumnBox.text)
+                        inputMineBox.update(screen, gameBoard, "mines", inputMineBox.text)
+                        # Always update mines. This number changes regardless of box they edit.
+                        inputMineBox.maxValue = screen.board.rows * screen.board.columns - 1
+                    elif event.key == pg.K_BACKSPACE:
+                        box.text = box.text[:-1]
+                    else:
+                        box.text += event.unicode
+                    box.txt_surface = box.font.render(box.text, True, COLOR['WHITE'])
 
     # Fills the screen with a single color, we chose black, every other element will be drawn ontop of this.
     screen.window.fill(COLOR['BLACK'])
