@@ -80,7 +80,7 @@ class GUI():
 
 #Code Based on https://stackoverflow.com/questions/46390231/how-to-create-a-text-input-box-with-pygame/46390412
 class InputBox():
-    def __init__(self, x, y, w, h, screen, maxValue=0, text=''):
+    def __init__(self, x, y, w, h, screen, maxValue=0, minValue=0, text=''):
         self.rect = pg.Rect(x, y, w, h)
         self.screen = screen
         self.color = COLOR['WHITE']
@@ -89,6 +89,7 @@ class InputBox():
         self.txt_surface = self.font.render(text, True, self.color)
         self.active = False
         self.maxValue = maxValue
+        self.minValue = minValue
 
     def update(self, gui, board, field, value=0):
         """ This updates the input fields and any game attribute associated
@@ -96,6 +97,8 @@ class InputBox():
         """
         if (int(value) > self.maxValue):
             value = self.maxValue
+        if (int(value) < self.minValue):
+            value = self.minValue
         setattr(board, field, int(value))
         board.generateGrid()
         gui = GUI(board)
