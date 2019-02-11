@@ -85,11 +85,8 @@ while not done:
                 gameBoard.generateGrid()
                 # Creates a GUI object by passing in gameBoard, names the object screen.
                 screen = GUI(gameBoard)
-                # Creates a variable inputRowBox.text, that holds a string value of the varaible gameBoard.rows.
-                inputRowBox.text = str(gameBoard.rows)
-                # Renders font onto the surface of the screen in the inputRowBox.
-                # The font.render function takes parameters as such (the text to be displated, antialias, color of text)
-                inputRowBox.txt_surface = inputRowBox.font.render(inputRowBox.text, True, COLOR['WHITE'])
+                # Sets the inputBox text to the new value in case it was changed by bounds checking
+                inputRowBox.forceSetText(str(gameBoard.rows))
 
         # Most of the code is the same as the above block for inputRowBox.
         # Executes if the user puts input into the inputbox for cols, inputColumnBox.
@@ -113,7 +110,7 @@ while not done:
                 gameBoard.generateGrid()
                 # recreates a GUI object by passing in gameBoard, names the object screen.
                 screen = GUI(gameBoard)
-                # Creates a variable inputColumnBox.text, that holds a string value of the varaible gameBoard.columns.
+                # Sets the inputBox text to the new value in case it was changed by bounds checking
                 inputColumnBox.forceSetText(str(gameBoard.columns))
 
 
@@ -140,11 +137,8 @@ while not done:
                 gameBoard.generateGrid()
                 # Creates a GUI object by passing in gameBoard, names the object screen.
                 screen = GUI(gameBoard)
-                # Creates a variable inputMineBox.text, that holds a string value of the varaible gameBoard.mines.
-                inputMineBox.text = str(gameBoard.mines)
-                 # Renders font onto the surface of the screen in the inputMineBox.
-                # The font.render function takes parameters as such (the text to be displated, antialias, color of text)
-                inputMineBox.txt_surface = inputMineBox.font.render(inputMineBox.text, True, COLOR['WHITE'])
+                # Sets the inputBox text to the new value in case it was changed by bounds checking
+                inputMineBox.forceSetText(str(gameBoard.mines))
 
     # Using box, from the InputBox class, call the update definition on each element in the input_boxes array.
     # This will change the width if the user inputs something that doesn't fit in the box but,
