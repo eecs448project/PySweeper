@@ -22,10 +22,12 @@ class InputBox():
             else:
                 self.active = False
             # Change the current color of the input box.
-            self.color = COLOR['DARKGRAY'] if self.active else COLOR['WHITE']
+            self.color = COLOR['RED'] if self.active else COLOR['WHITE']
         if event.type == pg.KEYDOWN:
             if self.active:
                 if event.key == pg.K_RETURN:
+                    self.active = not self.active
+                    self.color = COLOR['WHITE']
                     return self.text
                 elif event.key == pg.K_BACKSPACE:
                     self.text = self.text[:-1]
@@ -34,13 +36,13 @@ class InputBox():
                 # Re-render the text.
                 self.txt_surface = self.font.render(self.text, True, COLOR['WHITE'])
 
-    def update(self):
-        # Resize the box if the text is too long.
-        width = max(40, self.txt_surface.get_width()+10)
-        self.rect.w = width
+    # def update(self):
+    #     # Resize the box if the text is too long.
+    #     width = max(40, self.txt_surface.get_width()+10)
+    #     self.rect.w = width
 
-    def draw(self, screen):
+    def draw(self):
         # Blit the text.
         self.screen.blit(self.txt_surface, (self.rect.x+5, self.rect.y+5))
         # Blit the rect.
-        pg.draw.rect(self.screen, self.color, self.rect, 2)
+        pg.draw.rect(self.screen, self.color, self.rect, 1)

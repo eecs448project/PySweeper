@@ -72,8 +72,8 @@ while not done:
                 inputMineBox.txt_surface = inputMineBox.font.render(inputMineBox.text, True, COLOR['WHITE'])
 
 
-    for box in input_boxes:
-        box.update()
+    # for box in input_boxes:
+    #     box.update()
 
     # Fill window and redraw toolbar and board.
     #@todo:
@@ -81,7 +81,7 @@ while not done:
     # UI elements here
 
     for box in input_boxes:
-        box.draw(screen)
+        box.draw()
 
     screen.uiElement(BORDER, BORDER, screen.width - (BORDER * 2), TOOLBARHEIGHT, 1)
     screen.uiElement(BORDER + 6, BORDER + 8, 0, 0, 0, "text", "Rows:")
