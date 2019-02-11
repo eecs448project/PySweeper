@@ -105,13 +105,10 @@ while not done:
                 gameBoard.columns = int(inputCols)
                 # Calls the generateGrid definition on the gameBoard, within Board class.
                 gameBoard.generateGrid()
-                # Creates a GUI object by passing in gameBoard, names the object screen.
+                # recreates a GUI object by passing in gameBoard, names the object screen.
                 screen = GUI(gameBoard)
                 # Creates a variable inputColumnBox.text, that holds a string value of the varaible gameBoard.columns.
-                inputColumnBox.text = str(gameBoard.columns)
-                # Renders font onto the surface of the screen in the inputRowBox.
-                # The font.render function takes parameters as such (the text to be displated, antialias, color of text)
-                inputColumnBox.txt_surface = inputColumnBox.font.render(inputColumnBox.text, True, COLOR['WHITE'])
+                inputColumnBox.forceSetText(str(gameBoard.columns))
 
 
         # Again, most of the code is the same as the above blocks for inputRowBox and inputColumnBox.

@@ -82,6 +82,7 @@ class GUI():
             elif event.button == 3:
                 self.board.flagCell(row, column)
 
+#Code Based on https://stackoverflow.com/questions/46390231/how-to-create-a-text-input-box-with-pygame/46390412
 class InputBox():
     def __init__(self, x, y, w, h, screen, text=''):
         self.rect = pg.Rect(x, y, w, h)
@@ -114,6 +115,12 @@ class InputBox():
                     self.text += event.unicode
                 # Re-render the text.
                 self.txt_surface = self.font.render(self.text, True, COLOR['WHITE'])
+
+    def forceSetText(self, text):
+        """Forces the input box text to be set to the parameter text and then rerenders the InputBox
+        """
+        self.text = text
+        self.txt_surface = self.font.render(self.text, True, COLOR['WHITE'])
 
     # def update(self):
     #     # Resize the box if the text is too long.
