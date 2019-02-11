@@ -81,6 +81,12 @@ while not done:
                 # Set the gameBoard variable rows, within the Board class, to the user input, inputRows. 
                 # The inputRows must be converted to an int from a string so the Board class can use it.
                 gameBoard.rows = int(inputRows)
+
+                # If shrinking the board causes more mines to exist than is allowed, reduce number of mines to the number of cells - 1
+                if (gameBoard.mines >= gameBoard.rows * gameBoard.columns):
+                    gameBoard.mines = gameBoard.rows * gameBoard.columns - 1
+                    inputMineBox.forceSetText(str(gameBoard.mines))
+
                 # Calls the generateGrid definition on the gameBoard, within Board class.
                 gameBoard.generateGrid()
                 # Creates a GUI object by passing in gameBoard, names the object screen.
@@ -107,6 +113,12 @@ while not done:
                 # The inputCols must be converted to an int from a string so the Board class can use it.
                 gameBoard.columns = int(inputCols)
                 # Calls the generateGrid definition on the gameBoard, within Board class.
+
+                # If shrinking the board causes more mines to exist than is allowed, reduce number of mines to the number of cells - 1
+                if (gameBoard.mines >= gameBoard.rows * gameBoard.columns):
+                    gameBoard.mines = gameBoard.rows * gameBoard.columns - 1
+                    inputMineBox.forceSetText(str(gameBoard.mines))
+
                 gameBoard.generateGrid()
                 # recreates a GUI object by passing in gameBoard, names the object screen.
                 screen = GUI(gameBoard)
