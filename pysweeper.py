@@ -74,7 +74,10 @@ while not done:
                 # hopefully, fit on a normal 17 inch monitor.
                 if (int(inputRows) > 32):
                     inputRows = 32
-                # If the input is under 32, this portion will execute without changing the rows.
+                # Minimum bounds checking for rows
+                if (int(inputRows) < 2):
+                    inputRows = 2
+                # If the input is under 32 and above 2, this portion will execute without changing the rows.
                 # Set the gameBoard variable rows, within the Board class, to the user input, inputRows. 
                 # The inputRows must be converted to an int from a string so the Board class can use it.
                 gameBoard.rows = int(inputRows)
@@ -99,7 +102,10 @@ while not done:
                 # hopefully, fit on a normal 17 inch monitor.
                 if (int(inputCols) > 32):
                     inputCols = 32
-                # If the input is under 32, this portion will execute without changing the cols.
+                # Minimum bounds checking for columns
+                if (int(inputCols) < 2):
+                    inputCols = 2
+                # If the input is under 32 and above 2, this portion will execute without changing the cols.
                 # Set the gameBoard variable cols, within the Board class, to the user input, inputCols. 
                 # The inputCols must be converted to an int from a string so the Board class can use it.
                 gameBoard.columns = int(inputCols)
@@ -122,7 +128,10 @@ while not done:
                 # rows*cols-1. This limits the mines on the board so the user won't automatically lose.
                 if (int(inputMines) >= gameBoard.rows * gameBoard.columns):
                     inputMines = gameBoard.rows * gameBoard.columns - 1
-                # If the input is under rows*cols for the defined gameBoard size,
+                # Minimum bounds checking for mines
+                if (int(inputMines) < 1)
+                    inputMines = 1
+                # If the input is under rows*cols for the defined gameBoard size and above 1,
                 # this portion will execute without changing the mines.
                 # Set the gameBoard variable mines, within the Board class, to the user input, inputMines. 
                 # The inputMines must be converted to an int from a string so the Board class can use it.
