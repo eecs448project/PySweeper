@@ -11,8 +11,8 @@ import pygame as pg
 # It is convention in python to capitalize all class names.
 from board import Board 
 from cell import Cell
-from gui import GUI
-from inputbox import InputBox
+from gui import GUI, InputBox
+# from inputbox import InputBox
 
 # Imports the needed variables, capitalized due to being constants, from the constants.py file
 from constants import (CELLWIDTH, CELLHEIGHT,
@@ -143,8 +143,8 @@ while not done:
     # Using box, from the InputBox class, call the update definition on each element in the input_boxes array.
     # This will change the width if the user inputs something that doesn't fit in the box but,
     # as you may have noticed from the above boxes, a value too large will not be kept.
-    for box in input_boxes:
-        box.update()
+    # for box in input_boxes:
+    #     box.update()
 
     # Fills the screen with a single color, we chose black, every other element will be drawn ontop of this.
     screen.window.fill(COLOR['BLACK'])
