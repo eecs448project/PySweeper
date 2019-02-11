@@ -78,6 +78,7 @@ class GUI():
             elif event.button == 3:
                 self.board.flagCell(row, column)
 
+#Code Based on https://stackoverflow.com/questions/46390231/how-to-create-a-text-input-box-with-pygame/46390412
 class InputBox():
     def __init__(self, x, y, w, h, screen, maxValue=0, text=''):
         self.rect = pg.Rect(x, y, w, h)
