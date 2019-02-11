@@ -31,7 +31,7 @@ class Board():
         for row, col in locs[:self.mines]:
             self.grid[row][col].mine = True
             #test print
-            print("Mine added: ", row, col)
+            #print("Mine added: ", row, col)
 
         self.flagsPlaced = 0
         self.gameOver = False
