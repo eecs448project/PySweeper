@@ -129,7 +129,7 @@ while not done:
                 if (int(inputMines) >= gameBoard.rows * gameBoard.columns):
                     inputMines = gameBoard.rows * gameBoard.columns - 1
                 # Minimum bounds checking for mines
-                if (int(inputMines) < 1)
+                if (int(inputMines) < 1):
                     inputMines = 1
                 # If the input is under rows*cols for the defined gameBoard size and above 1,
                 # this portion will execute without changing the mines.
