@@ -12,14 +12,10 @@ class GUI():
             PARAMS need to be changed to (self, board). Board object
             will have all the sizes we need.
         """
-        #@todo: Generate dynamically based on uiElements
         self.font = pg.font.SysFont(None, 18)
         self.board = board
-        # Shouldn't Need toolbarOffset since we made a constant TOOLBARHEIGHT
-        #self.toolbarOffset = 50
         self.width = ((CELLWIDTH + MARGIN) * board.columns) + (BORDER * 2)
         self.height = ((CELLHEIGHT + MARGIN) * board.rows) + (BORDER * 3) + TOOLBARHEIGHT
-        #@todo: Set min/max values based on user input
         if self.width < 240:
             self.width = 240
         #print("Width: ", self.width, "Height: ", self.height)
@@ -96,7 +92,6 @@ class InputBox():
         if event.type == pg.MOUSEBUTTONDOWN:
             # If the user clicked on the input_box rect.
             if self.rect.collidepoint(event.pos):
-                # Toggle the active variable.
                 self.active = not self.active
             else:
                 self.active = False
@@ -112,16 +107,23 @@ class InputBox():
                     self.text = self.text[:-1]
                 else:
                     self.text += event.unicode
-                # Re-render the text.
                 self.txt_surface = self.font.render(self.text, True, COLOR['WHITE'])
 
-    # def update(self):
-    #     # Resize the box if the text is too long.
-    #     width = max(40, self.txt_surface.get_width()+10)
-    #     self.rect.w = width
+    def update(self, gui, board, field, value=0):
+        """ This updates the input fields and any game attribute associated
+            with that field.
+
+        """
+        if (value != None):
+            if (value.isnumeric()):
+                if (int(value) > 32):
+                    field = 32
+                setattr(board, field, int(value))
+                board.generateGrid()
+                gui = GUI(board)
+                self.text = str(getattr(board, field))
+                self.txt_surface = self.font.render(self.text, True, COLOR['WHITE'])
 
     def draw(self):
-        # Blit the text.
         self.screen.blit(self.txt_surface, (self.rect.x+5, self.rect.y+5))
-        # Blit the rect.
         pg.draw.rect(self.screen, self.color, self.rect, 1)

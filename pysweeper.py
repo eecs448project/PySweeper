@@ -60,91 +60,13 @@ while not done:
 
         # Sets input(Rows, Cols, or Mines) equal to input(Rows, Cols, or Mines)Box.handle_event with
         # rows passed in as a parameter.  handle_event is a definition within the Inputbox class (inputbox.py) 
+        #@todo:Jon This is 6 lines of code that should be 1 for loop. Refactor this laster.
         inputRows = inputRowBox.handle_event(event)
+        inputRowBox.update(screen, gameBoard, "rows", inputRows)
         inputCols = inputColumnBox.handle_event(event)
+        inputColumnBox.update(screen, gameBoard, "columns", inputCols)
         inputMines = inputMineBox.handle_event(event)
-
-        # Executes if the user puts input into the inputbox for Rows, inputRowBox.
-        if (inputRows != None):
-            # If the input the user puts into the inputRowBox, check if its a number. 
-            # If its not a number, nothing executes.
-            if (inputRows.isnumeric()):
-                # If the input is a number, convert it to an integer as its currently read in as as string.
-                # If the int is over 32, then change it to 32. This limits the size of the board to, 
-                # hopefully, fit on a normal 17 inch monitor.
-                if (int(inputRows) > 32):
-                    inputRows = 32
-                # If the input is under 32, this portion will execute without changing the rows.
-                # Set the gameBoard variable rows, within the Board class, to the user input, inputRows. 
-                # The inputRows must be converted to an int from a string so the Board class can use it.
-                gameBoard.rows = int(inputRows)
-                # Calls the generateGrid definition on the gameBoard, within Board class.
-                gameBoard.generateGrid()
-                # Creates a GUI object by passing in gameBoard, names the object screen.
-                screen = GUI(gameBoard)
-                # Creates a variable inputRowBox.text, that holds a string value of the varaible gameBoard.rows.
-                inputRowBox.text = str(gameBoard.rows)
-                # Renders font onto the surface of the screen in the inputRowBox.
-                # The font.render function takes parameters as such (the text to be displated, antialias, color of text)
-                inputRowBox.txt_surface = inputRowBox.font.render(inputRowBox.text, True, COLOR['WHITE'])
-
-        # Most of the code is the same as the above block for inputRowBox.
-        # Executes if the user puts input into the inputbox for cols, inputColumnBox.
-        if (inputCols != None):
-            # If the input the user puts into the inputColBox, check if its a number. 
-            # If its not a number, nothing executes.
-            if (inputCols.isnumeric()):
-                # If the input is a number, convert it to an integer as its currently read in as as string.
-                # If the int is over 32, then change it to 32. This limits the size of the board to, 
-                # hopefully, fit on a normal 17 inch monitor.
-                if (int(inputCols) > 32):
-                    inputCols = 32
-                # If the input is under 32, this portion will execute without changing the cols.
-                # Set the gameBoard variable cols, within the Board class, to the user input, inputCols. 
-                # The inputCols must be converted to an int from a string so the Board class can use it.
-                gameBoard.columns = int(inputCols)
-                # Calls the generateGrid definition on the gameBoard, within Board class.
-                gameBoard.generateGrid()
-                # Creates a GUI object by passing in gameBoard, names the object screen.
-                screen = GUI(gameBoard)
-                # Creates a variable inputColumnBox.text, that holds a string value of the varaible gameBoard.columns.
-                inputColumnBox.text = str(gameBoard.columns)
-                # Renders font onto the surface of the screen in the inputRowBox.
-                # The font.render function takes parameters as such (the text to be displated, antialias, color of text)
-                inputColumnBox.txt_surface = inputColumnBox.font.render(inputColumnBox.text, True, COLOR['WHITE'])
-
-
-        # Again, most of the code is the same as the above blocks for inputRowBox and inputColumnBox.
-        # Executes if the user puts input into the inputbox for mines, inputMineBox.
-        if (inputMines != None):
-            # If the input the user puts into the inputMineBox, check if its a number. 
-            # If its not a number, nothing executes.
-            if (inputMines.isnumeric()):
-                # If the input is a number, convert it to an integer as its currently read in as as string.
-                # If the int is over or ewual to rows*cols on the gameBaord, then change it to 
-                # rows*cols-1. This limits the mines on the board so the user won't automatically lose.
-                if (int(inputMines) >= gameBoard.rows * gameBoard.columns):
-                    inputMines = gameBoard.rows * gameBoard.columns - 1
-                # If the input is under rows*cols for the defined gameBoard size,
-                # this portion will execute without changing the mines.
-                # Set the gameBoard variable mines, within the Board class, to the user input, inputMines. 
-                # The inputMines must be converted to an int from a string so the Board class can use it.
-                gameBoard.mines = int(inputMines)
-                # Calls the generateGrid definition on the gameBoard, within Board class.
-                gameBoard.generateGrid()
-                # Creates a GUI object by passing in gameBoard, names the object screen.
-                screen = GUI(gameBoard)
-                # Creates a variable inputMineBox.text, that holds a string value of the varaible gameBoard.mines.
-                inputMineBox.text = str(gameBoard.mines)
-                 # Renders font onto the surface of the screen in the inputMineBox.
-                # The font.render function takes parameters as such (the text to be displated, antialias, color of text)
-                inputMineBox.txt_surface = inputMineBox.font.render(inputMineBox.text, True, COLOR['WHITE'])
-
-    # Using box, from the InputBox class, call the update definition on each element in the input_boxes array.
-    # This will change the width if the user inputs something that doesn't fit in the box but,
-    # as you may have noticed from the above boxes, a value too large will not be kept.
-    # for box in input_boxes:
-    #     box.update()
+        inputMineBox.update(screen, gameBoard, "mines", inputMines)
 
     # Fills the screen with a single color, we chose black, every other element will be drawn ontop of this.
     screen.window.fill(COLOR['BLACK'])
