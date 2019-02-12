@@ -10,8 +10,8 @@ class Board():
         self.mines = mines
         self.flagsPlaced = 0
         self.generateGrid()
-        self.gameOver = False
-        pass
+        self.gameOverWin = False
+        self.gameOverLoss = False
 
     def generateGrid(self):
         """ Generate grid
@@ -100,7 +100,7 @@ class Board():
     def gameOverLoss(self):
         """Reveals all mines and displays a game over message
         """
-        self.gameOver = True
+        self.gameOverLoss = True
         for row in range(self.rows):
             for col in range(self.columns):
                 self.grid[row][col].revealed = True
@@ -111,7 +111,7 @@ class Board():
     def gameOverWin(self):
         """Reveals all nonmine cells and displays a win message
         """
-        self.gameOver = True
+        self.gameOverWin = True
         for row in range(self.rows):
             for col in range(self.columns):
                 if (not self.grid[row][col].flagged):
