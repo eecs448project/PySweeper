@@ -59,7 +59,13 @@ class GUI():
     def uiElement(self, rectX, rectY, rectW, rectH, borderWidth, type="None", label="None"):
         """ Handles creation of all UI elements except board.
         """
-        if type == "None" or type == "input":
+        if rectH == TOOLBARHEIGHT and borderWidth == 0:
+            uiElement = pg.Rect([rectX, rectY, rectW, rectH])
+            pg.draw.rect(self.window, COLOR['BLACK'], uiElement, borderWidth)
+        elif label == "GAME OVER":
+            text = self.font.render(label, True, COLOR['WHITE'])
+            self.window.blit(text, (rectX, rectY))
+        elif type == "None" or type == "input":
             uiElement = pg.Rect([rectX, rectY, rectW, rectH])
             pg.draw.rect(self.window, COLOR['WHITE'], uiElement, borderWidth)
         elif type == "text" or type == "input":

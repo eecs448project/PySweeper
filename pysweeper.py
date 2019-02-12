@@ -28,9 +28,9 @@ clock = pg.time.Clock()
 
 # Initialize screen/windows
 #@todo: Start the GUI here
-# Defines a Board() object called gameBoard.
+
 gameBoard = Board()
-# Defines a GUI object with parameter gameBoard called screen.
+
 screen = GUI(gameBoard)
 
 # Defines inputBoxes that display on the screen, one each for row, column, and mines.
@@ -106,6 +106,9 @@ while not done:
     screen.uiElement(BORDER + 6, BORDER + 33, 0, 0, 0, "text", "Columns:")
     screen.uiElement(BORDER + 120, BORDER + 8, 0, 0, 0, "text", "Mines:")
     screen.uiElement(BORDER + 120, BORDER + 33, 0, 0, 0, "text", "Flags:    " + str(gameBoard.mines - gameBoard.flagsPlaced))
+    if(gameBoard.gameOver == True):
+        screen.uiElement(BORDER, BORDER, screen.width - (BORDER * 2), TOOLBARHEIGHT, 0)
+        screen.uiElement(BORDER + 75, BORDER + 20, 0, 0, 0, "text", "GAME OVER")
     # Call the drawBoard definition on screen.
     screen.drawBoard()
 
