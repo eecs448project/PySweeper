@@ -106,7 +106,7 @@ while not done:
     screen.uiElement(BORDER + 6, BORDER + 33, 0, 0, 0, "text", "Columns:")
     screen.uiElement(BORDER + 120, BORDER + 8, 0, 0, 0, "text", "Mines:")
     screen.uiElement(BORDER + 120, BORDER + 33, 0, 0, 0, "text", "Flags:    " + str(gameBoard.mines - gameBoard.flagsPlaced))
-    if(gameBoard.gameOver == True):
+    if gameBoard.gameOverLose == True or gameBoard.gameOverWin == True:
         screen.uiElement(BORDER, BORDER, screen.width - (BORDER * 2), TOOLBARHEIGHT, 0)
         screen.uiElement(BORDER + 75, BORDER + 20, 0, 0, 0, "text", "GAME OVER")
     # Call the drawBoard definition on screen.

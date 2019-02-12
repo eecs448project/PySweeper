@@ -11,7 +11,7 @@ class Board():
         self.flagsPlaced = 0
         self.generateGrid()
         self.gameOverWin = False
-        self.gameOverLoss = False
+        self.gameOverLose = False
 
     def generateGrid(self):
         """ Generate grid
@@ -39,7 +39,7 @@ class Board():
     def revealCell(self, row, col):
         """Reveals the seleted cell and recursively reaveals nearby cells if no mines are nearby the selected cell
         """
-        if (not self.gameOver):
+        if (not self.gameOverLose or self.gameOverWin):
             if(row >= 0 and row < self.rows and col >= 0 and col < self.columns):
                 if(not self.grid[row][col].revealed):
 
@@ -76,7 +76,7 @@ class Board():
     def flagCell(self, row, col):
         """Flags the selected Cell as a potential mines
         """
-        if (not self.gameOver):
+        if (not self.gameOverLose or self.gameOverWin):
             if(row >= 0 and row < self.rows and col >= 0 and col < self.columns):
                 if(not self.grid[row][col].revealed):
                     if (self.grid[row][col].flagged):
@@ -100,7 +100,7 @@ class Board():
     def gameOverLoss(self):
         """Reveals all mines and displays a game over message
         """
-        self.gameOverLoss = True
+        self.gameOverLose = True
         for row in range(self.rows):
             for col in range(self.columns):
                 self.grid[row][col].revealed = True
