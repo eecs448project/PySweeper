@@ -33,6 +33,8 @@ gameBoard = Board()
 
 screen = GUI(gameBoard)
 
+pg.display.set_caption("Minesweeper")
+
 # Defines inputBoxes that display on the screen, one each for row, column, and mines.
 # InputBox takes parameters as such InputBox(x position, y position, length of box, width of box,
 #  surface to display onto, text to take from user input converted to a string from an int)
@@ -40,7 +42,7 @@ inputRowBox = InputBox(BORDER + 66, BORDER + 3, 40, 20, screen.window, 32, 2,  s
 inputColumnBox = InputBox(BORDER + 66, BORDER + 27, 40, 20, screen.window, 32, 2, str(gameBoard.columns))
 inputMineBox = InputBox(BORDER + 163, BORDER + 3, 40, 20, screen.window, 10, 1, str(gameBoard.mines))
 
-inputQuitButton = InputButton(BORDER + 60, BORDER + 30, 40, 20, screen.window, "QUIT")
+inputQuitButton = InputButton(BORDER + 60, BORDER + 30, 40, 20, screen.window, "Quit")
 inputRestartButton = InputButton(BORDER + 110, BORDER + 30, 55, 20, screen.window, "Restart")
 
 # Places the inputRowBox, inputColumnBox, and inputMineBox into an array called input_boxes.
@@ -127,7 +129,7 @@ while not done:
             done = True
         if inputRestartButton.active == True:
             inputRestartButton.restart(screen, gameBoard)
-            
+
         #Draw Play Again box Here ---HINT: in event handler code, check if click collides with play again, then call gameBoard.generateGrid()
 
     # Call the drawBoard definition on screen.
