@@ -125,6 +125,9 @@ while not done:
             button.draw()
         if inputQuitButton.active == True:
             done = True
+        if inputRestartButton.active == True:
+            inputRestartButton.restart(screen, gameBoard)
+            
         #Draw Play Again box Here ---HINT: in event handler code, check if click collides with play again, then call gameBoard.generateGrid()
 
     # Call the drawBoard definition on screen.

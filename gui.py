@@ -117,3 +117,8 @@ class InputBox():
 class InputButton(InputBox):
     def __init__(self, x, y, w, h, screen, text):
         super().__init__(x, y, w, h, screen, 0, 0, text)
+
+    def restart(self, gui, board):
+        self.active = False
+        board.generateGrid()
+        gui = GUI(board)
