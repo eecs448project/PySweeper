@@ -11,7 +11,7 @@ import pygame as pg
 # It is convention in python to capitalize all class names.
 from board import Board 
 from cell import Cell
-from gui import GUI, InputBox
+from gui import GUI, InputBox, InputButton
 # from inputbox import InputBox
 
 # Imports the needed variables, capitalized due to being constants, from the constants.py file
@@ -40,8 +40,12 @@ inputRowBox = InputBox(BORDER + 66, BORDER + 3, 40, 20, screen.window, 32, 2,  s
 inputColumnBox = InputBox(BORDER + 66, BORDER + 27, 40, 20, screen.window, 32, 2, str(gameBoard.columns))
 inputMineBox = InputBox(BORDER + 163, BORDER + 3, 40, 20, screen.window, 10, 1, str(gameBoard.mines))
 
+inputQuitButton = InputButton(BORDER + 60, BORDER + 30, 40, 20, screen.window, "QUIT")
+inputRestartButton = InputButton(BORDER + 110, BORDER + 30, 55, 20, screen.window, "Restart")
+
 # Places the inputRowBox, inputColumnBox, and inputMineBox into an array called input_boxes.
 input_boxes = [inputRowBox, inputColumnBox, inputMineBox]
+input_buttons = [inputQuitButton, inputRestartButton]
 
 # Defines a boolean value done that is used to control the main game loop.
 done = False
@@ -60,6 +64,10 @@ while not done:
             # Handle input boxes here.
             # Users can only left click input boxes. Restricting to button 1.
             if event.button == 1:
+                for button in input_buttons:
+                    if button.rect.collidepoint(event.pos):
+                       button.active = not button.active
+                    
                 for box in input_boxes:
                     # If the user clicked on the input box, toggle state.
                     if box.rect.collidepoint(event.pos):
@@ -112,6 +120,11 @@ while not done:
             screen.uiElement(BORDER + 85, BORDER + 10, 0, 0, 0, "text", "WINNER!")
         else:
             screen.uiElement(BORDER + 75, BORDER + 10, 0, 0, 0, "text", "GAME OVER")
+             
+        for button in input_buttons:
+            button.draw()
+        if inputQuitButton.active == True:
+            done = True
         #Draw Play Again box Here ---HINT: in event handler code, check if click collides with play again, then call gameBoard.generateGrid()
 
     # Call the drawBoard definition on screen.

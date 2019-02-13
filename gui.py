@@ -48,10 +48,8 @@ class GUI():
                         self.window.blit(text, (cellX + CELLWIDTH // 3, cellY + CELLHEIGHT // 4))
                 
                 if cellColor == COLOR['RED']:
-                    trumpImg = pg.image.load("trump.png")
-                    self.window.blit(trumpImg,(cellX,cellY))
-                    #mineImage = pg.image.load("mine.png")
-                    #self.window.blit(mineImage,(cellX,cellY))
+                    mineImage = pg.image.load("mine.png")
+                    self.window.blit(mineImage,(cellX,cellY))
                 if cellColor == COLOR['GREEN']:
                     flagImg = pg.image.load("flag.png")
                     self.window.blit(flagImg,(cellX,cellY))
@@ -71,6 +69,7 @@ class GUI():
         elif type == "text" or type == "input":
             text = self.font.render(label, True, COLOR['WHITE'])
             self.window.blit(text, (rectX, rectY))
+
 
     def mouseClick(self, event):
         """ Handles any mouse event inside the window.
@@ -97,21 +96,24 @@ class InputBox():
         self.maxValue = maxValue
         self.minValue = minValue
 
-    def update(self, gui, board, field, value):
+    def update(self, gui, board, field, value=0):
         """ This updates the input fields and any game attribute associated
             with that field.
         """
-        if (value.isnumeric()):
-            if (int(value) > self.maxValue):
-                value = self.maxValue
-            if (int(value) < self.minValue):
-                value = self.minValue
-            setattr(board, field, int(value))
-            board.generateGrid()
-            gui = GUI(board)
-            self.text = str(getattr(board, field))
-            self.txt_surface = self.font.render(self.text, True, COLOR['WHITE'])
+        if (int(value) > self.maxValue):
+            value = self.maxValue
+        if (int(value) < self.minValue):
+            value = self.minValue
+        setattr(board, field, int(value))
+        board.generateGrid()
+        gui = GUI(board)
+        self.text = str(getattr(board, field))
+        self.txt_surface = self.font.render(self.text, True, COLOR['WHITE'])
 
     def draw(self):
         self.screen.blit(self.txt_surface, (self.rect.x+5, self.rect.y+5))
         pg.draw.rect(self.screen, self.color, self.rect, 1)
+
+class InputButton(InputBox):
+    def __init__(self, x, y, w, h, screen, text):
+        super().__init__(x, y, w, h, screen, 0, 0, text)
