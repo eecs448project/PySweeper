@@ -106,9 +106,14 @@ while not done:
     screen.uiElement(BORDER + 6, BORDER + 33, 0, 0, 0, "text", "Columns:")
     screen.uiElement(BORDER + 120, BORDER + 8, 0, 0, 0, "text", "Mines:")
     screen.uiElement(BORDER + 120, BORDER + 33, 0, 0, 0, "text", "Flags:    " + str(gameBoard.mines - gameBoard.flagsPlaced))
-    if gameBoard.gameOverLose == True or gameBoard.gameOverWin == True:
+    if gameBoard.gameOver:
         screen.uiElement(BORDER, BORDER, screen.width - (BORDER * 2), TOOLBARHEIGHT, 0)
-        screen.uiElement(BORDER + 75, BORDER + 20, 0, 0, 0, "text", "GAME OVER")
+        if gameBoard.wonGame:
+            screen.uiElement(BORDER + 85, BORDER + 10, 0, 0, 0, "text", "WINNER!")
+        else:
+            screen.uiElement(BORDER + 75, BORDER + 10, 0, 0, 0, "text", "GAME OVER")
+        #Draw Play Again box Here ---HINT: in event handler code, check if click collides with play again, then call gameBoard.generateGrid()
+
     # Call the drawBoard definition on screen.
     screen.drawBoard()
 

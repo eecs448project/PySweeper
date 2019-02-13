@@ -10,8 +10,8 @@ class Board():
         self.mines = mines
         self.flagsPlaced = 0
         self.generateGrid()
-        self.gameOverWin = False
-        self.gameOverLose = False
+        self.gameOver = False
+        self.wonGame = False
 
     def generateGrid(self):
         """ Generate grid
@@ -35,11 +35,12 @@ class Board():
 
         self.flagsPlaced = 0
         self.gameOver = False
+        self.wonGame = False
 
     def revealCell(self, row, col):
         """Reveals the seleted cell and recursively reaveals nearby cells if no mines are nearby the selected cell
         """
-        if (not self.gameOverLose or self.gameOverWin):
+        if (not self.gameOver):
             if(row >= 0 and row < self.rows and col >= 0 and col < self.columns):
                 if(not self.grid[row][col].revealed):
 
@@ -76,7 +77,7 @@ class Board():
     def flagCell(self, row, col):
         """Flags the selected Cell as a potential mines
         """
-        if (not self.gameOverLose or self.gameOverWin):
+        if (not self.gameOver):
             if(row >= 0 and row < self.rows and col >= 0 and col < self.columns):
                 if(not self.grid[row][col].revealed):
                     if (self.grid[row][col].flagged):
@@ -87,6 +88,7 @@ class Board():
                         self.flagsPlaced += 1
                         #check if the player has won the game
                         if (self.flagsPlaced == self.mines):
+                            #this is a local variable, not the member variable of the same name
                             wonGame = True
                             for row in range(self.rows):
                                 for col in range(self.columns):
@@ -100,7 +102,7 @@ class Board():
     def gameOverLoss(self):
         """Reveals all mines and displays a game over message
         """
-        self.gameOverLose = True
+        self.gameOver = True
         for row in range(self.rows):
             for col in range(self.columns):
                 self.grid[row][col].revealed = True
@@ -111,7 +113,8 @@ class Board():
     def gameOverWin(self):
         """Reveals all nonmine cells and displays a win message
         """
-        self.gameOverWin = True
+        self.gameOver = True
+        self.wonGame = True
         for row in range(self.rows):
             for col in range(self.columns):
                 if (not self.grid[row][col].flagged):

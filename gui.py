@@ -97,19 +97,20 @@ class InputBox():
         self.maxValue = maxValue
         self.minValue = minValue
 
-    def update(self, gui, board, field, value=0):
+    def update(self, gui, board, field, value):
         """ This updates the input fields and any game attribute associated
             with that field.
         """
-        if (int(value) > self.maxValue):
-            value = self.maxValue
-        if (int(value) < self.minValue):
-            value = self.minValue
-        setattr(board, field, int(value))
-        board.generateGrid()
-        gui = GUI(board)
-        self.text = str(getattr(board, field))
-        self.txt_surface = self.font.render(self.text, True, COLOR['WHITE'])
+        if (value.isnumeric()):
+            if (int(value) > self.maxValue):
+                value = self.maxValue
+            if (int(value) < self.minValue):
+                value = self.minValue
+            setattr(board, field, int(value))
+            board.generateGrid()
+            gui = GUI(board)
+            self.text = str(getattr(board, field))
+            self.txt_surface = self.font.render(self.text, True, COLOR['WHITE'])
 
     def draw(self):
         self.screen.blit(self.txt_surface, (self.rect.x+5, self.rect.y+5))
