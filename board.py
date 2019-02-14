@@ -1,7 +1,7 @@
 from cell import Cell
 import random
 class Board():
-    def __init__(self, rows=10, columns=10, mines=10):
+    def __init__(self, rows=12, columns=12, mines=10):
         """ Constructor for Board.
             What parameters do we want here?
         """

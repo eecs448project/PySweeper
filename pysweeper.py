@@ -41,13 +41,13 @@ pg.display.set_caption("Minesweeper")
 inputRowBox = InputBox(BORDER + 66, BORDER + 3, 40, 20, screen, 32, 2,  str(gameBoard.rows))
 inputColumnBox = InputBox(BORDER + 66, BORDER + 27, 40, 20, screen, 32, 2, str(gameBoard.columns))
 inputMineBox = InputBox(BORDER + 153, BORDER + 3, 40, 20, screen, 10, 1, str(gameBoard.mines))
+inputHelpBox = InputButton(BORDER + 170, BORDER + 27, 40, 20, screen, "Help")
 
 inputQuitButton = InputButton(BORDER + 60, BORDER + 30, 40, 20, screen, "Quit")
 inputRestartButton = InputButton(BORDER + 110, BORDER + 30, 55, 20, screen, "Restart")
-inputHelpButton = InputButton(BORDER + 170, BORDER + 27, 40, 20, screen, "Help")
 
 # Places the inputRowBox, inputColumnBox, and inputMineBox into an array called input_boxes.
-input_boxes = [inputRowBox, inputColumnBox, inputMineBox]
+input_boxes = [inputRowBox, inputColumnBox, inputMineBox, inputHelpBox]
 input_buttons = [inputQuitButton, inputRestartButton]
 
 # Defines a boolean value done that is used to control the main game loop.
@@ -75,7 +75,6 @@ while not done:
                     for box in input_boxes:
                         # If the user clicked on the input box, toggle state.
                         if box.rect.collidepoint(event.pos):
-                            print("Clicked")
                             box.active = not box.active
                         else:
                             box.active = False
@@ -119,8 +118,6 @@ while not done:
     screen.uiElement(BORDER + 6, BORDER + 33, 0, 0, 0, "text", "Columns:")
     screen.uiElement(BORDER + 110, BORDER + 8, 0, 0, 0, "text", "Mines:")
     screen.uiElement(BORDER + 110, BORDER + 33, 0, 0, 0, "text", "Flags: " + str(gameBoard.mines - gameBoard.flagsPlaced))
-
-    inputHelpButton.draw()
 
     if gameBoard.gameOver:
         screen.uiElement(BORDER, BORDER, screen.width - (BORDER * 2), TOOLBARHEIGHT, 0)

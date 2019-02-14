@@ -19,8 +19,8 @@ class GUI():
                       (BORDER * 2)
         self.height = ((CELLHEIGHT + MARGIN) * board.rows) + \
                       (BORDER * 3) + TOOLBARHEIGHT
-        if self.width < 240:
-            self.width = 240
+        if self.width < 284:
+            self.width = 284
         self.window = pg.display.set_mode((self.width, self.height))
 
     def drawBoard(self):
