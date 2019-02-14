@@ -15,29 +15,34 @@ class GUI():
         """
         self.font = pg.font.SysFont(None, 18)
         self.board = board
-        self.width = ((CELLWIDTH + MARGIN) * board.columns) + (BORDER * 2)
-        self.height = ((CELLHEIGHT + MARGIN) * board.rows) + (BORDER * 3) + TOOLBARHEIGHT
+        self.width = ((CELLWIDTH + MARGIN) * board.columns) + \
+                      (BORDER * 2)
+        self.height = ((CELLHEIGHT + MARGIN) * board.rows) + \
+                      (BORDER * 3) + TOOLBARHEIGHT
         if self.width < 240:
             self.width = 240
-        #print("Width: ", self.width, "Height: ", self.height)
         self.window = pg.display.set_mode((self.width, self.height))
 
     def drawBoard(self):
+        """ drawBoard() draws the board given to it on initialization.
+            The self.board is always the current board. Iterate over
+            each cell object in the box and space according to DEFAULTS
+        """
         for row in range(self.board.rows):
             for col in range(self.board.columns):
+                # Calucate the x-offset for each box.
                 cellX = ((MARGIN + CELLWIDTH) * col + MARGIN) + BORDER
-                cellY = ((MARGIN + CELLHEIGHT) * row + MARGIN) + (BORDER * 2) + TOOLBARHEIGHT
+                # Calculate the y-offset for each box.
+                cellY = ((MARGIN + CELLHEIGHT) * row + MARGIN) \
+                        + (BORDER * 2) \
+                        + TOOLBARHEIGHT # Toolbar offset from the top of window
                 cellColor = COLOR['WHITE']
                 if self.board.grid[row][col].revealed:
                     cellColor = COLOR['GRAY']
                     if self.board.grid[row][col].mine:
                         cellColor = COLOR['RED']
-                        #mineImage = pg.image.load("mine.png")
-                        #self.window.blit(mineImage,(((MARGIN + CELLWIDTH) * col + MARGIN) + BORDER, ((MARGIN + CELLHEIGHT) * row + MARGIN) + (BORDER * 2) + TOOLBARHEIGHT))
                 elif self.board.grid[row][col].flagged:
                     cellColor = COLOR['GREEN']
-                #cellX = ((MARGIN + CELLWIDTH) * col + MARGIN) + BORDER
-                #cellY = ((MARGIN + CELLHEIGHT) * row + MARGIN) + (BORDER * 2) + TOOLBARHEIGHT
                 cell = pg.Rect([cellX, cellY, CELLWIDTH, CELLHEIGHT])
                 pg.draw.rect(self.window, cellColor, cell)
 
@@ -45,8 +50,13 @@ class GUI():
                 if cellColor == COLOR['GRAY']:
                     nearbyMines = self.board.countNearbyMines(row, col)
                     if (nearbyMines > 0):
-                        text = self.font.render(str(nearbyMines), True, COLOR['BLACK'])
-                        self.window.blit(text, (cellX + CELLWIDTH // 3, cellY + CELLHEIGHT // 4))
+                        text = self.font.render(str(nearbyMines), \
+                                                True, \
+                                                COLOR['BLACK'])
+                        # Need offsets in x,y to prevent text being centered
+                        #+on 0,0.
+                        self.window.blit(text, (cellX + CELLWIDTH // 3, \
+                                                cellY + CELLHEIGHT // 4))
 
                 if cellColor == COLOR['RED']:
                     mineImage = pg.image.load("resources/trump.png")
@@ -55,7 +65,8 @@ class GUI():
                     flagImg = pg.image.load("resources/flag.png")
                     self.window.blit(flagImg,(cellX,cellY))
 
-    def uiElement(self, rectX, rectY, rectW, rectH, borderWidth, type="None", label="None"):
+    def uiElement(self, rectX, rectY, rectW, rectH, \
+                  borderWidth, type="None", label="None"):
         """ Handles creation of all UI elements except board.
         """
         if rectH == TOOLBARHEIGHT and borderWidth == 0:
@@ -75,10 +86,11 @@ class GUI():
     def mouseClick(self, event):
         """ Handles any mouse event inside the window.
         """
-        if True:
             mousePosition = pg.mouse.get_pos()
-            column = (mousePosition[0] - BORDER) // (CELLWIDTH + MARGIN)
-            row = (mousePosition[1] - (BORDER * 2) - TOOLBARHEIGHT) // (CELLHEIGHT + MARGIN)
+            column = (mousePosition[0] - \
+                      BORDER) // (CELLWIDTH + MARGIN)
+            row =    (mousePosition[1] - \
+                     (BORDER * 2) - TOOLBARHEIGHT) // (CELLHEIGHT + MARGIN)
             if event.button == 1:
                 self.board.revealCell(row, column)
             elif event.button == 3:
