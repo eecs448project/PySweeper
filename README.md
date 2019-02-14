@@ -26,6 +26,7 @@
 - [ ] Add comments to code (In progress, Jeff but anyone can add on/edit)
 - [ ] Pydoc
 - [ ] Retrospective write up (In progess, Jeff)
+- [ ] Make revealing all squares not mines a win, don't have to flag them
 
 Ignore but document
 - [ ] Flags disappear when revealing spaces if the flag is not a mine, need to make the flags static             regardless of position on the board when revealing spaces 
