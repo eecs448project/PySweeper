@@ -1,4 +1,5 @@
 import pygame as pg
+import os
 from constants import (CELLWIDTH, CELLHEIGHT,
                       MARGIN, BORDER, COLOR, TOOLBARHEIGHT)
 class GUI():
@@ -46,12 +47,12 @@ class GUI():
                     if (nearbyMines > 0):
                         text = self.font.render(str(nearbyMines), True, COLOR['BLACK'])
                         self.window.blit(text, (cellX + CELLWIDTH // 3, cellY + CELLHEIGHT // 4))
-                
+
                 if cellColor == COLOR['RED']:
-                    mineImage = pg.image.load("trump.png")
+                    mineImage = pg.image.load("resources/trump.png")
                     self.window.blit(mineImage,(cellX,cellY))
                 if cellColor == COLOR['GREEN']:
-                    flagImg = pg.image.load("flag.png")
+                    flagImg = pg.image.load("resources/flag.png")
                     self.window.blit(flagImg,(cellX,cellY))
 
     def uiElement(self, rectX, rectY, rectW, rectH, borderWidth, type="None", label="None"):
@@ -122,4 +123,3 @@ class InputButton(InputBox):
         self.active = False
         board.generateGrid()
         gui = GUI(board)
-    
