@@ -43,7 +43,6 @@ class Board():
         if (not self.gameOver):
             if(row >= 0 and row < self.rows and col >= 0 and col < self.columns):
                 if(not self.grid[row][col].revealed):
-
                     self.grid[row][col].revealed = True
 
                     if (self.grid[row][col].flagged):
@@ -59,7 +58,7 @@ class Board():
                     elif(self.countNearbyMines(row, col) == 0):
                         for x in range(-1, 2):
                             for y in range(-1, 2):
-                                self.revealCell(row + x, col + y)
+                                    self.revealCell(row + x, col + y)
 
     def countNearbyMines(self, row, col):
         """Counts how many mines are adjacent to the specified cell

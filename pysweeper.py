@@ -38,8 +38,8 @@ pg.display.set_caption("Minesweeper")
 # Defines inputBoxes that display on the screen, one each for row, column, and mines.
 # InputBox takes parameters as such InputBox(x position, y position, length of box, width of box,
 #  surface to display onto, text to take from user input converted to a string from an int)
-inputRowBox = InputBox(BORDER + 66, BORDER + 3, 40, 20, screen, 32, 2,  str(gameBoard.rows))
-inputColumnBox = InputBox(BORDER + 66, BORDER + 27, 40, 20, screen, 32, 2, str(gameBoard.columns))
+inputRowBox = InputBox(BORDER + 66, BORDER + 3, 40, 20, screen, 30, 2,  str(gameBoard.rows))
+inputColumnBox = InputBox(BORDER + 66, BORDER + 27, 40, 20, screen, 30, 2, str(gameBoard.columns))
 inputMineBox = InputBox(BORDER + 163, BORDER + 3, 40, 20, screen, 10, 1, str(gameBoard.mines))
 inputHelpBox = InputButton(BORDER + 218, BORDER + 15, 40, 20, screen, "Help")
 
@@ -85,7 +85,6 @@ while not done:
             for box in input_boxes:
                 if box.active:
                     if event.key == pg.K_RETURN:
-                        print(box.active)
                         box.active = not box.active
                         box.color = COLOR['WHITE']
                         # Only call update one per user hitting enter.
@@ -99,7 +98,6 @@ while not done:
                         box.text = box.text[:-1]
                     else:
                         if len(box.text) < 4:
-                            print("Length < 4")
                             box.text += event.unicode
                     box.txt_surface = box.font.render(box.text, True, COLOR['WHITE'])
 
