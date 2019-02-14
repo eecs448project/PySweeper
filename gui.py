@@ -86,15 +86,15 @@ class GUI():
     def mouseClick(self, event):
         """ Handles any mouse event inside the window.
         """
-            mousePosition = pg.mouse.get_pos()
-            column = (mousePosition[0] - \
-                      BORDER) // (CELLWIDTH + MARGIN)
-            row =    (mousePosition[1] - \
-                     (BORDER * 2) - TOOLBARHEIGHT) // (CELLHEIGHT + MARGIN)
-            if event.button == 1:
-                self.board.revealCell(row, column)
-            elif event.button == 3:
-                self.board.flagCell(row, column)
+        mousePosition = pg.mouse.get_pos()
+        column = (mousePosition[0] - BORDER) // \
+                 (CELLWIDTH + MARGIN)
+        row = (mousePosition[1] - (BORDER * 2) - TOOLBARHEIGHT) // \
+              (CELLHEIGHT + MARGIN)
+        if event.button == 1:
+            self.board.revealCell(row, column)
+        elif event.button == 3:
+            self.board.flagCell(row, column)
 
 #Code Based on https://stackoverflow.com/questions/46390231/how-to-create-a-text-input-box-with-pygame/46390412
 class InputBox():
