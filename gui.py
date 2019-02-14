@@ -123,6 +123,9 @@ class InputBox():
             gui = GUI(board)
             self.text = str(getattr(board, field))
             self.txt_surface = self.font.render(self.text, True, COLOR['WHITE'])
+        else:
+            self.text = str(getattr(board, field))
+            self.txt_surface = self.font.render(self.text, True, COLOR['WHITE'])
 
     def draw(self):
         self.screen.window.blit(self.txt_surface, (self.rect.x+5, self.rect.y+5))
