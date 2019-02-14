@@ -40,8 +40,8 @@ pg.display.set_caption("Minesweeper")
 #  surface to display onto, text to take from user input converted to a string from an int)
 inputRowBox = InputBox(BORDER + 66, BORDER + 3, 40, 20, screen, 32, 2,  str(gameBoard.rows))
 inputColumnBox = InputBox(BORDER + 66, BORDER + 27, 40, 20, screen, 32, 2, str(gameBoard.columns))
-inputMineBox = InputBox(BORDER + 153, BORDER + 3, 40, 20, screen, 10, 1, str(gameBoard.mines))
-inputHelpBox = InputButton(BORDER + 170, BORDER + 27, 40, 20, screen, "Help")
+inputMineBox = InputBox(BORDER + 163, BORDER + 3, 40, 20, screen, 10, 1, str(gameBoard.mines))
+inputHelpBox = InputButton(BORDER + 218, BORDER + 15, 40, 20, screen, "Help")
 
 inputQuitButton = InputButton(BORDER + 60, BORDER + 30, 40, 20, screen, "Quit")
 inputRestartButton = InputButton(BORDER + 110, BORDER + 30, 55, 20, screen, "Restart")
@@ -66,7 +66,7 @@ while not done:
             screen.mouseClick(event)
             # Handle input boxes here.
             # Users can only left click input boxes. Restricting to button 1.
-            if event.button == 1:
+            if event.button == 1 or 3:
                 if gameBoard.gameOver:
                     for button in input_buttons:
                         if button.rect.collidepoint(event.pos):
@@ -116,8 +116,16 @@ while not done:
     screen.uiElement(BORDER, BORDER, screen.width - (BORDER * 2), TOOLBARHEIGHT, 1)
     screen.uiElement(BORDER + 6, BORDER + 8, 0, 0, 0, "text", "Rows:")
     screen.uiElement(BORDER + 6, BORDER + 33, 0, 0, 0, "text", "Columns:")
-    screen.uiElement(BORDER + 110, BORDER + 8, 0, 0, 0, "text", "Mines:")
-    screen.uiElement(BORDER + 110, BORDER + 33, 0, 0, 0, "text", "Flags: " + str(gameBoard.mines - gameBoard.flagsPlaced))
+    screen.uiElement(BORDER + 120, BORDER + 8, 0, 0, 0, "text", "Mines:")
+    screen.uiElement(BORDER + 120, BORDER + 33, 0, 0, 0, "text", "Flags:    " + str(gameBoard.mines - gameBoard.flagsPlaced))
+
+    if inputHelpBox.active:
+        screen.uiElement(BORDER, BORDER, screen.width - (BORDER * 2), TOOLBARHEIGHT, 0)
+        screen.uiElement(BORDER + 6, BORDER + 5, 0, 0, 0, "text", "Left click to reveal space.")
+        screen.uiElement(BORDER + 6, BORDER + 22, 0, 0, 0, "text", "Right click to flag space.")
+        screen.uiElement(BORDER + 6, BORDER + 40, 0, 0, 0, "text", "Flag all mines to win game.")
+
+        inputHelpBox.draw()
 
     if gameBoard.gameOver:
         screen.uiElement(BORDER, BORDER, screen.width - (BORDER * 2), TOOLBARHEIGHT, 0)
