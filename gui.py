@@ -48,7 +48,7 @@ class GUI():
                         self.window.blit(text, (cellX + CELLWIDTH // 3, cellY + CELLHEIGHT // 4))
                 
                 if cellColor == COLOR['RED']:
-                    mineImage = pg.image.load("mine.png")
+                    mineImage = pg.image.load("trump.png")
                     self.window.blit(mineImage,(cellX,cellY))
                 if cellColor == COLOR['GREEN']:
                     flagImg = pg.image.load("flag.png")
@@ -87,11 +87,11 @@ class GUI():
 class InputBox():
     def __init__(self, x, y, w, h, screen, maxValue=0, minValue=0, text=''):
         self.rect = pg.Rect(x, y, w, h)
-        self.screen = screen
         self.color = COLOR['WHITE']
+        self.screen = screen
         self.text = text
-        self.font = pg.font.SysFont(None, 18)
-        self.txt_surface = self.font.render(text, True, self.color)
+        self.font = screen.font
+        self.txt_surface = screen.font.render(text, True, self.color)
         self.active = False
         self.maxValue = maxValue
         self.minValue = minValue
@@ -111,8 +111,8 @@ class InputBox():
         self.txt_surface = self.font.render(self.text, True, COLOR['WHITE'])
 
     def draw(self):
-        self.screen.blit(self.txt_surface, (self.rect.x+5, self.rect.y+5))
-        pg.draw.rect(self.screen, self.color, self.rect, 1)
+        self.screen.window.blit(self.txt_surface, (self.rect.x+5, self.rect.y+5))
+        pg.draw.rect(self.screen.window, self.color, self.rect, 1)
 
 class InputButton(InputBox):
     def __init__(self, x, y, w, h, screen, text):
