@@ -122,3 +122,4 @@ class InputButton(InputBox):
         self.active = False
         board.generateGrid()
         gui = GUI(board)
+    

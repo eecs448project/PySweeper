@@ -61,8 +61,6 @@ class Board():
                             for y in range(-1, 2):
                                 self.revealCell(row + x, col + y)
 
-        pass
-
     def countNearbyMines(self, row, col):
         """Counts how many mines are adjacent to the specified cell
         """
@@ -97,7 +95,6 @@ class Board():
                             if (wonGame):
                                 self.gameOverWin()
 
-        pass
 
     def gameOverLoss(self):
         """Reveals all mines and displays a game over message
@@ -108,7 +105,6 @@ class Board():
                 self.grid[row][col].revealed = True
                 self.grid[row][col].flagged = False
                 self.flagsPlaced = 0
-        pass
 
     def gameOverWin(self):
         """Reveals all nonmine cells and displays a win message
@@ -119,4 +115,3 @@ class Board():
             for col in range(self.columns):
                 if (not self.grid[row][col].flagged):
                     self.grid[row][col].revealed = True
-        pass

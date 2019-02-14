@@ -66,9 +66,10 @@ while not done:
             # Handle input boxes here.
             # Users can only left click input boxes. Restricting to button 1.
             if event.button == 1:
-                for button in input_buttons:
-                    if button.rect.collidepoint(event.pos):
-                       button.active = not button.active
+                if gameBoard.gameOver:
+                    for button in input_buttons:
+                        if button.rect.collidepoint(event.pos):
+                            button.active = True
                 for box in input_boxes:
                     # If the user clicked on the input box, toggle state.
                     if box.rect.collidepoint(event.pos):
@@ -115,6 +116,7 @@ while not done:
     screen.uiElement(BORDER + 6, BORDER + 33, 0, 0, 0, "text", "Columns:")
     screen.uiElement(BORDER + 120, BORDER + 8, 0, 0, 0, "text", "Mines:")
     screen.uiElement(BORDER + 120, BORDER + 33, 0, 0, 0, "text", "Flags:    " + str(gameBoard.mines - gameBoard.flagsPlaced))
+
     if gameBoard.gameOver:
         screen.uiElement(BORDER, BORDER, screen.width - (BORDER * 2), TOOLBARHEIGHT, 0)
         if gameBoard.wonGame:
@@ -128,8 +130,6 @@ while not done:
             done = True
         if inputRestartButton.active == True:
             inputRestartButton.restart(screen, gameBoard)
-
-        #Draw Play Again box Here ---HINT: in event handler code, check if click collides with play again, then call gameBoard.generateGrid()
 
     # Call the drawBoard definition on screen.
     screen.drawBoard()
