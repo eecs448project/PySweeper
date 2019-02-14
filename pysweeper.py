@@ -85,6 +85,7 @@ while not done:
             for box in input_boxes:
                 if box.active:
                     if event.key == pg.K_RETURN:
+                        print(box.active)
                         box.active = not box.active
                         box.color = COLOR['WHITE']
                         # Only call update one per user hitting enter.
@@ -97,7 +98,9 @@ while not done:
                     elif event.key == pg.K_BACKSPACE:
                         box.text = box.text[:-1]
                     else:
-                        box.text += event.unicode
+                        if len(box.text) < 4:
+                            print("Length < 4")
+                            box.text += event.unicode
                     box.txt_surface = box.font.render(box.text, True, COLOR['WHITE'])
 
 
