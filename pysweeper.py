@@ -1,15 +1,15 @@
 # Input box code based on https://stackoverflow.com/questions/46390231/how-to-create-a-text-input-box-with-pygame/46390412
 
 # Imports system and operating system specific parameters and functions.
-import os, sys 
+import os, sys
 
 # Imports the pygame library, makes use of the SDL library for easy multimedia applications.
 # as pg allows us to just type pg, instead of pygame, to invoke a pygame function.
-import pygame as pg 
+import pygame as pg
 
 # Imports each class from the .py file, our files and classes used identical names.
 # It is convention in python to capitalize all class names.
-from board import Board 
+from board import Board
 from cell import Cell
 from gui import GUI, InputBox, InputButton
 # from inputbox import InputBox
@@ -40,10 +40,11 @@ pg.display.set_caption("Minesweeper")
 #  surface to display onto, text to take from user input converted to a string from an int)
 inputRowBox = InputBox(BORDER + 66, BORDER + 3, 40, 20, screen, 32, 2,  str(gameBoard.rows))
 inputColumnBox = InputBox(BORDER + 66, BORDER + 27, 40, 20, screen, 32, 2, str(gameBoard.columns))
-inputMineBox = InputBox(BORDER + 163, BORDER + 3, 40, 20, screen, 10, 1, str(gameBoard.mines))
+inputMineBox = InputBox(BORDER + 153, BORDER + 3, 40, 20, screen, 10, 1, str(gameBoard.mines))
 
 inputQuitButton = InputButton(BORDER + 60, BORDER + 30, 40, 20, screen, "Quit")
 inputRestartButton = InputButton(BORDER + 110, BORDER + 30, 55, 20, screen, "Restart")
+inputHelpButton = InputButton(BORDER + 170, BORDER + 27, 40, 20, screen, "Help")
 
 # Places the inputRowBox, inputColumnBox, and inputMineBox into an array called input_boxes.
 input_boxes = [inputRowBox, inputColumnBox, inputMineBox]
@@ -70,14 +71,16 @@ while not done:
                     for button in input_buttons:
                         if button.rect.collidepoint(event.pos):
                             button.active = True
-                for box in input_boxes:
-                    # If the user clicked on the input box, toggle state.
-                    if box.rect.collidepoint(event.pos):
-                        box.active = not box.active
-                    else:
-                        box.active = False
-                    # Feedback color for active input box.
-                    box.color = COLOR['RED'] if box.active else COLOR['WHITE']
+                if not gameBoard.gameOver:
+                    for box in input_boxes:
+                        # If the user clicked on the input box, toggle state.
+                        if box.rect.collidepoint(event.pos):
+                            print("Clicked")
+                            box.active = not box.active
+                        else:
+                            box.active = False
+                        # Feedback color for active input box.
+                        box.color = COLOR['RED'] if box.active else COLOR['WHITE']
         # Listen for key presses. Input boxes that are active take all inputs.
         elif event.type == pg.KEYDOWN:
             for box in input_boxes:
@@ -109,13 +112,15 @@ while not done:
     for box in input_boxes:
         box.draw()
 
-    # Using screen, from the GUI class, call the uiElement defintion passing in parameters for 
+    # Using screen, from the GUI class, call the uiElement defintion passing in parameters for
     # X position, Y position, width, height, borderWidth, type to display (text), label to show on screen.
     screen.uiElement(BORDER, BORDER, screen.width - (BORDER * 2), TOOLBARHEIGHT, 1)
     screen.uiElement(BORDER + 6, BORDER + 8, 0, 0, 0, "text", "Rows:")
     screen.uiElement(BORDER + 6, BORDER + 33, 0, 0, 0, "text", "Columns:")
-    screen.uiElement(BORDER + 120, BORDER + 8, 0, 0, 0, "text", "Mines:")
-    screen.uiElement(BORDER + 120, BORDER + 33, 0, 0, 0, "text", "Flags:    " + str(gameBoard.mines - gameBoard.flagsPlaced))
+    screen.uiElement(BORDER + 110, BORDER + 8, 0, 0, 0, "text", "Mines:")
+    screen.uiElement(BORDER + 110, BORDER + 33, 0, 0, 0, "text", "Flags: " + str(gameBoard.mines - gameBoard.flagsPlaced))
+
+    inputHelpButton.draw()
 
     if gameBoard.gameOver:
         screen.uiElement(BORDER, BORDER, screen.width - (BORDER * 2), TOOLBARHEIGHT, 0)
@@ -123,7 +128,7 @@ while not done:
             screen.uiElement(BORDER + 85, BORDER + 10, 0, 0, 0, "text", "WINNER!")
         else:
             screen.uiElement(BORDER + 75, BORDER + 10, 0, 0, 0, "text", "GAME OVER")
-             
+
         for button in input_buttons:
             button.draw()
         if inputQuitButton.active == True:
