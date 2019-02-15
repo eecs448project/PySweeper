@@ -13,10 +13,10 @@ class GUI():
         on-click functionality.
     """
     def __init__(self, board):
-        """ Constructor
+        """ A constructor for GUI().
             Calculate the game window based on board size.
             Defaults: ROWS=10, COLS=10
-            PARAMS need to be changed to (self, board). Board object
+            Parameter: a Board object, from the Board class. The Board object
             will have all the sizes we need.
         """
         pg.display.set_caption("Minesweeper")
@@ -74,7 +74,18 @@ class GUI():
 
 
     def mouseClick(self, event):
-        """ Handles any mouse event inside the window.
+        """ mouseClick(event) takes an event argument, in this case a
+        mouse click from the user on the board object,and handles any mouse
+        event within the display.  The starting column and row positions are
+        adjusted for the tool bar and margin. The 0,0 coordinate is the first
+        cell generated on the board.
+        Preconditions: a board object and GUI object have been defined.
+        Parameters: an event defined by pygame, a button but specifically for
+        this case a mouse click (event.button 1 is left click, event.button 2
+        is right click).
+        Postconditions: revealCell from the board class is called on a
+        GUI object when the user clicks the left mouse button. flagCell from
+        the board class when the user clicks the right mouse button.
         """
         mousePosition = pg.mouse.get_pos()
         column = (mousePosition[0] - BORDER) // \
@@ -86,10 +97,19 @@ class GUI():
         elif event.button == 3:
             self.board.flagCell(row, column)
 
+#Code Based on https://stackoverflow.com/questions/46390231/how-to-create-a-text-input-box-with-pygame/46390412
+
 class UIElement():
     """ Handles creation of all UI elements.
+    This includes background, splash screen, and text.
     """
     def __init__(self, x, y, w, h, screen, text=''):
+        """ A constructor for UIElement().
+        Parameters: an x postion, a y position, the width of the object in
+        pixels, the height if the object in pixels, a GUI object(screen), and
+        text to be displayed.
+        Note: use the empty string if there is no text.
+        """
         self.rect = pg.Rect(x, y, w, h)
         self.color = COLOR['WHITE']
         self.screen = screen
@@ -97,11 +117,15 @@ class UIElement():
         self.active = False
 
     def draw(self):
+        """ Draws boxes on top of the screen or, in the case of text, combines
+        draws the object directly to the surface of the screen.
+        Preconditions: Must have a defined object to draw.
+        Postconditions: The object will be displayed on the screen.
+        """
         pg.draw.rect(self.screen.window, COLOR['BLACK'], self.rect)
         self.txt_surface = self.screen.font.render(self.text, True, self.color)
         self.screen.window.blit(self.txt_surface, (self.rect.x, self.rect.y))
 
-#Code Based on https://stackoverflow.com/questions/46390231/how-to-create-a-text-input-box-with-pygame/46390412
 class InputBox(UIElement):
     def __init__(self, x, y, w, h, screen, maxValue=0, minValue=0, text=''):
         super().__init__(x, y, w, h, screen, text)
