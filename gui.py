@@ -3,8 +3,14 @@ import os
 from constants import (CELLWIDTH, CELLHEIGHT,
                       MARGIN, BORDER, COLOR, TOOLBARHEIGHT)
 class GUI():
-    """ GUI Class:
-        Handles all window elements.
+    """ The GUI Class handles all window elements.
+        It is divided into a main GUI class which is used to display
+        the game board and handle mouse click events,
+        a UIElement subclass which handles drawing
+        static user interface aspects to the screen,
+        an InputBox subclass which generates boxes that the user can type into,
+        and an InputButton subclass which generates buttons with specified
+        on-click functionality.
     """
     def __init__(self, board):
         """ Constructor
