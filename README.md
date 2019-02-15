@@ -9,6 +9,10 @@
 3. Benjamin Wyss
 4. Jon Volden
 
+### Resources:
+
+Input box code based on https://stackoverflow.com/questions/46390231/how-to-create-a-text-input-box-with-pygame/46390412
+
 ### TODO:
 
 - [x] Create group repo and add members.
