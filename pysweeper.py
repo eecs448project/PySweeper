@@ -35,7 +35,7 @@ toolbarRowsText = UIElement(BORDER + 6, BORDER + 8, 0, 0, screen, "Rows:")
 toolbarColumnsText = UIElement(BORDER + 6, BORDER + 33, 0, 0, screen, "Columns:")
 toolbarMinesText = UIElement(BORDER + 120, BORDER + 8, 0, 0, screen, "Mines:")
 # Declare the help UI elements.
-#toolbarHelpBG = UIElement(BORDER, BORDER, screen.width - (BORDER * 2), TOOLBARHEIGHT, screen, '')
+
 toolbarHelpLMB = UIElement(BORDER + 6, BORDER + 5, 0, 0, screen, "Left click to reveal space.")
 toolbarHelpRMB = UIElement(BORDER + 6, BORDER + 22, 0, 0, screen, "Right click to flag space.")
 toolbarHelpWin = UIElement(BORDER + 6, BORDER + 40, 0, 0, screen, "Flag all mines to win game.")
@@ -48,7 +48,7 @@ inputMineBox = InputBox(BORDER + 163, BORDER + 3, 40, 20, screen, 10, 1, str(gam
 inputQuitButton = InputButton(BORDER + 60, BORDER + 30, 40, 20, screen, "Quit")
 inputRestartButton = InputButton(BORDER + 110, BORDER + 30, 55, 20, screen, "Restart")
 # Declare gameOver UI elements.
-toolbarGameOverBG = UIElement(BORDER, BORDER, screen.width - (BORDER * 2), TOOLBARHEIGHT, screen, '')
+
 toolbarGameOverLost = UIElement(BORDER + 75, BORDER + 10, 0, 0, screen, "GAME OVER")
 toolbarGameOverWon = UIElement(BORDER + 85, BORDER + 10, 0, 0, screen, "WINNER!")
 
