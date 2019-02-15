@@ -102,7 +102,9 @@ class UIElement():
         Parameters: an x postion, a y position, the width of the object in
         pixels, the height if the object in pixels, a GUI object(screen), and
         text to be displayed.
-        Note: use the empty string if there is no text.
+        Note: The x and y position 0,0 is the top left corner of the
+        entire window, not the board. Use the empty string if there is no text
+        to display, as for a background.
         """
         self.rect = pg.Rect(x, y, w, h)
         self.color = COLOR['WHITE']
@@ -121,7 +123,15 @@ class UIElement():
         self.screen.window.blit(self.txt_surface, (self.rect.x, self.rect.y))
 
 class InputBox(UIElement):
+    """ Handles the creation of any fields that take input from the user.
+    These fields will have a box drawn around them, are colored white when
+    not clicked and are red when clicked (active).
+    Parameter: a UIElement object.
+    """
     def __init__(self, x, y, w, h, screen, maxValue=0, minValue=0, text=''):
+        """ A constructor for the UIElement class.
+        Parameters: an x position, a y position, width of the object in pixels
+        """
         super().__init__(x, y, w, h, screen, text)
         self.maxValue = maxValue
         self.minValue = minValue
@@ -129,6 +139,7 @@ class InputBox(UIElement):
     def update(self, field, value=0):
         """ This updates the input fields and any game attribute associated
             with that field.
+
         """
         if value.isnumeric():
             if (int(value) > self.maxValue):
