@@ -1,5 +1,4 @@
 import pygame as pg
-import os
 from constants import (CELLWIDTH, CELLHEIGHT,
                       MARGIN, BORDER, COLOR, TOOLBARHEIGHT)
 class GUI():
@@ -208,7 +207,6 @@ class InputBox(UIElement):
         self.color = COLOR['RED'] if self.active else COLOR['WHITE']
         pg.draw.rect(self.screen.window, self.color, self.rect, 1)
 
-#Code Based on https://stackoverflow.com/questions/46390231/how-to-create-a-text-input-box-with-pygame/46390412
 class InputButton(UIElement):
     """ The InputButton class is utilized to draw user interface elements
         to the screen that the user can click on, with on-click functionality.
