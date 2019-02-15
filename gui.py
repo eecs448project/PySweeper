@@ -142,7 +142,10 @@ class InputBox(UIElement):
     """
     def __init__(self, x, y, w, h, screen, maxValue=0, minValue=0, text=''):
         """ A constructor for the UIElement class.
-        Parameters: an x position, a y position, width of the object in pixels
+        Parameters: an x position, a y position, width of the object in pixels,
+        height of the object in pixels, a GUI object (screen), a max value for
+        input, a min value for input, a field for text to be displayed.
+        Postconditions: an InputBox object is created.
         """
         super().__init__(x, y, w, h, screen, text)
         self.maxValue = maxValue
@@ -150,8 +153,19 @@ class InputBox(UIElement):
 
     def update(self, field, value=0):
         """ This updates the input fields and any game attribute associated
-            with that field.
-
+            with that field.  The text is displayed while the user types it.
+            When the user confirms their entry (presses enter) then the board
+            object will update.
+            Preconditions: An input box object has been created.
+            Parameters: field which defines what is to be displayed before the
+            InputBox object (rows, cols, mines, etc. Something that prompts
+            the user what to enter as input), and value which takes the value
+            the user inputs.
+            Postconditions: If the user inputs a numeric value, this value is
+            taken as a string then converted to an integer, then InputBox object
+            will accept the user input and update the Board and GUI objects
+            accordingly, else the user enters a non-numeric value then nothing
+            is updated.
         """
         if value.isnumeric():
             if (int(value) > self.maxValue):
