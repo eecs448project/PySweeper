@@ -13,11 +13,12 @@ class GUI():
         on-click functionality.
     """
     def __init__(self, board):
-        """ A constructor for GUI().
-            Calculate the game window based on board size.
-            Defaults: ROWS=10, COLS=10
-            Parameter: a Board object, from the Board class. The Board object
-            will have all the sizes we need.
+        """ Constructor for GUI class
+            Parameter board is a Board class object. The board object
+            will have all the information (rows by columns) we need to generate
+            the appropriate window size.
+            Postconditions: The window size will be set a game window will be
+            displayed on the screen.
         """
         pg.display.set_caption("Minesweeper")
         self.font = pg.font.SysFont(None, 18)
@@ -32,8 +33,13 @@ class GUI():
 
     def drawBoard(self):
         """ drawBoard() draws the board given to it on initialization.
-            The self.board is always the current board. Iterate over
-            each cell object in the box and space according to DEFAULTS
+            Preconditions: Constructor must have been called before calling
+            drawBoard so that there is a window to draw on.
+            This method iterates over each cell object on the board's 2D grid
+            and displays each cell with different colors and images depending
+            on the state of the cell.
+            Postconditions: the game board will be drawn on the window in its
+            current state.
         """
         for row in range(self.board.rows):
             for col in range(self.board.columns):
