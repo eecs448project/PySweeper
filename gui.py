@@ -85,18 +85,18 @@ class GUI():
 class UIElement():
     """ Handles creation of all UI elements.
     """
-    def __init__(self, x, y, w, h, screen, text='', background=False):
+    def __init__(self, x, y, w, h, screen, text=''):
         self.rect = pg.Rect(x, y, w, h)
         self.color = COLOR['WHITE']
-        self.background = background
+        #self.background = background
         self.screen = screen
         self.text = text
         #self.txt_surface = screen.font.render(str(text), True, self.color)
         self.active = False
     
     def draw(self):
-        if self.background:
-            pg.draw.rect(self.screen.window, COLOR['BLACK'], self.rect, 0)
+        #if self.background:
+        pg.draw.rect(self.screen.window, COLOR['BLACK'], self.rect)
         self.txt_surface = self.screen.font.render(self.text, True, self.color)
         self.screen.window.blit(self.txt_surface, (self.rect.x, self.rect.y))
 
@@ -132,7 +132,7 @@ class InputBox(UIElement):
 
 class InputButton(UIElement):
     def __init__(self, x, y, w, h, screen, text):
-        super().__init__(x, y, w, h, screen, text, 1)
+        super().__init__(x, y, w, h, screen, text)
 
     def restart(self, gui, board):
         self.active = False
