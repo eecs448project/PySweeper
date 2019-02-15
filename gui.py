@@ -2,6 +2,8 @@ import pygame as pg
 import os
 from constants import (CELLWIDTH, CELLHEIGHT,
                       MARGIN, BORDER, COLOR, TOOLBARHEIGHT)
+""" 
+"""
 class GUI():
     """ GUI Class:
         Handles all window elements.
@@ -79,6 +81,12 @@ class GUI():
             self.board.revealCell(row, column)
         elif event.button == 3:
             self.board.flagCell(row, column)
+
+    def winSound(self):
+        """ Handles the win sound when the player wins.
+        """
+        winSound = pg.mixer.Sound("resources/goodjob.wav")
+        winSound.play()
 
 #Code Based on https://stackoverflow.com/questions/46390231/how-to-create-a-text-input-box-with-pygame/46390412
 

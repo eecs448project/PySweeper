@@ -18,13 +18,16 @@ from gui import GUI, UIElement, InputBox, InputButton
 from constants import (CELLWIDTH, CELLHEIGHT,
                       MARGIN, BORDER, COLOR, TOOLBARHEIGHT)
 
+pg.mixer.pre_init(44100, -16, 2, 512)
+pg.mixer.init()
+winBool = True
 # Initializes all imported pygame modules, as opposed to initalizing them one by one manually.
 pg.init()
 # Initializes font, must be called after pygame.init to avoid issues.
 pg.font.init()
 # Initalizes time, by invoking the Clock class. Set equal to a variable called clock.
 # Is used to control framerate and avoid flashing images on the screen.
-clock = pg.time.Clock()
+clock = pg.time.Clock() 
 
 # Initialize screen/windows
 gameBoard = Board()
@@ -107,6 +110,9 @@ while not done:
     if gameBoard.gameOver:
         if gameBoard.wonGame:
             toolbarGameOverWon.draw()
+            if winBool:
+                screen.winSound()
+                winBool = False
         else:
             toolbarGameOverLost.draw()
         for button in input_buttons:
@@ -137,7 +143,7 @@ while not done:
     pg.display.flip()
 
     # For minesweeper 20 fps is plenty.
-    clock.tick(20)
+    #clock.tick(20)
 
 # Quits the game when the user closes the window the game is displayed in.
 pg.quit()
