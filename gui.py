@@ -163,6 +163,9 @@ class InputBox(UIElement):
         pg.draw.rect(self.screen.window, self.color, self.rect, 1)
 
 class InputButton(UIElement):
+    """ The InputButton class is utilized to draw user interface elements
+        to the screen that the user can click on, with on-click functionality. 
+    """
     def __init__(self, x, y, w, h, screen, text):
         super().__init__(x, y, w, h, screen, text)
 
