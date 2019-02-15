@@ -35,7 +35,7 @@ toolbarRowsText = UIElement(BORDER + 6, BORDER + 8, 0, 0, screen, "Rows:")
 toolbarColumnsText = UIElement(BORDER + 6, BORDER + 33, 0, 0, screen, "Columns:")
 toolbarMinesText = UIElement(BORDER + 120, BORDER + 8, 0, 0, screen, "Mines:")
 # Declare the help UI elements.
-toolbarHelpBG = UIElement(BORDER, BORDER, screen.width - (BORDER * 2), TOOLBARHEIGHT, screen, '')
+#toolbarHelpBG = UIElement(BORDER, BORDER, screen.width - (BORDER * 2), TOOLBARHEIGHT, screen, '')
 toolbarHelpLMB = UIElement(BORDER + 6, BORDER + 5, 0, 0, screen, "Left click to reveal space.")
 toolbarHelpRMB = UIElement(BORDER + 6, BORDER + 22, 0, 0, screen, "Right click to flag space.")
 toolbarHelpWin = UIElement(BORDER + 6, BORDER + 40, 0, 0, screen, "Flag all mines to win game.")
@@ -54,7 +54,7 @@ toolbarGameOverWon = UIElement(BORDER + 85, BORDER + 10, 0, 0, screen, "WINNER!"
 
 # Arrays of elements need to be grouped by rendering order.
 uiElements = [toolbarRowsText, toolbarColumnsText, toolbarMinesText]
-uiHelpElements = [toolbarHelpBG, toolbarHelpLMB, toolbarHelpRMB, toolbarHelpWin]
+uiHelpElements = [toolbarHelpLMB, toolbarHelpRMB, toolbarHelpWin]
 input_boxes = [inputRowBox, inputColumnBox, inputMineBox, inputHelpButton]
 input_buttons = [inputQuitButton, inputRestartButton]
 
@@ -104,23 +104,7 @@ while not done:
     #+you draw to is not shown to the user until the py.display.flip() flips the buffers.
     screen.window.fill(COLOR['BLACK'])
 
-    if inputHelpButton.active:
-        for element in uiHelpElements:
-            element.draw()
-        inputHelpButton.draw()
-    else:
-        for element in uiElements:
-            element.draw()
-        #todo: These flags need to be updated dynamically. How do we do that?
-        flagsRemaining = str(gameBoard.mines - gameBoard.flagsPlaced)
-        toolbarFlagsText = UIElement(BORDER + 120, BORDER + 33, 0, 0, screen, "Flags:    " + flagsRemaining)
-        toolbarFlagsText.draw()
-        for box in input_boxes:
-            box.draw()
-        inputHelpButton.draw()
-
     if gameBoard.gameOver:
-        toolbarGameOverBG.draw()
         if gameBoard.wonGame:
             toolbarGameOverWon.draw()
         else:
@@ -131,6 +115,22 @@ while not done:
             done = True
         if inputRestartButton.active == True:
             inputRestartButton.restart(screen, gameBoard)
+
+    elif inputHelpButton.active:
+        for element in uiHelpElements:
+            element.draw()
+        inputHelpButton.draw()
+
+    else:
+        for element in uiElements:
+            element.draw()
+        #todo: These flags need to be updated dynamically. How do we do that?
+        flagsRemaining = str(gameBoard.mines - gameBoard.flagsPlaced)
+        toolbarFlagsText = UIElement(BORDER + 120, BORDER + 33, 0, 0, screen, "Flags:    " + flagsRemaining)
+        toolbarFlagsText.draw()
+        for box in input_boxes:
+            box.draw()
+        inputHelpButton.draw()
 
     screen.drawBoard()
 
