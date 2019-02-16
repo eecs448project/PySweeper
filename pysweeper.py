@@ -121,6 +121,7 @@ while not done:
             done = True
         if inputRestartButton.active == True:
             inputRestartButton.restart(screen, gameBoard)
+            winBool = True
 
     elif inputHelpButton.active:
         for element in uiHelpElements:
