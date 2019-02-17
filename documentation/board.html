@@ -1,0 +1,102 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module board</title>
+<meta charset="utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>board</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/b040w377/EECS_448/PySweeper/PySweeper/board.py">/home/b040w377/EECS_448/PySweeper/PySweeper/board.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="random.html">random</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="board.html#Board">Board</a>
+</font></dt></dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Board">class <strong>Board</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>The&nbsp;<a href="#Board">Board</a>&nbsp;class&nbsp;is&nbsp;in&nbsp;charge&nbsp;of&nbsp;managing&nbsp;a&nbsp;2D&nbsp;grid&nbsp;of&nbsp;Cell&nbsp;objects<br>
+to&nbsp;implement&nbsp;the&nbsp;main&nbsp;functionality&nbsp;of&nbsp;the&nbsp;minesweeper&nbsp;game.<br>
+This&nbsp;class&nbsp;serves&nbsp;as&nbsp;the&nbsp;controller&nbsp;for&nbsp;the&nbsp;back-end&nbsp;of&nbsp;the&nbsp;game.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="Board-__init__"><strong>__init__</strong></a>(self, rows<font color="#909090">=12</font>, columns<font color="#909090">=12</font>, mines<font color="#909090">=10</font>)</dt><dd><tt>Constructor&nbsp;for&nbsp;<a href="#Board">Board</a>&nbsp;class.<br>
+Parameter&nbsp;rows&nbsp;determines&nbsp;the&nbsp;initial&nbsp;number&nbsp;of&nbsp;rows&nbsp;on&nbsp;the&nbsp;board.<br>
+Parameter&nbsp;columns&nbsp;determines&nbsp;the&nbsp;initial&nbsp;number&nbsp;of&nbsp;columns&nbsp;on&nbsp;the&nbsp;board.<br>
+Parameter&nbsp;mines&nbsp;determines&nbsp;the&nbsp;initial&nbsp;number&nbsp;of&nbsp;mines&nbsp;on&nbsp;the&nbsp;board.<br>
+This&nbsp;constructor&nbsp;also&nbsp;sets&nbsp;member&nbsp;variables&nbsp;used&nbsp;throughout<br>
+the&nbsp;<a href="#Board">Board</a>&nbsp;class'&nbsp;methods&nbsp;to&nbsp;default&nbsp;values,&nbsp;such&nbsp;as&nbsp;setting<br>
+flagsPlaced&nbsp;to&nbsp;0,&nbsp;and&nbsp;setting&nbsp;the&nbsp;gameOver/wonGame&nbsp;variables&nbsp;used&nbsp;to&nbsp;track<br>
+the&nbsp;end&nbsp;of&nbsp;the&nbsp;game&nbsp;both&nbsp;to&nbsp;False.<br>
+This&nbsp;constructor&nbsp;finishes&nbsp;by&nbsp;calling&nbsp;<a href="#Board-generateGrid">generateGrid</a>()&nbsp;to&nbsp;initialize&nbsp;the<br>
+2D&nbsp;array&nbsp;of&nbsp;Cell&nbsp;objects&nbsp;which&nbsp;the&nbsp;game&nbsp;is&nbsp;based&nbsp;on.<br>
+Postconditions:&nbsp;Every&nbsp;board&nbsp;class&nbsp;member&nbsp;variable&nbsp;will&nbsp;be&nbsp;initialized&nbsp;to&nbsp;a&nbsp;default&nbsp;value.</tt></dd></dl>
+
+<dl><dt><a name="Board-countNearbyMines"><strong>countNearbyMines</strong></a>(self, row, col)</dt><dd><tt>Count&nbsp;Nearby&nbsp;Mines<br>
+Preconditions:&nbsp;<a href="#Board-generateGrid">generateGrid</a>()&nbsp;must&nbsp;have&nbsp;been&nbsp;called&nbsp;prior&nbsp;to&nbsp;calling&nbsp;this&nbsp;method.<br>
+Parameter&nbsp;row&nbsp;is&nbsp;the&nbsp;row&nbsp;of&nbsp;the&nbsp;cell&nbsp;to&nbsp;count&nbsp;its&nbsp;adjacent&nbsp;mines.<br>
+Parameter&nbsp;col&nbsp;is&nbsp;the&nbsp;column&nbsp;of&nbsp;the&nbsp;cell&nbsp;to&nbsp;count&nbsp;its&nbsp;adjacent&nbsp;mines.<br>
+Counts&nbsp;how&nbsp;many&nbsp;mines&nbsp;are&nbsp;adjacent&nbsp;to&nbsp;the&nbsp;specified&nbsp;cell.<br>
+Bounds-checking&nbsp;issues&nbsp;are&nbsp;handles&nbsp;within&nbsp;this&nbsp;method,<br>
+so&nbsp;this&nbsp;method&nbsp;is&nbsp;safe&nbsp;to&nbsp;call&nbsp;with&nbsp;bad&nbsp;input.<br>
+Postconditions:&nbsp;Returns&nbsp;the&nbsp;number&nbsp;of&nbsp;mines&nbsp;adjacent&nbsp;to&nbsp;the&nbsp;specified&nbsp;cell&nbsp;counting&nbsp;all&nbsp;8&nbsp;directions.</tt></dd></dl>
+
+<dl><dt><a name="Board-flagCell"><strong>flagCell</strong></a>(self, row, col)</dt><dd><tt>Flag&nbsp;Cell<br>
+Preconditions:&nbsp;<a href="#Board-generateGrid">generateGrid</a>()&nbsp;must&nbsp;have&nbsp;been&nbsp;called&nbsp;prior&nbsp;to&nbsp;calling&nbsp;this&nbsp;method.<br>
+Parameter&nbsp;row&nbsp;is&nbsp;the&nbsp;row&nbsp;of&nbsp;the&nbsp;cell&nbsp;to&nbsp;flag.<br>
+Parameter&nbsp;col&nbsp;is&nbsp;the&nbsp;column&nbsp;of&nbsp;the&nbsp;cell&nbsp;to&nbsp;flag.<br>
+Bounds-checking&nbsp;issues&nbsp;are&nbsp;handles&nbsp;within&nbsp;this&nbsp;method,<br>
+so&nbsp;this&nbsp;method&nbsp;is&nbsp;safe&nbsp;to&nbsp;call&nbsp;with&nbsp;bad&nbsp;input.<br>
+Postconditions:&nbsp;Flags&nbsp;the&nbsp;selected&nbsp;Cell&nbsp;as&nbsp;a&nbsp;potential&nbsp;mine.<br>
+Checks&nbsp;if&nbsp;all&nbsp;mines&nbsp;have&nbsp;been&nbsp;flagged,&nbsp;and&nbsp;if&nbsp;so&nbsp;calls&nbsp;<a href="#Board-gameOverWin">gameOverWin</a>(),&nbsp;ending&nbsp;the&nbsp;game.</tt></dd></dl>
+
+<dl><dt><a name="Board-gameOverLoss"><strong>gameOverLoss</strong></a>(self)</dt><dd><tt>Game&nbsp;Over&nbsp;Loss<br>
+Preconditions:&nbsp;<a href="#Board-revealCell">revealCell</a>()&nbsp;has&nbsp;to&nbsp;be&nbsp;called&nbsp;on&nbsp;a&nbsp;mine&nbsp;for&nbsp;this&nbsp;method&nbsp;to&nbsp;be&nbsp;called.<br>
+Postconditions:&nbsp;Reveals&nbsp;all&nbsp;spaces&nbsp;and&nbsp;mines,&nbsp;and&nbsp;then&nbsp;sets&nbsp;gameOver&nbsp;to&nbsp;true.<br>
+This&nbsp;then&nbsp;causes&nbsp;a&nbsp;game&nbsp;over&nbsp;message&nbsp;to&nbsp;be&nbsp;displayed&nbsp;by&nbsp;the&nbsp;GUI&nbsp;class.</tt></dd></dl>
+
+<dl><dt><a name="Board-gameOverWin"><strong>gameOverWin</strong></a>(self)</dt><dd><tt>Game&nbsp;Over&nbsp;Win<br>
+Preconditions:&nbsp;<a href="#Board-flagCell">flagCell</a>()&nbsp;has&nbsp;to&nbsp;be&nbsp;called&nbsp;on&nbsp;all&nbsp;mines&nbsp;for&nbsp;this&nbsp;method&nbsp;to&nbsp;be&nbsp;called.<br>
+Postconditions:&nbsp;Reveals&nbsp;all&nbsp;nonmine&nbsp;cells&nbsp;and&nbsp;sets&nbsp;both&nbsp;gameOver&nbsp;and&nbsp;wonGame&nbsp;to&nbsp;true.<br>
+This&nbsp;then&nbsp;causes&nbsp;a&nbsp;win&nbsp;message&nbsp;to&nbsp;be&nbsp;displayed&nbsp;by&nbsp;the&nbsp;GUI&nbsp;class.</tt></dd></dl>
+
+<dl><dt><a name="Board-generateGrid"><strong>generateGrid</strong></a>(self)</dt><dd><tt>Generate&nbsp;Grid<br>
+Preconditions:&nbsp;rows,&nbsp;columns,&nbsp;and&nbsp;mines&nbsp;must&nbsp;be&nbsp;set&nbsp;to&nbsp;positive&nbsp;integer&nbsp;values.<br>
+Gets&nbsp;called&nbsp;by&nbsp;<a href="#Board">Board</a>&nbsp;constructor<br>
+This&nbsp;method&nbsp;generates&nbsp;a&nbsp;2D&nbsp;array&nbsp;of&nbsp;Cell&nbsp;objects&nbsp;to&nbsp;be&nbsp;stored&nbsp;in&nbsp;grid[][].<br>
+This&nbsp;method&nbsp;is&nbsp;also&nbsp;used&nbsp;to&nbsp;reset&nbsp;the&nbsp;game,&nbsp;and&nbsp;so&nbsp;recalling&nbsp;this&nbsp;method<br>
+Postconditions:&nbsp;generates&nbsp;a&nbsp;new&nbsp;grid&nbsp;and&nbsp;sets&nbsp;the&nbsp;end&nbsp;game&nbsp;variables&nbsp;both&nbsp;to&nbsp;false&nbsp;again.</tt></dd></dl>
+
+<dl><dt><a name="Board-revealCell"><strong>revealCell</strong></a>(self, row, col)</dt><dd><tt>Reveal&nbsp;Cell<br>
+Preconditions:&nbsp;<a href="#Board-generateGrid">generateGrid</a>()&nbsp;must&nbsp;have&nbsp;been&nbsp;called&nbsp;prior&nbsp;to&nbsp;calling&nbsp;this&nbsp;method.<br>
+Parameter&nbsp;row&nbsp;is&nbsp;the&nbsp;row&nbsp;of&nbsp;the&nbsp;cell&nbsp;to&nbsp;be&nbsp;revealed.<br>
+Parameter&nbsp;col&nbsp;is&nbsp;column&nbsp;of&nbsp;the&nbsp;cell&nbsp;to&nbsp;be&nbsp;revealed.<br>
+Bounds-checking&nbsp;issues&nbsp;are&nbsp;handled&nbsp;within&nbsp;this&nbsp;method,<br>
+so&nbsp;this&nbsp;method&nbsp;is&nbsp;safe&nbsp;to&nbsp;call&nbsp;with&nbsp;bad&nbsp;input.<br>
+Postconditions:&nbsp;Reveals&nbsp;the&nbsp;seleted&nbsp;cell&nbsp;and<br>
+recursively&nbsp;reaveals&nbsp;nearby&nbsp;cells&nbsp;if&nbsp;no&nbsp;mines&nbsp;are&nbsp;nearby&nbsp;the&nbsp;selected&nbsp;cell.<br>
+If&nbsp;a&nbsp;mine&nbsp;is&nbsp;revealed,&nbsp;this&nbsp;method&nbsp;calls&nbsp;<a href="#Board-gameOverLoss">gameOverLoss</a>(),&nbsp;ending&nbsp;the&nbsp;game.</tt></dd></dl>
+
+</td></tr></table></td></tr></table>
+</body></html>
