@@ -144,6 +144,7 @@ class InputBox(UIElement):
     from the user.
     These fields will have a box drawn around them.
     Derrives from UIElement class.
+    The code for this class is inspired by: https://stackoverflow.com/questions/46390231/how-to-create-a-text-input-box-with-pygame/46390412
     """
     def __init__(self, x, y, w, h, screen, maxValue=0, minValue=0, text=''):
         """ Constructor for the InputBox class
