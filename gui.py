@@ -1,6 +1,8 @@
 import pygame as pg
 from constants import (CELLWIDTH, CELLHEIGHT,
                       MARGIN, BORDER, COLOR, TOOLBARHEIGHT)
+""" 
+"""
 class GUI():
     """ The GUI Class handles all window elements.
         It is divided into a main GUI class which is used to display
@@ -99,6 +101,7 @@ class GUI():
             self.board.revealCell(row, column)
         elif event.button == 3:
             self.board.flagCell(row, column)
+    
 
 class UIElement():
     """ Handles creation of all user interface elements.
@@ -253,3 +256,22 @@ class InputButton(UIElement):
         self.screen.window.blit(self.txt_surface, (self.rect.x+5, self.rect.y+5))
         self.color = COLOR['RED'] if self.active else COLOR['WHITE']
         pg.draw.rect(self.screen.window, self.color, self.rect, 1)
+
+class Sound():
+    def __init__(self):
+        self.winSound = pg.mixer.Sound("resources/goodjob.wav")
+        self.lossSound = pg.mixer.Sound("resources/trumplosers.wav")
+        self.helpSound = pg.mixer.Sound("resources/support.wav")
+
+    def wins(self):
+        """ Handles the win sound when the player wins."""
+        self.winSound.play()
+    
+    def loss(self):
+        """ Handles the loss sound when the player losses."""
+        self.lossSound.play()
+
+    def helps(self):
+        """ Handles the help sound when the player asks for help."""
+        self.helpSound.play()
+

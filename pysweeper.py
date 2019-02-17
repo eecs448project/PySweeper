@@ -4,7 +4,9 @@ import pygame as pg
 # Internal imports needed for PySweeper
 from board import Board
 from cell import Cell
-from gui import GUI, UIElement, InputBox, InputButton
+from gui import GUI, UIElement, InputBox, InputButton, Sound
+# from inputbox import InputBox
+
 
 # GLOBAL constants
 from constants import (CELLWIDTH, CELLHEIGHT,
@@ -26,7 +28,12 @@ def main():
     # 1. Initialization: Pygame objects
     pg.init()
     pg.font.init()
-    clock = pg.time.Clock()
+    pg.mixer.pre_init(44100, -16, 2, 512)
+    pg.mixer.init()
+    gameSound = Sound()
+    winBool = True
+    lossBool = True
+    HelpBool = True
     # PySweeper objects
     gameBoard = Board()
     screen = GUI(gameBoard)
@@ -100,23 +107,33 @@ def main():
         # Pygame draws elements from back to front. Pygame is also double buffered. The surface
         #+you draw to is not shown to the user until the py.display.flip() flips the buffers.
         screen.window.fill(COLOR['BLACK'])
-
         # Only draw elements based on game state.
         if gameBoard.gameOver:              # Gameover
             if gameBoard.wonGame:
                 toolbarGameOverWon.draw()
+                if winBool:
+                    gameSound.wins()
+                    winBool = False
             else:
                 toolbarGameOverLost.draw()
+                    if lossBool:
+                        gameSound.loss()
+                        lossBool = False
             for button in input_buttons:
                 button.draw()
             if inputQuitButton.active == True:
                 done = True
             if inputRestartButton.active == True:
                 inputRestartButton.restart(screen, gameBoard)
+                winBool = True
+                lossBool = True
         elif inputHelpButton.active:        # Help active
             for element in uiHelpElements:
                 element.draw()
             inputHelpButton.draw()
+                if helpBool:
+                    gameSound.helps()
+                    helpBool = False
         else:                               # Default UI elements
             for element in uiElements:
                 element.draw()
@@ -130,11 +147,8 @@ def main():
 
         screen.drawBoard()
         pg.display.flip()
-
-        # Limit FPS to 20.
-        clock.tick(20)
-
     pg.quit()
+
 
 if __name__ == '__main__':
     main()
