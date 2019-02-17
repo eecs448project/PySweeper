@@ -4,9 +4,7 @@ import pygame as pg
 # Internal imports needed for PySweeper
 from board import Board
 from cell import Cell
-from gui import GUI, UIElement, InputBox, InputButton, Sound
-# from inputbox import InputBox
-
+from gui import GUI, UIElement, InputBox, InputButton
 
 # GLOBAL constants
 from constants import (CELLWIDTH, CELLHEIGHT,
@@ -28,12 +26,7 @@ def main():
     # 1. Initialization: Pygame objects
     pg.init()
     pg.font.init()
-    pg.mixer.pre_init(44100, -16, 2, 512)
-    pg.mixer.init()
-    gameSound = Sound()
-    winBool = True
-    lossBool = True
-    helpBool = True
+    clock = pg.time.Clock()
     # PySweeper objects
     gameBoard = Board()
     screen = GUI(gameBoard)
@@ -44,26 +37,28 @@ def main():
     toolbarColumnsText = UIElement(BORDER + 6, BORDER + 33, 0, 0, screen, "Columns:")
     toolbarMinesText = UIElement(BORDER + 120, BORDER + 8, 0, 0, screen, "Mines:")
     # Help bar that is drawn when help is pushed.
-    toolbarHelpLMB = UIElement(BORDER + 6, BORDER + 5, 0, 0, screen, "Left click to reveal space.")
-    toolbarHelpRMB = UIElement(BORDER + 6, BORDER + 22, 0, 0, screen, "Right click to flag space.")
-    toolbarHelpWin = UIElement(BORDER + 6, BORDER + 40, 0, 0, screen, "Flag all mines to win game.")
-    inputHelpButton = InputButton(BORDER + 218, BORDER + 15, 40, 20, screen, "Help")
+    toolbarHelpLMB = UIElement(BORDER + 6, BORDER, 0, 0, screen, "Left click to reveal space.")
+    toolbarHelpRMB = UIElement(BORDER + 6, BORDER + 15, 0, 0, screen, "Right click to flag space.")
+    toolbarHelpWin = UIElement(BORDER + 6, BORDER + 30, 0, 0, screen, "Flag all mines to win game.")
+    toolbarHelpReturn = UIElement(BORDER + 6, BORDER + 45, 0, 0, screen, "Click anywhere to continue.") #[Thomas]: added even spacing of 15 and toolbarHelpReturn
+    inputHelpButton = InputButton(BORDER + 218, BORDER + 15, 38, 20, screen, "Help")
     # Declare input UI elements.
     inputRowBox = InputBox(BORDER + 66, BORDER + 3, 40, 20, screen, 30, 2,  str(gameBoard.rows))
     inputColumnBox = InputBox(BORDER + 66, BORDER + 27, 40, 20, screen, 30, 2, str(gameBoard.columns))
     inputMineBox = InputBox(BORDER + 163, BORDER + 3, 40, 20, screen, 10, 1, str(gameBoard.mines))
-    # Declare button UI elements.
-    inputQuitButton = InputButton(BORDER + 60, BORDER + 30, 40, 20, screen, "Quit")
-    inputRestartButton = InputButton(BORDER + 110, BORDER + 30, 55, 20, screen, "Restart")
-    # Declare gameOver UI elements.
-    toolbarGameOverLost = UIElement(BORDER + 75, BORDER + 10, 0, 0, screen, "GAME OVER")
-    toolbarGameOverWon = UIElement(BORDER + 85, BORDER + 10, 0, 0, screen, "WINNER!")
 
+    # Declare button UI elements.
+    inputQuitButton = InputButton(BORDER + 85, BORDER + 30, 35, 20, screen, "Quit") #[Thomas]: I centered the game over screen for 12 cells, also removed extra space in the exit button.
+    inputRestartButton = InputButton(BORDER + 130, BORDER + 30, 55, 20, screen, "Restart")
+    # Declare gameOver UI elements.
+    toolbarGameOverLost = UIElement(BORDER + 98, BORDER + 10, 0, 0, screen, "GAME OVER")
+    toolbarGameOverWon = UIElement(BORDER + 105, BORDER + 10, 0, 0, screen, "WINNER!")
     # Arrays of elements need to be grouped by rendering order.
     uiElements = [toolbarRowsText, toolbarColumnsText, toolbarMinesText]
-    uiHelpElements = [toolbarHelpLMB, toolbarHelpRMB, toolbarHelpWin]
+    uiHelpElements = [toolbarHelpLMB, toolbarHelpRMB, toolbarHelpWin, toolbarHelpReturn] #[Thomas]: added toolbarHelpReturn
     input_boxes = [inputRowBox, inputColumnBox, inputMineBox, inputHelpButton]
     input_buttons = [inputQuitButton, inputRestartButton]
+    all_ = uiElements + uiHelpElements + input_boxes + input_buttons
 
     done = False
     while not done:
@@ -86,7 +81,6 @@ def main():
                                 box.active = not box.active
                             else:
                                 box.active = False
-                                helpBool = True
             # Listen for key presses. Input boxes that are active take all inputs.
             elif event.type == pg.KEYDOWN:
                 for box in input_boxes:
@@ -96,9 +90,57 @@ def main():
                             box.active = not box.active
                             # Calling all 3 works for the time being.
                             inputRowBox.update("rows", inputRowBox.text)
-                            inputColumnBox.update("columns", inputColumnBox.text)
                             inputMineBox.maxValue = (screen.board.rows * screen.board.columns) - 1
                             inputMineBox.update("mines", inputMineBox.text)
+                            inputColumnBox.update("columns", inputColumnBox.text)
+                            if gameBoard.columns > 12:
+                                i  = gameBoard.columns
+                                amount = ((i - 12) * 11)
+                                toolbarRowsText.rect.x += amount
+                                toolbarRowsText = UIElement(BORDER + 6 + amount, BORDER + 8, 0, 0, screen, "Rows:")
+                                toolbarColumnsText = UIElement(BORDER + 6 + amount, BORDER + 33, 0, 0, screen, "Columns:")
+                                toolbarMinesText = UIElement(BORDER + 120 + amount, BORDER + 8, 0, 0, screen, "Mines:")
+                                toolbarHelpLMB = UIElement(BORDER + 6 + amount, BORDER, 0, 0, screen, "Left click to reveal space.")
+                                toolbarHelpRMB = UIElement(BORDER + 6 + amount, BORDER + 15, 0, 0, screen, "Right click to flag space.")
+                                toolbarHelpWin = UIElement(BORDER + 6 + amount, BORDER + 30, 0, 0, screen, "Flag all mines to win game.")
+                                toolbarHelpReturn = UIElement(BORDER + 6 + amount, BORDER + 45, 0, 0, screen, "Click anywhere to continue.")
+                                inputHelpButton = InputButton(BORDER + 218 + amount, BORDER + 15, 38, 20, screen, "Help")
+                                inputRowBox = InputBox(BORDER + 66 + amount, BORDER + 3, 40, 20, screen, 30, 2,  str(gameBoard.rows))
+                                inputColumnBox = InputBox(BORDER + 66 + amount, BORDER + 27, 40, 20, screen, 30, 2, str(gameBoard.columns))
+                                inputMineBox = InputBox(BORDER + 163 + amount, BORDER + 3, 40, 20, screen, 10, 1, str(gameBoard.mines))
+                                inputQuitButton = InputButton(BORDER + 85 + amount, BORDER + 30, 35, 20, screen, "Quit")
+                                inputRestartButton = InputButton(BORDER + 130 + amount, BORDER + 30, 55, 20, screen, "Restart")
+                                toolbarGameOverLost = UIElement(BORDER + 98 + amount, BORDER + 10, 0, 0, screen, "GAME OVER")
+                                toolbarGameOverWon = UIElement(BORDER + 105 + amount, BORDER + 10, 0, 0, screen, "WINNER!")
+                                uiElements = [toolbarRowsText, toolbarColumnsText, toolbarMinesText]
+                                uiHelpElements = [toolbarHelpLMB, toolbarHelpRMB, toolbarHelpWin, toolbarHelpReturn]
+                                input_boxes = [inputRowBox, inputColumnBox, inputMineBox, inputHelpButton]
+                                input_buttons = [inputQuitButton, inputRestartButton]
+                                    
+                            else:
+                                toolbarRowsText = UIElement(BORDER + 6, BORDER + 8, 0, 0, screen, "Rows:")
+                                toolbarColumnsText = UIElement(BORDER + 6, BORDER + 33, 0, 0, screen, "Columns:")
+                                toolbarMinesText = UIElement(BORDER + 120, BORDER + 8, 0, 0, screen, "Mines:")
+                                toolbarHelpLMB = UIElement(BORDER + 6, BORDER, 0, 0, screen, "Left click to reveal space.")
+                                toolbarHelpRMB = UIElement(BORDER + 6, BORDER + 15, 0, 0, screen, "Right click to flag space.")
+                                toolbarHelpWin = UIElement(BORDER + 6, BORDER + 30, 0, 0, screen, "Flag all mines to win game.")
+                                toolbarHelpReturn = UIElement(BORDER + 6, BORDER + 45, 0, 0, screen, "Click anywhere to continue.")
+                                inputHelpButton = InputButton(BORDER + 218, BORDER + 15, 38, 20, screen, "Help")
+                                inputRowBox = InputBox(BORDER + 66, BORDER + 3, 40, 20, screen, 30, 2,  str(gameBoard.rows))
+                                inputColumnBox = InputBox(BORDER + 66, BORDER + 27, 40, 20, screen, 30, 2, str(gameBoard.columns))
+                                inputMineBox = InputBox(BORDER + 163, BORDER + 3, 40, 20, screen, 10, 1, str(gameBoard.mines))
+                                inputQuitButton = InputButton(BORDER + 85, BORDER + 30, 35, 20, screen, "Quit")
+                                inputRestartButton = InputButton(BORDER + 130, BORDER + 30, 55, 20, screen, "Restart")
+                                toolbarGameOverLost = UIElement(BORDER + 98, BORDER + 10, 0, 0, screen, "GAME OVER")
+                                toolbarGameOverWon = UIElement(BORDER + 105, BORDER + 10, 0, 0, screen, "WINNER!")
+                                uiElements = [toolbarRowsText, toolbarColumnsText, toolbarMinesText]
+                                uiHelpElements = [toolbarHelpLMB, toolbarHelpRMB, toolbarHelpWin, toolbarHelpReturn]
+                                input_boxes = [inputRowBox, inputColumnBox, inputMineBox, inputHelpButton]
+                                input_buttons = [inputQuitButton, inputRestartButton]
+                    
+                            #inputMineBox.maxValue = (screen.board.rows * screen.board.columns) - 1
+                            #inputMineBox.update("mines", inputMineBox.text)
+            
                         elif event.key == pg.K_BACKSPACE:
                             box.text = box.text[:-1]
                         else:
@@ -108,39 +150,34 @@ def main():
         # Pygame draws elements from back to front. Pygame is also double buffered. The surface
         #+you draw to is not shown to the user until the py.display.flip() flips the buffers.
         screen.window.fill(COLOR['BLACK'])
+
         # Only draw elements based on game state.
         if gameBoard.gameOver:              # Gameover
             if gameBoard.wonGame:
                 toolbarGameOverWon.draw()
-                if winBool:
-                    gameSound.wins()
-                    winBool = False
             else:
                 toolbarGameOverLost.draw()
-                if lossBool:
-                    gameSound.loss()
-                    lossBool = False
             for button in input_buttons:
                 button.draw()
             if inputQuitButton.active == True:
                 done = True
             if inputRestartButton.active == True:
                 inputRestartButton.restart(screen, gameBoard)
-                winBool = True
-                lossBool = True
         elif inputHelpButton.active:        # Help active
             for element in uiHelpElements:
                 element.draw()
             inputHelpButton.draw()
-            if helpBool:
-                gameSound.helps()
-                helpBool = False
         else:                               # Default UI elements
             for element in uiElements:
                 element.draw()
             #todo: These flags need to be updated dynamically. How do we do that?
             flagsRemaining = str(gameBoard.mines - gameBoard.flagsPlaced)
-            toolbarFlagsText = UIElement(BORDER + 120, BORDER + 33, 0, 0, screen, "Flags:    " + flagsRemaining)
+            if gameBoard.columns > 12:
+                i = gameBoard.columns
+                amount = ((i - 12) * 11)
+                toolbarFlagsText = UIElement(BORDER + 120 + amount, BORDER + 33, 0, 0, screen, "Flags:    " + flagsRemaining)
+            else:
+                toolbarFlagsText = UIElement(BORDER + 120, BORDER + 33, 0, 0, screen, "Flags:    " + flagsRemaining)
             toolbarFlagsText.draw()
             for box in input_boxes:
                 box.draw()
@@ -148,8 +185,11 @@ def main():
 
         screen.drawBoard()
         pg.display.flip()
-    pg.quit()
 
+        # Limit FPS to 20.
+        clock.tick(20)
+
+    pg.quit()
 
 if __name__ == '__main__':
     main()
