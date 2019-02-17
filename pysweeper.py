@@ -86,6 +86,7 @@ def main():
                                 box.active = not box.active
                             else:
                                 box.active = False
+                                helpBool = True
             # Listen for key presses. Input boxes that are active take all inputs.
             elif event.type == pg.KEYDOWN:
                 for box in input_boxes:
