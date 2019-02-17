@@ -9,9 +9,24 @@
 3. Benjamin Wyss
 4. Jon Volden
 
-### Resources:
+### Requirements:
 
-Input box code based on https://stackoverflow.com/questions/46390231/how-to-create-a-text-input-box-with-pygame/46390412
+1. OS: Windows 10, OSX, Linux  
+2. [Python 3.7.2](https://www.python.org/downloads/) or greater.
+
+### Installation:
+
+1. Git clone or download zip from [PySweeper](https://github.com/pysweeper/PySweeper.git).
+2. Extract and/or cd into the pysweeper folder.
+2. From the pysweeper folder run:  
+    `$ pip install -r requirements.txt`
+3. To run the game:  
+    `$ python pysweeper.py`
+
+### Resources/Citations:
+
+1. Input box code based on [this SO article](https://stackoverflow.com/questions/46390231/how-to-create-a-text-input-box-with-pygame/46390412)  
+2. General game logic influenced by [Daniel Shiffman](https://www.youtube.com/watch?v=LFU5ZlrR21E&vl=en)
 
 ### TODO:
 
