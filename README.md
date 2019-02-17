@@ -20,7 +20,7 @@
 2. Extract and/or cd into the pysweeper folder.
 2. From the pysweeper folder run:  
     `$ pip install -r requirements.txt`
-3. To run the game:  
+3. To run the game (make sure python is linked to python 3):  
     `$ python pysweeper.py`
 
 ### Resources/Citations:
