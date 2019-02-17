@@ -11,7 +11,7 @@ import pygame as pg
 # It is convention in python to capitalize all class names.
 from board import Board
 from cell import Cell
-from gui import GUI, UIElement, InputBox, InputButton
+from gui import GUI, UIElement, InputBox, InputButton, Sound
 # from inputbox import InputBox
 
 # Imports the needed variables, capitalized due to being constants, from the constants.py file
@@ -21,6 +21,8 @@ from constants import (CELLWIDTH, CELLHEIGHT,
 pg.mixer.pre_init(44100, -16, 2, 512)
 pg.mixer.init()
 winBool = True
+lossBool = True
+HelpBool = True
 # Initializes all imported pygame modules, as opposed to initalizing them one by one manually.
 pg.init()
 # Initializes font, must be called after pygame.init to avoid issues.
@@ -32,6 +34,9 @@ clock = pg.time.Clock()
 # Initialize screen/windows
 gameBoard = Board()
 screen = GUI(gameBoard)
+
+# Initialize sounds
+gameSound = Sound()
 
 # Declare the basic UI elements.
 toolbarRowsText = UIElement(BORDER + 6, BORDER + 8, 0, 0, screen, "Rows:")
@@ -85,6 +90,7 @@ while not done:
                             box.active = not box.active
                         else:
                             box.active = False
+                            helpBool = True
         # Listen for key presses. Input boxes that are active take all inputs.
         elif event.type == pg.KEYDOWN:
             for box in input_boxes:
@@ -111,10 +117,13 @@ while not done:
         if gameBoard.wonGame:
             toolbarGameOverWon.draw()
             if winBool:
-                screen.winSound()
+                gameSound.wins()
                 winBool = False
         else:
             toolbarGameOverLost.draw()
+            if lossBool:
+                gameSound.loss()
+                lossBool = False
         for button in input_buttons:
             button.draw()
         if inputQuitButton.active == True:
@@ -122,11 +131,15 @@ while not done:
         if inputRestartButton.active == True:
             inputRestartButton.restart(screen, gameBoard)
             winBool = True
+            lossBool = True
 
     elif inputHelpButton.active:
         for element in uiHelpElements:
             element.draw()
         inputHelpButton.draw()
+        if helpBool:
+            gameSound.helps()
+            helpBool = False
 
     else:
         for element in uiElements:

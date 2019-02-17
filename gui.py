@@ -81,12 +81,7 @@ class GUI():
             self.board.revealCell(row, column)
         elif event.button == 3:
             self.board.flagCell(row, column)
-
-    def winSound(self):
-        """ Handles the win sound when the player wins.
-        """
-        winSound = pg.mixer.Sound("resources/goodjob.wav")
-        winSound.play()
+    
 
 #Code Based on https://stackoverflow.com/questions/46390231/how-to-create-a-text-input-box-with-pygame/46390412
 
@@ -149,3 +144,21 @@ class InputButton(UIElement):
         self.screen.window.blit(self.txt_surface, (self.rect.x+5, self.rect.y+5))
         self.color = COLOR['RED'] if self.active else COLOR['WHITE']
         pg.draw.rect(self.screen.window, self.color, self.rect, 1)
+    
+class Sound():
+    def __init__(self):
+        self.winSound = pg.mixer.Sound("resources/goodjob.wav")
+        self.lossSound = pg.mixer.Sound("resources/trumplosers.wav")
+        self.helpSound = pg.mixer.Sound("resources/support.wav")
+
+    def wins(self):
+        """ Handles the win sound when the player wins."""
+        self.winSound.play()
+    
+    def loss(self):
+        """ Handles the loss sound when the player losses."""
+        self.lossSound.play()
+
+    def helps(self):
+        """ Handles the help sound when the player asks for help."""
+        self.helpSound.play()
