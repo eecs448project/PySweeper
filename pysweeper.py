@@ -33,7 +33,7 @@ def main():
     gameSound = Sound()
     winBool = True
     lossBool = True
-    HelpBool = True
+    helpBool = True
     # PySweeper objects
     gameBoard = Board()
     screen = GUI(gameBoard)
@@ -116,9 +116,9 @@ def main():
                     winBool = False
             else:
                 toolbarGameOverLost.draw()
-                    if lossBool:
-                        gameSound.loss()
-                        lossBool = False
+                if lossBool:
+                    gameSound.loss()
+                    lossBool = False
             for button in input_buttons:
                 button.draw()
             if inputQuitButton.active == True:
@@ -131,9 +131,9 @@ def main():
             for element in uiHelpElements:
                 element.draw()
             inputHelpButton.draw()
-                if helpBool:
-                    gameSound.helps()
-                    helpBool = False
+            if helpBool:
+                gameSound.helps()
+                helpBool = False
         else:                               # Default UI elements
             for element in uiElements:
                 element.draw()
