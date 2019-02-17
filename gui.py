@@ -258,20 +258,43 @@ class InputButton(UIElement):
         pg.draw.rect(self.screen.window, self.color, self.rect, 1)
 
 class Sound():
+    """The Sound class class is used to add .wav sound files into the 
+       project.  These sounds play when the user wins, loses, or
+       asks for help.
+    """
     def __init__(self):
+        """ Constructor for the Sound class
+            Postconditions a Sound is initalized and the win, loss,
+            and help sound .wav files are loaded in.
+        """
         self.winSound = pg.mixer.Sound("resources/goodjob.wav")
         self.lossSound = pg.mixer.Sound("resources/trumplosers.wav")
         self.helpSound = pg.mixer.Sound("resources/support.wav")
 
     def wins(self):
-        """ Handles the win sound when the player wins."""
+        """ Handles the win sound when the player wins.
+            Precondition the winSound must have loaded in with
+            no errors and a Sound() object created
+            Postcodition the winSound will play when the user
+            wins the game
+        """
         self.winSound.play()
     
     def loss(self):
-        """ Handles the loss sound when the player losses."""
+        """ Handles the loss sound when the player loses.
+            Precondition the lossSound must have loaded in with
+            no errors and a Sound() object created
+            Postcodition the lossSound will play when the user
+            wins the game
+        """
         self.lossSound.play()
 
     def helps(self):
-        """ Handles the help sound when the player asks for help."""
+        """ Handles the help sound when the player asks for help.
+            Precondition the helpSound must have loaded in with
+            no errors and a Sound() object created
+            Postcodition the helpSound will play when the user
+            wins the game
+        """
         self.helpSound.play()
 
