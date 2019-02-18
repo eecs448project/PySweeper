@@ -40,11 +40,11 @@
 - [x] If the user sets the mines to a really high number, i.e. 99 on the 10x10 board, and then changes the board to a smaller board, i.e. 5x5, all spaces will be mines because the code is trying to place 99 mines on a 5x5 board. Need to make the number of max mines checked if the user edits the board size.
 - [X] If the user inputs a non integer value into the text box field, then a valueerror: invalid literal is thrown. This needs fixed before the deadline.
 - [X] Finish the GAME OVER screen with win or loss screen and an option to play again (In progress, Thomas)
-- [ ] Add comments to code (In progress, Jeff but anyone can add on/edit)
+- [X] Add comments to code 
 - [X] Pydoc
 - [X] Retrospective write up (In progess, Jeff)
-- [ ] Deployment instructions
-- [ ] Merge the sound branch or add that into the write up in things that didn't make the final product
+- [X] Deployment instructions
+- [X] Merge the sound branch
 
 
 Ignore but document
