@@ -67,12 +67,14 @@ class Board():
         """
         if (not self.gameOver):
             if(row >= 0 and row < self.rows and col >= 0 and col < self.columns):
-                if(not self.grid[row][col].revealed):
+                if(not self.grid[row][col].revealed and not self.grid[row][col].flagged):
                     self.grid[row][col].revealed = True
 
+                    """
                     if (self.grid[row][col].flagged):
                         self.grid[row][col].flagged = False
                         self.flagsPlaced -= 1
+                    """
 
                     if(self.grid[row][col].mine):
                         #end game here
@@ -119,7 +121,7 @@ class Board():
                     if (self.grid[row][col].flagged):
                         self.grid[row][col].flagged = False
                         self.flagsPlaced -= 1
-                    elif (not self.grid[row][col].flagged and self.flagsPlaced < self.mines):
+                    elif (not self.grid[row][col].flagged):
                         self.grid[row][col].flagged = True
                         self.flagsPlaced += 1
                         #check if the player has won the game
