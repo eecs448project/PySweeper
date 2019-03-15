@@ -55,5 +55,5 @@ To Add as expansion
 - [ ] Generate mines after first click
 - [ ] middle click to show which are being clicked
 - [ ] middle click to reveal if we say its not a mine for sure
-- [ ] prevent user from clicking a flagged cell
+- [X] prevent user from clicking a flagged cell
 - [ ] center toolbar or other gui objects using the colliderect() function
