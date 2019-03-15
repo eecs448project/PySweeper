@@ -48,7 +48,7 @@
 
 
 Ignore but document
-- [ ] Flags disappear when revealing spaces if the flag is not a mine, need to make the flags static             regardless of position on the board when revealing spaces 
+- [X] Flags disappear when revealing spaces if the flag is not a mine, need to make the flags static             regardless of position on the board when revealing spaces 
 - [ ] Make revealing all squares not mines a win, don't have to flag them
 
 To Add as expansion
