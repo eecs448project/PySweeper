@@ -268,8 +268,8 @@ class Sound():
             Postconditions a Sound is initalized and the win, loss,
             and help sound .wav files are loaded in.
         """
-        self.winSound = pg.mixer.Sound("resources/goodjob.wav")
-        self.lossSound = pg.mixer.Sound("resources/trumplosers.wav")
+        self.winSound = pg.mixer.Sound("resources/winningsound.wav")
+        self.lossSound = pg.mixer.Sound("resources/thebombsound.wav")
         self.helpSound = pg.mixer.Sound("resources/support.wav")
 
     def wins(self):
