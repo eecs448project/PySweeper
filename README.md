@@ -1,13 +1,13 @@
-# [EECS 448] Minesweeper Project 1: PySweeper
+# [EECS 448] Minesweeper Project 2: PySweeper: Improved!
 
 ## Instructor: Paul Kline
 
 ## Team members:
 
-1. Jeff Kissick
-2. Thomas Smithey
-3. Benjamin Wyss
-4. Jon Volden
+1. Aris Vinsant
+2. Hanwen Jia
+3. Xingjian Ding
+4. Saharsh gupta
 
 ### Requirements:
 
@@ -16,7 +16,7 @@
 
 ### Installation:
 
-1. Git clone or download zip from [PySweeper](https://github.com/pysweeper/PySweeper.git).
+1. Git clone or download zip from [PySweeper](https://github.com/eecs448proejct/project2-pysweeper.git).
 2. Extract and/or cd into the pysweeper folder.
 2. From the pysweeper folder run:  
     `$ pip install -r requirements.txt`
@@ -48,12 +48,12 @@
 
 
 Ignore but document
-- [ ] Flags disappear when revealing spaces if the flag is not a mine, need to make the flags static             regardless of position on the board when revealing spaces 
+- [X] Flags disappear when revealing spaces if the flag is not a mine, need to make the flags static             regardless of position on the board when revealing spaces 
 - [ ] Make revealing all squares not mines a win, don't have to flag them
 
 To Add as expansion
 - [ ] Generate mines after first click
 - [ ] middle click to show which are being clicked
 - [ ] middle click to reveal if we say its not a mine for sure
-- [ ] prevent user from clicking a flagged cell
+- [X] prevent user from clicking a flagged cell
 - [ ] center toolbar or other gui objects using the colliderect() function

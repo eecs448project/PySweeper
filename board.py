@@ -67,23 +67,27 @@ class Board():
         """
         if (not self.gameOver):
             if(row >= 0 and row < self.rows and col >= 0 and col < self.columns):
-                if(not self.grid[row][col].revealed):
+                if(not self.grid[row][col].revealed and not self.grid[row][col].flagged):
                     self.grid[row][col].revealed = True
 
+                    """
                     if (self.grid[row][col].flagged):
                         self.grid[row][col].flagged = False
                         self.flagsPlaced -= 1
+                    """
 
                     if(self.grid[row][col].mine):
                         #end game here
                         self.gameOverLoss()
                     elif(self.countNearbyMines(row, col) > 0):
                         #Cell is already revealed, recursion terminates here
+                        self.checkWin()
                         pass
                     elif(self.countNearbyMines(row, col) == 0):
                         for x in range(-1, 2):
                             for y in range(-1, 2):
                                     self.revealCell(row + x, col + y)
+                                    
 
     def countNearbyMines(self, row, col):
         """ Count Nearby Mines
@@ -119,7 +123,7 @@ class Board():
                     if (self.grid[row][col].flagged):
                         self.grid[row][col].flagged = False
                         self.flagsPlaced -= 1
-                    elif (not self.grid[row][col].flagged and self.flagsPlaced < self.mines):
+                    elif (not self.grid[row][col].flagged):
                         self.grid[row][col].flagged = True
                         self.flagsPlaced += 1
                         #check if the player has won the game
@@ -159,3 +163,13 @@ class Board():
             for col in range(self.columns):
                 if (not self.grid[row][col].flagged):
                     self.grid[row][col].revealed = True
+    
+    def checkWin(self):
+        count = 0
+        for row in range(self.rows):
+            for col in range(self.columns):
+                if(self.grid[row][col].revealed):
+                    if(not self.grid[row][col].mine):
+                        count += 1 
+        if(count == self.rows*self.columns-self.mines):
+            self.gameOverWin()
