@@ -270,7 +270,7 @@ class Sound():
         """
         self.winSound = pg.mixer.Sound("resources/winningsound.wav")
         self.lossSound = pg.mixer.Sound("resources/thebombsound.wav")
-        self.helpSound = pg.mixer.Sound("resources/support.wav")
+        self.helpSound = pg.mixer.Sound("resources/newSupport.wav")
 
     def wins(self):
         """ Handles the win sound when the player wins.
