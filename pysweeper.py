@@ -26,7 +26,7 @@ def main():
            b. Draw our elements based on current state of game and button states.
     """
     # 1. Initialization: Pygame objects
-    pg.init()
+   # pg.init()
     pg.font.init()
     pg.mixer.pre_init(44100, -16, 2, 512)
     pg.mixer.init()
@@ -35,6 +35,7 @@ def main():
     winBool = True
     lossBool = True
     helpBool = True
+    cheatbool= True
     # PySweeper objects
     gameBoard = Board()
     screen = GUI(gameBoard)
@@ -49,6 +50,8 @@ def main():
     toolbarHelpRMB = UIElement(BORDER + 6, BORDER + 22, 0, 0, screen, "Right click to flag space.")
     toolbarHelpWin = UIElement(BORDER + 6, BORDER + 40, 0, 0, screen, "Flag all mines to win game.")
     inputHelpButton = InputButton(BORDER + 218, BORDER + 15, 40, 20, screen, "Help")
+
+    inputCheatButton = InputButton(BORDER + 218, BORDER + 50, 40, 20, screen, "Cheat")
     # Declare input UI elements.
     inputRowBox = InputBox(BORDER + 66, BORDER + 3, 40, 20, screen, 30, 2,  str(gameBoard.rows))
     inputColumnBox = InputBox(BORDER + 66, BORDER + 27, 40, 20, screen, 30, 2, str(gameBoard.columns))
@@ -63,7 +66,7 @@ def main():
     # Arrays of elements need to be grouped by rendering order.
     uiElements = [toolbarRowsText, toolbarColumnsText, toolbarMinesText]
     uiHelpElements = [toolbarHelpLMB, toolbarHelpRMB, toolbarHelpWin]
-    input_boxes = [inputRowBox, inputColumnBox, inputMineBox, inputHelpButton]
+    input_boxes = [inputRowBox, inputColumnBox, inputMineBox, inputHelpButton,inputCheatButton]
     input_buttons = [inputQuitButton, inputRestartButton]
 
     done = False
@@ -133,9 +136,18 @@ def main():
             for element in uiHelpElements:
                 element.draw()
             inputHelpButton.draw()
+            
             if helpBool:
                 gameSound.helps()
                 helpBool = False
+
+        elif inputCheatButton.active:        # cheatmod active
+            inputCheatButton.draw()
+            if cheatBool:
+                gameSound.helps()
+                cheatBool = False
+
+
         else:                               # Default UI elements
             for element in uiElements:
                 element.draw()
@@ -146,6 +158,8 @@ def main():
             for box in input_boxes:
                 box.draw()
             inputHelpButton.draw()
+           
+        
 
         screen.drawBoard()
         pg.display.flip()
