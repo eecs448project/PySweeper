@@ -153,7 +153,7 @@ class Board():
             Postconditions: Reveals all nonmine cells and sets both gameOver and wonGame to true.
             This then causes a win message to be displayed by the GUI class.
         """
-        self.gameOver = True
+        self.gameOver = False
         self.wonGame = True
         for row in range(self.rows):
             for col in range(self.columns):
