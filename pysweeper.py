@@ -10,7 +10,7 @@ from gui import GUI, UIElement, InputBox, InputButton, Sound
 
 # GLOBAL constants
 from constants import (CELLWIDTH, CELLHEIGHT,
-                       MARGIN, BORDER, 
+                       MARGIN, BORDER,
                        COLOR, TOOLBARHEIGHT)
 
 def main():
@@ -35,6 +35,7 @@ def main():
     winBool = True
     lossBool = True
     helpBool = True
+    cheatBool = True
     # PySweeper objects
     gameBoard = Board()
     screen = GUI(gameBoard)
@@ -48,7 +49,9 @@ def main():
     toolbarHelpLMB = UIElement(BORDER + 6, BORDER + 5, 0, 0, screen, "Left click to reveal space.")
     toolbarHelpRMB = UIElement(BORDER + 6, BORDER + 22, 0, 0, screen, "Right click to flag space.")
     toolbarHelpWin = UIElement(BORDER + 6, BORDER + 40, 0, 0, screen, "Flag all mines to win game.")
-    inputHelpButton = InputButton(BORDER + 218, BORDER + 15, 40, 20, screen, "Help")
+    inputHelpButton = InputButton(BORDER + 218, BORDER + 5, 45, 20, screen, "Help ")
+    # Cheat Button that will call Cheat Mode
+    inputCheatButton = InputButton(BORDER + 218, BORDER + 30, 45, 20, screen, "Cheat ")
     # Declare input UI elements.
     inputRowBox = InputBox(BORDER + 66, BORDER + 3, 40, 20, screen, 30, 2,  str(gameBoard.rows))
     inputColumnBox = InputBox(BORDER + 66, BORDER + 27, 40, 20, screen, 30, 2, str(gameBoard.columns))
@@ -63,7 +66,7 @@ def main():
     # Arrays of elements need to be grouped by rendering order.
     uiElements = [toolbarRowsText, toolbarColumnsText, toolbarMinesText]
     uiHelpElements = [toolbarHelpLMB, toolbarHelpRMB, toolbarHelpWin]
-    input_boxes = [inputRowBox, inputColumnBox, inputMineBox, inputHelpButton]
+    input_boxes = [inputRowBox, inputColumnBox, inputMineBox, inputHelpButton, inputCheatButton]
     input_buttons = [inputQuitButton, inputRestartButton]
 
     done = False
