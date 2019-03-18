@@ -62,7 +62,7 @@ class Board():
     def removeCheatGrid(self):
         for row in range(self.rows):
             for col in range(self.columns):
-                if self.grid[row][col].preRevealed == True:
+                if self.grid[row][col].preRevealed == False:
                     self.grid[row][col].revealed = False
 
     def revealCell(self, row, col):

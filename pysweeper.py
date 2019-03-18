@@ -36,6 +36,7 @@ def main():
     lossBool = True
     helpBool = True
     cheatBool = False
+    cheatIteration = False
     # PySweeper objects
     gameBoard = Board()
     screen = GUI(gameBoard)
@@ -146,8 +147,10 @@ def main():
             for element in uiCheatElements:
                 element.draw()
             inputCheatButton.draw()
-            gameBoard.generateCheatGrid()
+            if cheatIteration == False:
+                gameBoard.generateCheatGrid()
             cheatBool = True
+            cheatIteration = True
         else:                               # Default UI elements
             for element in uiElements:
                 element.draw()
@@ -161,6 +164,7 @@ def main():
             if cheatBool == True:
                 gameBoard.removeCheatGrid()
                 cheatBool = False
+                cheatIteration = False
 
         screen.drawBoard()
         pg.display.flip()
