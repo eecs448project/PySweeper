@@ -47,12 +47,23 @@ class Board():
         random.shuffle(locs)
         for row, col in locs[:self.mines]:
             self.grid[row][col].mine = True
-            #test print
-            #print("Mine added: ", row, col)
 
         self.flagsPlaced = 0
         self.gameOver = False
         self.wonGame = False
+
+    def generateCheatGrid(self):
+        for row in range(self.rows):
+            for col in range(self.columns):
+                if self.grid[row][col].revealed == True:
+                    self.grid[row][col].preRevealed = True
+                self.grid[row][col].revealed = True
+
+    def removeCheatGrid(self):
+        for row in range(self.rows):
+            for col in range(self.columns):
+                if self.grid[row][col].preRevealed == True:
+                    self.grid[row][col].revealed = False
 
     def revealCell(self, row, col):
         """ Reveal Cell
@@ -87,7 +98,7 @@ class Board():
                         for x in range(-1, 2):
                             for y in range(-1, 2):
                                     self.revealCell(row + x, col + y)
-                                    
+
 
     def countNearbyMines(self, row, col):
         """ Count Nearby Mines
@@ -163,13 +174,13 @@ class Board():
             for col in range(self.columns):
                 if (not self.grid[row][col].flagged):
                     self.grid[row][col].revealed = True
-    
+
     def checkWin(self):
         count = 0
         for row in range(self.rows):
             for col in range(self.columns):
                 if(self.grid[row][col].revealed):
                     if(not self.grid[row][col].mine):
-                        count += 1 
+                        count += 1
         if(count == self.rows*self.columns-self.mines):
             self.gameOverWin()

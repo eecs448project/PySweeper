@@ -35,7 +35,7 @@ def main():
     winBool = True
     lossBool = True
     helpBool = True
-    cheatBool = True
+    cheatBool = False
     # PySweeper objects
     gameBoard = Board()
     screen = GUI(gameBoard)
@@ -52,6 +52,8 @@ def main():
     inputHelpButton = InputButton(BORDER + 218, BORDER + 5, 45, 20, screen, "Help ")
     # Cheat Button that will call Cheat Mode
     inputCheatButton = InputButton(BORDER + 218, BORDER + 30, 45, 20, screen, "Cheat ")
+    toolbarCheat = UIElement(BORDER + 6, BORDER + 5, 0, 0, screen, "You are currently in Cheat Mode.")
+    toolbarCheat2 = UIElement(BORDER + 6, BORDER + 22, 0, 0, screen, "Click Cheat again to Return.")
     # Declare input UI elements.
     inputRowBox = InputBox(BORDER + 66, BORDER + 3, 40, 20, screen, 30, 2,  str(gameBoard.rows))
     inputColumnBox = InputBox(BORDER + 66, BORDER + 27, 40, 20, screen, 30, 2, str(gameBoard.columns))
@@ -66,6 +68,7 @@ def main():
     # Arrays of elements need to be grouped by rendering order.
     uiElements = [toolbarRowsText, toolbarColumnsText, toolbarMinesText]
     uiHelpElements = [toolbarHelpLMB, toolbarHelpRMB, toolbarHelpWin]
+    uiCheatElements = [toolbarCheat, toolbarCheat2]
     input_boxes = [inputRowBox, inputColumnBox, inputMineBox, inputHelpButton, inputCheatButton]
     input_buttons = [inputQuitButton, inputRestartButton]
 
@@ -139,6 +142,12 @@ def main():
             if helpBool:
                 gameSound.helps()
                 helpBool = False
+        if inputCheatButton.active:
+            for element in uiCheatElements:
+                element.draw()
+            inputCheatButton.draw()
+            gameBoard.generateCheatGrid()
+            cheatBool = True
         else:                               # Default UI elements
             for element in uiElements:
                 element.draw()
@@ -149,6 +158,9 @@ def main():
             for box in input_boxes:
                 box.draw()
             inputHelpButton.draw()
+            if cheatBool == True:
+                gameBoard.removeCheatGrid()
+                cheatBool = False
 
         screen.drawBoard()
         pg.display.flip()
