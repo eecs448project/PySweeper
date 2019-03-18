@@ -73,7 +73,7 @@ class GUI():
                                                 cellY + CELLHEIGHT // 4))
 
                 if cellColor == COLOR['RED']:
-                    mineImage = pg.image.load("resources/trump.png")
+                    mineImage = pg.image.load("resources/bomb.png")
                     self.window.blit(mineImage,(cellX,cellY))
                 if cellColor == COLOR['GREEN']:
                     flagImg = pg.image.load("resources/flag.png")
