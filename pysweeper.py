@@ -157,6 +157,8 @@ def main():
         
         if gameBoard.gameOver:              # Gameover
             if gameBoard.wonGame:
+                pg.draw.circle(screen.window, (153, 255, 153), (random.randrange(0, 500), random.randrange(0, 500)), random.randrange(30, 100))
+                pg.time.delay(200)
                 toolbarGameOverWon.draw()
                 if winBool:
                     pg.mixer.music.pause()
