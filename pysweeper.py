@@ -37,8 +37,10 @@ def main():
     winBool = True
     lossBool = True
     helpBool = True
-    soundBool =False
-    cheatBool = True
+
+    cheatBool = False
+    cheatIteration = False
+
     # PySweeper objects
     gameBoard = Board()
     screen = GUI(gameBoard)
@@ -54,9 +56,14 @@ def main():
     toolbarHelpWin = UIElement(BORDER + 6, BORDER + 40, 0, 0, screen, "Flag all mines to win game.")
     inputHelpButton = InputButton(BORDER + 218, BORDER + 0, 45, 20, screen, "Help ")
     # Cheat Button that will call Cheat Mode
-    inputCheatButton = InputButton(BORDER + 218, BORDER + 20, 45, 20, screen, "Cheat ")
+
     #Open or close the background music
     inputSoundButton = InputButton(BORDER + 218, BORDER + 40, 45, 20, screen, "Sound ")
+
+    inputCheatButton = InputButton(BORDER + 218, BORDER + 20, 45, 20, screen, "Cheat ")
+    toolbarCheat = UIElement(BORDER + 6, BORDER + 5, 0, 0, screen, "You are currently in Cheat Mode.")
+    toolbarCheat2 = UIElement(BORDER + 6, BORDER + 22, 0, 0, screen, "Click Cheat again to Return.")
+
     # Declare input UI elements.
     inputRowBox = InputBox(BORDER + 66, BORDER + 3, 40, 20, screen, 30, 2,  str(gameBoard.rows))
     inputColumnBox = InputBox(BORDER + 66, BORDER + 27, 40, 20, screen, 30, 2, str(gameBoard.columns))
@@ -72,6 +79,7 @@ def main():
     uiElements = [toolbarRowsText, toolbarColumnsText, toolbarMinesText]
     uiHelpElements = [toolbarHelpLMB, toolbarHelpRMB, toolbarHelpWin]
     input_boxes = [inputRowBox, inputColumnBox, inputMineBox, inputHelpButton, inputCheatButton, inputSoundButton]
+    uiCheatElements = [toolbarCheat, toolbarCheat2]
     input_buttons = [inputQuitButton, inputRestartButton]
 
     done = False
@@ -153,6 +161,14 @@ def main():
             if helpBool:
                 gameSound.helps()
                 helpBool = False
+        if inputCheatButton.active:
+            for element in uiCheatElements:
+                element.draw()
+            inputCheatButton.draw()
+            if cheatIteration == False:
+                gameBoard.generateCheatGrid()
+            cheatBool = True
+            cheatIteration = True
         else:                               # Default UI elements
             for element in uiElements:
                 element.draw()
@@ -163,6 +179,10 @@ def main():
             for box in input_boxes:
                 box.draw()
             inputHelpButton.draw()
+            if cheatBool == True:
+                gameBoard.removeCheatGrid()
+                cheatBool = False
+                cheatIteration = False
 
         screen.drawBoard()
         pg.display.flip()

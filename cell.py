@@ -12,5 +12,6 @@ class Cell():
         """
         self.mine = False
         self.revealed = False
+        self.preRevealed = False
         self.flagged = False
         pass
