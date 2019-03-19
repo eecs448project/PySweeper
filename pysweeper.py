@@ -38,8 +38,10 @@ def main():
     lossBool = True
     helpBool = True
 
+
     cheatBool = False
     cheatIteration = False
+
 
     # PySweeper objects
     gameBoard = Board()
@@ -50,6 +52,7 @@ def main():
     toolbarRowsText = UIElement(BORDER + 6, BORDER + 8, 0, 0, screen, "Rows:")
     toolbarColumnsText = UIElement(BORDER + 6, BORDER + 33, 0, 0, screen, "Columns:")
     toolbarMinesText = UIElement(BORDER + 120, BORDER + 8, 0, 0, screen, "Mines:")
+    toolbarSoundText= UIElement(BORDER + 180, BORDER + 45, 22, 18, screen, "Sound")
     # Help bar that is drawn when help is pushed.
     toolbarHelpLMB = UIElement(BORDER + 6, BORDER + 5, 0, 0, screen, "Left click to reveal space.")
     toolbarHelpRMB = UIElement(BORDER + 6, BORDER + 22, 0, 0, screen, "Right click to flag space.")
@@ -58,11 +61,13 @@ def main():
     # Cheat Button that will call Cheat Mode
 
     #Open or close the background music
-    inputSoundButton = InputButton(BORDER + 218, BORDER + 40, 45, 20, screen, "Sound ")
+
 
     inputCheatButton = InputButton(BORDER + 218, BORDER + 20, 45, 20, screen, "Cheat ")
     toolbarCheat = UIElement(BORDER + 6, BORDER + 5, 0, 0, screen, "You are currently in Cheat Mode.")
     toolbarCheat2 = UIElement(BORDER + 6, BORDER + 22, 0, 0, screen, "Click Cheat again to Return.")
+    inputSoundonButton = InputButton(BORDER + 218, BORDER + 40, 22, 18, screen, "On")
+    inputSoundoffButton = InputButton(BORDER + 240, BORDER + 40, 22, 18, screen, "Off")
 
     # Declare input UI elements.
     inputRowBox = InputBox(BORDER + 66, BORDER + 3, 40, 20, screen, 30, 2,  str(gameBoard.rows))
@@ -76,10 +81,13 @@ def main():
     toolbarGameOverWon = UIElement(BORDER + 85, BORDER + 10, 0, 0, screen, "WINNER!")
 
     # Arrays of elements need to be grouped by rendering order.
-    uiElements = [toolbarRowsText, toolbarColumnsText, toolbarMinesText]
+    uiElements = [toolbarRowsText, toolbarColumnsText, toolbarMinesText,toolbarSoundText]
     uiHelpElements = [toolbarHelpLMB, toolbarHelpRMB, toolbarHelpWin]
-    input_boxes = [inputRowBox, inputColumnBox, inputMineBox, inputHelpButton, inputCheatButton, inputSoundButton]
+
     uiCheatElements = [toolbarCheat, toolbarCheat2]
+
+    input_boxes = [inputRowBox, inputColumnBox, inputMineBox, inputHelpButton, inputCheatButton, inputSoundonButton,inputSoundoffButton]
+
     input_buttons = [inputQuitButton, inputRestartButton]
 
     done = False
@@ -127,9 +135,11 @@ def main():
         screen.window.fill(COLOR['BLACK'])
         # Only draw elements based on game state.
             
-        if inputSoundButton.active == True:
+        if inputSoundonButton.active == True:
             track=pg.mixer.music.load("resources/newback.mp3") 
             pg.mixer.music.play()
+        if inputSoundoffButton.active == True:
+            pg.mixer.music.pause()
         
         if gameBoard.gameOver:              # Gameover
             if gameBoard.wonGame:
