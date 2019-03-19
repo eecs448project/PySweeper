@@ -73,7 +73,7 @@ class GUI():
                                                 cellY + CELLHEIGHT // 4))
 
                 if cellColor == COLOR['RED']:
-                    mineImage = pg.image.load("resources/trump.png")
+                    mineImage = pg.image.load("resources/bomb.jpg")
                     self.window.blit(mineImage,(cellX,cellY))
                 if cellColor == COLOR['GREEN']:
                     flagImg = pg.image.load("resources/flag.png")
@@ -268,9 +268,15 @@ class Sound():
             Postconditions a Sound is initalized and the win, loss,
             and help sound .wav files are loaded in.
         """
-        self.winSound = pg.mixer.Sound("resources/goodjob.wav")
-        self.lossSound = pg.mixer.Sound("resources/trumplosers.wav")
-        self.helpSound = pg.mixer.Sound("resources/support.wav")
+        self.winSound = pg.mixer.Sound("resources/winning.wav")
+        self.lossSound = pg.mixer.Sound("resources/thebombsound.wav")
+        self.helpSound = pg.mixer.Sound("resources/newSupport.wav")
+        
+
+    def backmusic(self):
+        """ play background music
+        """
+        self.backSound.play()
 
     def wins(self):
         """ Handles the win sound when the player wins.
