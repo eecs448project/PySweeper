@@ -33,7 +33,7 @@ def main():
     pg.mixer.pre_init(44100, -16, 2, 512)
     pg.mixer.init()
     gameSound = Sound()
-    track=pg.mixer.music.load("resources/newback.wav") 
+    pg.mixer.music.load("resources/newback.wav") 
     pg.mixer.music.play()
     #These bools are used so that sounds don't play more than once per click.
     winBool = True
