@@ -43,6 +43,7 @@ def main():
     cheatBool = False
     cheatIteration = False
 
+    seconds = str(0)
 
     # PySweeper objects
     gameBoard = Board()
@@ -75,14 +76,17 @@ def main():
     inputColumnBox = InputBox(BORDER + 66, BORDER + 27, 40, 20, screen, 30, 2, str(gameBoard.columns))
     inputMineBox = InputBox(BORDER + 163, BORDER + 3, 40, 20, screen, 10, 1, str(gameBoard.mines))
     # Declare button UI elements.
-    inputQuitButton = InputButton(BORDER + 60, BORDER + 30, 40, 20, screen, "Quit")
-    inputRestartButton = InputButton(BORDER + 110, BORDER + 30, 55, 20, screen, "Restart")
+    inputQuitButton = InputButton(BORDER + 60, BORDER + 25, 40, 20, screen, "Quit")
+    inputRestartButton = InputButton(BORDER + 110, BORDER + 25, 55, 20, screen, "Restart")
     # Declare gameOver UI elements.
-    toolbarGameOverLost = UIElement(BORDER + 75, BORDER + 10, 0, 0, screen, "GAME OVER")
-    toolbarGameOverWon = UIElement(BORDER + 85, BORDER + 10, 0, 0, screen, "WINNER!")
+    toolbarGameOverLost = UIElement(BORDER + 75, BORDER + 10, 0, 0, screen, "GAME OVER!" )
+    toolbarGameOverWon = UIElement(BORDER + 85, BORDER + 10, 0, 0, screen, "WINNER!" )
+
+    #Timer element.
+    timeBox = UIElement(BORDER + 120, BORDER + 48, 0, 0, screen, "Time: ")
 
     # Arrays of elements need to be grouped by rendering order.
-    uiElements = [toolbarRowsText, toolbarColumnsText, toolbarMinesText,toolbarSoundText]
+    uiElements = [toolbarRowsText, toolbarColumnsText, toolbarMinesText,toolbarSoundText,timeBox]
     uiHelpElements = [toolbarHelpLMB, toolbarHelpRMB, toolbarHelpWin]
 
     uiCheatElements = [toolbarCheat, toolbarCheat2]
@@ -208,9 +212,8 @@ def main():
             #Timer element.
             if not gameBoard.gameOver:
                 seconds=str(math.floor((pg.time.get_ticks()-start_ticks)/1000))
-                timeUpdate = UIElement(BORDER + 120, BORDER + 48, 0, 0, screen, "Time:    " + seconds)
-                timeUpdate.draw()
-                print(seconds)
+            timeUpdate = UIElement(BORDER + 120, BORDER + 48, 0, 0, screen, "Time: " + seconds)
+            timeUpdate.draw()
         screen.drawBoard()
         pg.display.flip()
     pg.quit()
