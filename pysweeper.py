@@ -1,5 +1,6 @@
 # External imports needed for PySweeper
 import pygame as pg
+import math
 
 # Internal imports needed for PySweeper
 from board import Board
@@ -89,9 +90,13 @@ def main():
     input_boxes = [inputRowBox, inputColumnBox, inputMineBox, inputHelpButton, inputCheatButton, inputSoundonButton,inputSoundoffButton]
 
     input_buttons = [inputQuitButton, inputRestartButton]
-
-    done = False
+    start_ticks = -10
+    done = False 
     while not done:
+        #Timer
+        
+        #timeUpdate = UIElement(BORDER + 120, BORDER + 48, 0, 0, screen, "Time:    " + str(seconds))
+        #timeUpdate.draw()
         # Keep the game running until the user decides to quit the game.
         for event in pg.event.get():
             if event.type == pg.QUIT:
@@ -100,6 +105,8 @@ def main():
                 screen.mouseClick(event)
                 # Handle input boxes here.
                 if event.button == 1 or 3:
+                    if start_ticks == -10:
+                        start_ticks = pg.time.get_ticks()
                     if gameBoard.gameOver:
                         for button in input_buttons:
                             if button.rect.collidepoint(event.pos):
@@ -162,6 +169,7 @@ def main():
                 done = True
             if inputRestartButton.active == True:
                 inputRestartButton.restart(screen, gameBoard)
+                start_ticks = -10
                 winBool = True
                 lossBool = True
         elif inputHelpButton.active:        # Help active
@@ -194,6 +202,15 @@ def main():
                 cheatBool = False
                 cheatIteration = False
 
+        if start_ticks == -10:
+            pass
+        else:
+            #Timer element.
+            if not gameBoard.gameOver:
+                seconds=str(math.floor((pg.time.get_ticks()-start_ticks)/1000))
+                timeUpdate = UIElement(BORDER + 120, BORDER + 48, 0, 0, screen, "Time:    " + seconds)
+                timeUpdate.draw()
+                print(seconds)
         screen.drawBoard()
         pg.display.flip()
     pg.quit()
