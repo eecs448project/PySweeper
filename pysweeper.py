@@ -31,10 +31,13 @@ def main():
     pg.mixer.pre_init(44100, -16, 2, 512)
     pg.mixer.init()
     gameSound = Sound()
+    track=pg.mixer.music.load("resources/newback.mp3") 
+    pg.mixer.music.play()
     #These bools are used so that sounds don't play more than once per click.
     winBool = True
     lossBool = True
     helpBool = True
+    soundBool =False
     cheatBool = True
     # PySweeper objects
     gameBoard = Board()
@@ -49,9 +52,11 @@ def main():
     toolbarHelpLMB = UIElement(BORDER + 6, BORDER + 5, 0, 0, screen, "Left click to reveal space.")
     toolbarHelpRMB = UIElement(BORDER + 6, BORDER + 22, 0, 0, screen, "Right click to flag space.")
     toolbarHelpWin = UIElement(BORDER + 6, BORDER + 40, 0, 0, screen, "Flag all mines to win game.")
-    inputHelpButton = InputButton(BORDER + 218, BORDER + 5, 45, 20, screen, "Help ")
+    inputHelpButton = InputButton(BORDER + 218, BORDER + 0, 45, 20, screen, "Help ")
     # Cheat Button that will call Cheat Mode
-    inputCheatButton = InputButton(BORDER + 218, BORDER + 30, 45, 20, screen, "Cheat ")
+    inputCheatButton = InputButton(BORDER + 218, BORDER + 20, 45, 20, screen, "Cheat ")
+    #Open or close the background music
+    inputSoundButton = InputButton(BORDER + 218, BORDER + 40, 45, 20, screen, "Sound ")
     # Declare input UI elements.
     inputRowBox = InputBox(BORDER + 66, BORDER + 3, 40, 20, screen, 30, 2,  str(gameBoard.rows))
     inputColumnBox = InputBox(BORDER + 66, BORDER + 27, 40, 20, screen, 30, 2, str(gameBoard.columns))
@@ -66,7 +71,7 @@ def main():
     # Arrays of elements need to be grouped by rendering order.
     uiElements = [toolbarRowsText, toolbarColumnsText, toolbarMinesText]
     uiHelpElements = [toolbarHelpLMB, toolbarHelpRMB, toolbarHelpWin]
-    input_boxes = [inputRowBox, inputColumnBox, inputMineBox, inputHelpButton, inputCheatButton]
+    input_boxes = [inputRowBox, inputColumnBox, inputMineBox, inputHelpButton, inputCheatButton, inputSoundButton]
     input_buttons = [inputQuitButton, inputRestartButton]
 
     done = False
@@ -113,17 +118,26 @@ def main():
         #+you draw to is not shown to the user until the py.display.flip() flips the buffers.
         screen.window.fill(COLOR['BLACK'])
         # Only draw elements based on game state.
+            
+        if inputSoundButton.active == True:
+            track=pg.mixer.music.load("resources/newback.mp3") 
+            pg.mixer.music.play()
+        
         if gameBoard.gameOver:              # Gameover
             if gameBoard.wonGame:
                 toolbarGameOverWon.draw()
                 if winBool:
+                    pg.mixer.music.pause()
                     gameSound.wins()
                     winBool = False
+                    
             else:
                 toolbarGameOverLost.draw()
                 if lossBool:
+                    pg.mixer.music.pause()
                     gameSound.loss()
                     lossBool = False
+                    
             for button in input_buttons:
                 button.draw()
             if inputQuitButton.active == True:
