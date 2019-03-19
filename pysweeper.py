@@ -107,10 +107,12 @@ def main():
                 done = True
             elif event.type == pg.MOUSEBUTTONDOWN:
                 screen.mouseClick(event)
+                mousePosition = pg.mouse.get_pos()
                 # Handle input boxes here.
                 if event.button == 1 or 3:
-                    if start_ticks == -10:
-                        start_ticks = pg.time.get_ticks()
+                    if mousePosition[1] >= 70:
+                        if start_ticks == -10:
+                            start_ticks = pg.time.get_ticks()
                     if gameBoard.gameOver:
                         for button in input_buttons:
                             if button.rect.collidepoint(event.pos):
