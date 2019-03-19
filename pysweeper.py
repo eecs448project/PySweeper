@@ -212,7 +212,7 @@ def main():
             #Timer element.
             if not gameBoard.gameOver:
                 seconds=str(math.floor((pg.time.get_ticks()-start_ticks)/1000))
-            timeUpdate = UIElement(BORDER + 120, BORDER + 48, 0, 0, screen, "Time: " + seconds)
+            timeUpdate = UIElement(BORDER + 120, BORDER + 48, 0, 0, screen, "Time: " + seconds + "s")
             timeUpdate.draw()
         screen.drawBoard()
         pg.display.flip()
