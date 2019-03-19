@@ -273,11 +273,6 @@ class Sound():
         self.helpSound = pg.mixer.Sound("resources/newSupport.wav")
         
 
-    def backmusic(self):
-        """ play background music
-        """
-        self.backSound.play()
-
     def wins(self):
         """ Handles the win sound when the player wins.
             Precondition the winSound must have loaded in with
