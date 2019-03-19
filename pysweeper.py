@@ -1,6 +1,7 @@
 # External imports needed for PySweeper
 import pygame as pg
 import math
+import random
 
 # Internal imports needed for PySweeper
 from board import Board
@@ -163,6 +164,9 @@ def main():
                     winBool = False
                     
             else:
+                pg.draw.circle(screen.window, (255,12,20), (random.randrange(0, 500), random.randrange(0, 500)), random.randrange(30, 100))
+                pg.time.delay(200)
+                 
                 toolbarGameOverLost.draw()
                 if lossBool:
                     pg.mixer.music.pause()
