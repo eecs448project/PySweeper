@@ -56,8 +56,8 @@ def main():
     # Cheat Button that will call Cheat Mode
     inputCheatButton = InputButton(BORDER + 218, BORDER + 20, 45, 20, screen, "Cheat ")
     #Open or close the background music
-    inputSoundonButton = InputButton(BORDER + 120, BORDER + 40, 45, 20, screen, "Sound on ")
-    inputSoundoffButton = InputButton(BORDER + 218, BORDER + 40, 45, 20, screen, "Sound off")
+    inputSoundonButton = InputButton(BORDER + 218, BORDER + 40, 22, 18, screen, "On")
+    inputSoundoffButton = InputButton(BORDER + 240, BORDER + 40, 22, 18, screen, "Off")
     # Declare input UI elements.
     inputRowBox = InputBox(BORDER + 66, BORDER + 3, 40, 20, screen, 30, 2,  str(gameBoard.rows))
     inputColumnBox = InputBox(BORDER + 66, BORDER + 27, 40, 20, screen, 30, 2, str(gameBoard.columns))
