@@ -136,7 +136,7 @@ def main():
         # Only draw elements based on game state.
             
         if inputSoundonButton.active == True:
-            track=pg.mixer.music.load("resources/newback.mp3") 
+            track=pg.mixer.music.load("resources/newback.wav") 
             pg.mixer.music.play()
         if inputSoundoffButton.active == True:
             pg.mixer.music.pause()
