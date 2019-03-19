@@ -143,7 +143,7 @@ def main():
             if helpBool:
                 gameSound.helps()
                 helpBool = False
-        if inputCheatButton.active:
+        elif inputCheatButton.active:
             for element in uiCheatElements:
                 element.draw()
             inputCheatButton.draw()
