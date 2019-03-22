@@ -47,6 +47,9 @@
 - [X] Merge the sound branch
 
 
+
+
+
 Ignore but document
 - [X] Flags disappear when revealing spaces if the flag is not a mine, need to make the flags static             regardless of position on the board when revealing spaces 
 - [ ] Make revealing all squares not mines a win, don't have to flag them
@@ -57,3 +60,13 @@ To Add as expansion
 - [ ] middle click to reveal if we say its not a mine for sure
 - [X] prevent user from clicking a flagged cell
 - [ ] center toolbar or other gui objects using the colliderect() function
+
+New feature and function from team Friday lab group
+- [X] adding a cheat mode which could show the location of mine on the map.
+- [X] fixing the remain problem about cannot correcly reveal the mine.
+- [X] adding a background music control and ending animation
+- [X] change the image of bomb , the sound of win and lose.
+
+
+
+
