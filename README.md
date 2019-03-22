@@ -48,18 +48,10 @@
 
 
 
-
-
 Ignore but document
 - [X] Flags disappear when revealing spaces if the flag is not a mine, need to make the flags static             regardless of position on the board when revealing spaces 
-- [ ] Make revealing all squares not mines a win, don't have to flag them
+- [X] Make revealing all squares not mines a win, don't have to flag them
 
-To Add as expansion
-- [ ] Generate mines after first click
-- [ ] middle click to show which are being clicked
-- [ ] middle click to reveal if we say its not a mine for sure
-- [X] prevent user from clicking a flagged cell
-- [ ] center toolbar or other gui objects using the colliderect() function
 
 New feature and function from team Friday lab group
 - [X] adding a cheat mode which could show the location of mine on the map.
